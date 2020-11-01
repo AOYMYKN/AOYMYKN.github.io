@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>AOYMYKN的博客</title>
-    <link>https://AOYMYKN.github.io/</link>
-    <description>Recent content on AOYMYKN的博客</description>
+    <title>Posts on AOYMYKN的博客</title>
+    <link>https://AOYMYKN.github.io/post/</link>
+    <description>Recent content in Posts on AOYMYKN的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 01 Nov 2020 08:44:02 +0800</lastBuildDate><atom:link href="https://AOYMYKN.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 01 Nov 2020 08:44:02 +0800</lastBuildDate><atom:link href="https://AOYMYKN.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Hello, Happy World!</title>
       <link>https://AOYMYKN.github.io/post/hello-happy-world/</link>
