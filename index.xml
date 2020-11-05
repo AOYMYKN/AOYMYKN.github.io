@@ -2,18 +2,36 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>AOYMYKN的博客</title>
-    <link>https://AOYMYKN.github.io/</link>
+    <link>http://aoymykn.github.io/</link>
     <description>Recent content on AOYMYKN的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 01 Nov 2020 08:44:02 +0800</lastBuildDate><atom:link href="https://AOYMYKN.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 05 Nov 2020 21:50:24 +0800</lastBuildDate><atom:link href="http://aoymykn.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Hello, Happy World!</title>
-      <link>https://AOYMYKN.github.io/post/hello-happy-world/</link>
-      <pubDate>Sun, 01 Nov 2020 08:44:02 +0800</pubDate>
+      <title>About</title>
+      <link>http://aoymykn.github.io/about/</link>
+      <pubDate>Sun, 20 Aug 2017 21:38:52 +0800</pubDate>
       
-      <guid>https://AOYMYKN.github.io/post/hello-happy-world/</guid>
-      <description>旧的文章先封存起来，目前专注学习！</description>
+      <guid>http://aoymykn.github.io/about/</guid>
+      <description>你好，我是友纪，目前学习java，算法和计算机基础中！ 打算按这个书单开始努力—— 算法图解 啊哈算法 算法第四版 深入理解计算机系统 Java编程思想</description>
+    </item>
+    
+    <item>
+      <title>排序算法</title>
+      <link>http://aoymykn.github.io/post/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Thu, 05 Nov 2020 21:50:24 +0800</pubDate>
+      
+      <guid>http://aoymykn.github.io/post/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</guid>
+      <description>排序 学习算法总是从排序开始的，我这再次重新学习也不例外。主要根据《算法图解》，《大话数据结构》，《啊哈算法》，《算法第四版》这四本书进行重新</description>
+    </item>
+    
+    <item>
+      <title>HHW</title>
+      <link>http://aoymykn.github.io/post/hhw/</link>
+      <pubDate>Wed, 04 Nov 2020 10:40:17 +0800</pubDate>
+      
+      <guid>http://aoymykn.github.io/post/hhw/</guid>
+      <description>Hello Happy World!</description>
     </item>
     
   </channel>

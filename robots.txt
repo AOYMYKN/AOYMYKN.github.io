@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: http://aoymykn.github.io/sitemap.xml
