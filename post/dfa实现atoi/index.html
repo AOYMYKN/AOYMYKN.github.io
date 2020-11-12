@@ -49,7 +49,7 @@
 <meta itemprop="description" content="使用NFA实现atoi函数">
 <meta itemprop="datePublished" content="2020-11-11T21:36:38+08:00" />
 <meta itemprop="dateModified" content="2020-11-11T21:36:38+08:00" />
-<meta itemprop="wordCount" content="2039">
+<meta itemprop="wordCount" content="3370">
 
 
 
@@ -130,8 +130,8 @@
         <div class="post-category">
             <a href="/categories/%E7%AE%97%E6%B3%95/"> 算法 </a>
             </div>
-          <span class="more-meta"> 约 2039 字 </span>
-          <span class="more-meta"> 预计阅读 5 分钟 </span>
+          <span class="more-meta"> 约 3370 字 </span>
+          <span class="more-meta"> 预计阅读 7 分钟 </span>
         
       </div>
     </header>
@@ -144,6 +144,7 @@
     <li><a href="#题目介绍">题目介绍</a></li>
     <li><a href="#我的实现一万个条件判断">我的实现——一万个条件判断</a></li>
     <li><a href="#dfa的实现">DFA的实现</a></li>
+    <li><a href="#举一反三">举一反三</a></li>
   </ul>
 </nav>
   </div>
@@ -537,6 +538,392 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>总之学习了！</p>
+<h1 id="举一反三">举一反三</h1>
+<p>不实践，如何敢说自己掌握了？</p>
+<p><a href="https://leetcode-cn.com/problems/valid-number/">这一题</a>，要求判断一个数字字符串是否为合法数字。合法字符串应当只包括如下内容（以及前置后置空格）——</p>
+<ul>
+<li>数字0到9</li>
+<li>指数e （科学计数法的那个玩意）</li>
+<li>正负号-/+</li>
+<li>小数点.</li>
+</ul>
+<p>数字可以分为三个部分——数字，指数符号e，指数，其中数字可以有正负和小数点，如-43.2。指数是可选的，但是如果有e，则必须要有指数。其中指数必须为整数，可以有正负号，比如-43.2e-10&hellip;</p>
+<p>然而题目告诉我，像.1这样的也合法，wtf？</p>
+<p>于是，容易画出状态转移图——</p>
+<p>不画了，有点麻烦（没有舒服的软件可用）……直接写状态转移表（这个有问题）——</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">WHITESPACE</th>
+<th style="text-align:center">+/-</th>
+<th style="text-align:center">number</th>
+<th style="text-align:center">.</th>
+<th style="text-align:center">e</th>
+<th style="text-align:center">other</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">START</td>
+<td style="text-align:center">START</td>
+<td style="text-align:center">SIGN</td>
+<td style="text-align:center">INTEGER</td>
+<td style="text-align:center">DECIMAL_POINT</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+</tr>
+<tr>
+<td style="text-align:center">SIGN</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">INTEGER</td>
+<td style="text-align:center">DECIMAL_POINT</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+</tr>
+<tr>
+<td style="text-align:center">INTEGER</td>
+<td style="text-align:center">END</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">INTEGER</td>
+<td style="text-align:center">DECIMAL_POINT</td>
+<td style="text-align:center">E</td>
+<td style="text-align:center">ERROR</td>
+</tr>
+<tr>
+<td style="text-align:center">DECIMAL_POINT</td>
+<td style="text-align:center">END</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">DECIMAL</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">E</td>
+<td style="text-align:center">ERROR</td>
+</tr>
+<tr>
+<td style="text-align:center">DECIMAL</td>
+<td style="text-align:center">END</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">DECIMAL</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">E</td>
+<td style="text-align:center">ERROR</td>
+</tr>
+<tr>
+<td style="text-align:center">E</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">E_SIGN</td>
+<td style="text-align:center">E_NUMBER</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+</tr>
+<tr>
+<td style="text-align:center">E_SIGN</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">E_NUMBER</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+</tr>
+<tr>
+<td style="text-align:center">E_NUMBER</td>
+<td style="text-align:center">END</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">E_NUMBER</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+</tr>
+<tr>
+<td style="text-align:center">END</td>
+<td style="text-align:center">END</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+</tr>
+<tr>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+</tr>
+</tbody>
+</table>
+<p>这里需要注意的是, -.1e10是合法的，-1.e10是合法的，但是-.e10是不合法的，1.是合法的，.1是合法的，但.是不合法的，因此显然需要保存是否已经检测到数字……</p>
+<p>不过可以定两个小数点的状态，让start-&gt;dot-&gt;digit和start-&gt;digit-&gt;dot两条路径不经过同一个dot，就如下面官方的题解……这样也不需要做多余判定了。两个状态可以写叫……POINT_WITH_INT和POINT_WITHOUT_INT</p>
+<p>下面是实现——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Automation</span> <span class="o">{</span>
+    <span class="kd">enum</span> <span class="n">State</span> <span class="o">{</span>
+        <span class="n">START</span><span class="o">,</span> <span class="n">SIGN</span><span class="o">,</span> <span class="n">INTEGER</span><span class="o">,</span> <span class="n">DECIMAL_POINT</span><span class="o">,</span> <span class="n">DECIMAL</span><span class="o">,</span> <span class="n">E</span><span class="o">,</span> <span class="n">E_SIGN</span><span class="o">,</span> <span class="n">E_NUMBER</span><span class="o">,</span> <span class="n">END</span><span class="o">,</span> <span class="n">ERROR</span>
+    <span class="o">}</span>
+
+    <span class="kt">boolean</span> <span class="n">flag</span><span class="o">;</span>
+    <span class="n">State</span> <span class="n">state</span><span class="o">;</span>
+    <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">State</span><span class="o">,</span> <span class="n">State</span><span class="o">[]&gt;</span> <span class="n">table</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Automation</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="n">State</span><span class="o">.</span><span class="na">START</span><span class="o">;</span>
+        <span class="n">flag</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="n">table</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">State</span><span class="o">,</span> <span class="n">State</span><span class="o">[]&gt;();</span>
+        <span class="n">table</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">State</span><span class="o">.</span><span class="na">START</span><span class="o">,</span>
+                <span class="k">new</span> <span class="n">State</span><span class="o">[]</span> <span class="o">{</span> <span class="n">State</span><span class="o">.</span><span class="na">START</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">SIGN</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">INTEGER</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">DECIMAL_POINT</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span> <span class="o">});</span>
+        <span class="n">table</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">State</span><span class="o">.</span><span class="na">SIGN</span><span class="o">,</span>
+                <span class="k">new</span> <span class="n">State</span><span class="o">[]</span> <span class="o">{</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">INTEGER</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">DECIMAL_POINT</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span> <span class="o">});</span>
+        <span class="n">table</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">State</span><span class="o">.</span><span class="na">INTEGER</span><span class="o">,</span>
+                <span class="k">new</span> <span class="n">State</span><span class="o">[]</span> <span class="o">{</span> <span class="n">State</span><span class="o">.</span><span class="na">END</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">INTEGER</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">DECIMAL_POINT</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">E</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span> <span class="o">});</span>
+        <span class="n">table</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">State</span><span class="o">.</span><span class="na">DECIMAL_POINT</span><span class="o">,</span>
+                <span class="k">new</span> <span class="n">State</span><span class="o">[]</span> <span class="o">{</span> <span class="n">State</span><span class="o">.</span><span class="na">END</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">DECIMAL</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">E</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span> <span class="o">});</span>
+        <span class="n">table</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">State</span><span class="o">.</span><span class="na">DECIMAL</span><span class="o">,</span>
+                <span class="k">new</span> <span class="n">State</span><span class="o">[]</span> <span class="o">{</span> <span class="n">State</span><span class="o">.</span><span class="na">END</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">DECIMAL</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">E</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span> <span class="o">});</span>
+        <span class="n">table</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">State</span><span class="o">.</span><span class="na">E</span><span class="o">,</span>
+                <span class="k">new</span> <span class="n">State</span><span class="o">[]</span> <span class="o">{</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">E_SIGN</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">E_NUMBER</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span> <span class="o">});</span>
+        <span class="n">table</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">State</span><span class="o">.</span><span class="na">E_SIGN</span><span class="o">,</span>
+                <span class="k">new</span> <span class="n">State</span><span class="o">[]</span> <span class="o">{</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">E_NUMBER</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span> <span class="o">});</span>
+        <span class="n">table</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">State</span><span class="o">.</span><span class="na">E_NUMBER</span><span class="o">,</span>
+                <span class="k">new</span> <span class="n">State</span><span class="o">[]</span> <span class="o">{</span> <span class="n">State</span><span class="o">.</span><span class="na">END</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">E_NUMBER</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span> <span class="o">});</span>
+        <span class="n">table</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">State</span><span class="o">.</span><span class="na">END</span><span class="o">,</span>
+                <span class="k">new</span> <span class="n">State</span><span class="o">[]</span> <span class="o">{</span> <span class="n">State</span><span class="o">.</span><span class="na">END</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span> <span class="o">});</span>
+        <span class="n">table</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">State</span><span class="o">.</span><span class="na">ERROR</span><span class="o">,</span>
+                <span class="k">new</span> <span class="n">State</span><span class="o">[]</span> <span class="o">{</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span><span class="o">,</span> <span class="n">State</span><span class="o">.</span><span class="na">ERROR</span> <span class="o">});</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">int</span> <span class="nf">get_col</span><span class="o">(</span><span class="kt">char</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">c</span> <span class="o">==</span> <span class="sc">&#39; &#39;</span><span class="o">)</span>
+            <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">c</span> <span class="o">==</span> <span class="sc">&#39;+&#39;</span> <span class="o">||</span> <span class="n">c</span> <span class="o">==</span> <span class="sc">&#39;-&#39;</span><span class="o">)</span>
+            <span class="k">return</span> <span class="n">1</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">Character</span><span class="o">.</span><span class="na">isDigit</span><span class="o">(</span><span class="n">c</span><span class="o">))</span>
+            <span class="k">return</span> <span class="n">2</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">c</span> <span class="o">==</span> <span class="sc">&#39;.&#39;</span><span class="o">)</span>
+            <span class="k">return</span> <span class="n">3</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">c</span> <span class="o">==</span> <span class="sc">&#39;e&#39;</span><span class="o">)</span>
+            <span class="k">return</span> <span class="n">4</span><span class="o">;</span>
+        <span class="k">return</span> <span class="n">5</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">get</span><span class="o">(</span><span class="kt">char</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 每一个状态进行什么处理在这里实现
+</span><span class="c1"></span>        <span class="n">state</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">state</span><span class="o">)[</span><span class="n">get_col</span><span class="o">(</span><span class="n">c</span><span class="o">)];</span> <span class="c1">// 转到下一个状态
+</span><span class="c1"></span>        <span class="c1">// ...好像没有要做的处理的亚子
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">state</span> <span class="o">==</span> <span class="n">State</span><span class="o">.</span><span class="na">INTEGER</span> <span class="o">||</span> <span class="n">state</span> <span class="o">==</span> <span class="n">State</span><span class="o">.</span><span class="na">DECIMAL</span><span class="o">)</span>
+            <span class="n">flag</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span> <span class="c1">// 考虑到有 1. .3 这样的数字是合法，而一个小数点是非法的……必须得暂存起来了
+</span><span class="c1"></span>    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isValid</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// 需要考虑合法的终结状态有DECIMAL_POINT，INTEGER,DECIMAL，E_NUMBER和END，其他状态结束都是非法的，然后要考虑以小数点结束时，是否已经有合法数字了
+</span><span class="c1"></span>        <span class="k">return</span>  <span class="n">flag</span> <span class="o">&amp;&amp;</span> <span class="o">(</span>
+                <span class="n">state</span> <span class="o">==</span> <span class="n">State</span><span class="o">.</span><span class="na">INTEGER</span> <span class="o">||</span>
+                <span class="n">state</span> <span class="o">==</span> <span class="n">State</span><span class="o">.</span><span class="na">DECIMAL_POINT</span> <span class="o">||</span>
+                <span class="n">state</span> <span class="o">==</span> <span class="n">State</span><span class="o">.</span><span class="na">DECIMAL</span> <span class="o">||</span> 
+                <span class="n">state</span> <span class="o">==</span> <span class="n">State</span><span class="o">.</span><span class="na">E_NUMBER</span> <span class="o">||</span> 
+                <span class="n">state</span> <span class="o">==</span> <span class="n">State</span><span class="o">.</span><span class="na">END</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isNumber</span><span class="o">(</span><span class="n">String</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Automation</span> <span class="n">automation</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Automation</span><span class="o">();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">char</span> <span class="n">c</span> <span class="o">:</span> <span class="n">s</span><span class="o">.</span><span class="na">toCharArray</span><span class="o">())</span>
+            <span class="n">automation</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">c</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">automation</span><span class="o">.</span><span class="na">isValid</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后看题解，wtf？路漫漫其修远兮啊……</p>
+<p><img src="https://pic.leetcode-cn.com/0683d701f2948a2bd8c235867c21a3aed5977691f129ecf34d681d43d57e339c-DFA.jpg" alt="DFA.jpg"></p>
+<p>舒服多了，也不需要一个额外的bool，最终也只需要判断最后是不是状态3,5,6,8（8由状态3,5,6跳转，负责判断有没有后置0）……</p>
+<p>下面重写一次状态转移表，就不再实现了。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">space</th>
+<th style="text-align:center">+/-</th>
+<th style="text-align:center">number</th>
+<th style="text-align:center">.</th>
+<th style="text-align:center">e</th>
+<th style="text-align:center">other</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">START</td>
+<td style="text-align:center">START</td>
+<td style="text-align:center">SIGN</td>
+<td style="text-align:center">NUMBER</td>
+<td style="text-align:center">POINT_WITHOUT_INT</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+</tr>
+<tr>
+<td style="text-align:center">SIGN</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">NUMBER</td>
+<td style="text-align:center">POINT_WITHOUT_INT</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+</tr>
+<tr>
+<td style="text-align:center">NUMBER</td>
+<td style="text-align:center">END</td>
+<td style="text-align:center">END</td>
+<td style="text-align:center">NUMBER</td>
+<td style="text-align:center">POINT_WITH_INT</td>
+<td style="text-align:center">E</td>
+<td style="text-align:center">ERROR</td>
+</tr>
+<tr>
+<td style="text-align:center">POINT_WITH_INT</td>
+<td style="text-align:center">END</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">NUMBER</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">E</td>
+<td style="text-align:center">ERROR</td>
+</tr>
+<tr>
+<td style="text-align:center">POINT_WITHOUT_INT</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">NUMBER</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+</tr>
+<tr>
+<td style="text-align:center">E</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">E_SIGN</td>
+<td style="text-align:center">E_NUMBER</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+</tr>
+<tr>
+<td style="text-align:center">E_SIGN</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">E_NUMBER</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+</tr>
+<tr>
+<td style="text-align:center">E_NUMBER</td>
+<td style="text-align:center">END</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">E_NUMBER</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+</tr>
+<tr>
+<td style="text-align:center">END</td>
+<td style="text-align:center">END</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+</tr>
+<tr>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+<td style="text-align:center">ERROR</td>
+</tr>
+</tbody>
+</table>
+<p>NUMBER，POINT_WITH_INT，E_NUMBER和END是终结状态，如果最终自动机处于这几个状态，则识别成功。</p>
+<p><img src="https://i.loli.net/2020/11/12/T7AykRZrEXo632l.png" alt="good"></p>
 
     </div>
 
