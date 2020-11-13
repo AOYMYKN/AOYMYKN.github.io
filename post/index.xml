@@ -6,7 +6,16 @@
     <description>Recent content in Posts on AOYMYKN的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 11 Nov 2020 21:36:38 +0800</lastBuildDate><atom:link href="http://aoymykn.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 13 Nov 2020 14:09:55 +0800</lastBuildDate><atom:link href="http://aoymykn.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>关于java的类和实例的初始化顺序</title>
+      <link>http://aoymykn.github.io/post/%E5%85%B3%E4%BA%8Ejava%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</link>
+      <pubDate>Fri, 13 Nov 2020 14:09:55 +0800</pubDate>
+      
+      <guid>http://aoymykn.github.io/post/%E5%85%B3%E4%BA%8Ejava%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</guid>
+      <description>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 class Father { private int a = 1; // instance field initialization private int t; private static int b = 10; // object field</description>
+    </item>
+    
     <item>
       <title>自动机——我的atoi函数</title>
       <link>http://aoymykn.github.io/post/dfa%E5%AE%9E%E7%8E%B0atoi/</link>

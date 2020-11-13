@@ -49,7 +49,7 @@
 <meta itemprop="description" content="使用NFA实现atoi函数">
 <meta itemprop="datePublished" content="2020-11-11T21:36:38+08:00" />
 <meta itemprop="dateModified" content="2020-11-11T21:36:38+08:00" />
-<meta itemprop="wordCount" content="3370">
+<meta itemprop="wordCount" content="3401">
 
 
 
@@ -130,7 +130,7 @@
         <div class="post-category">
             <a href="/categories/%E7%AE%97%E6%B3%95/"> 算法 </a>
             </div>
-          <span class="more-meta"> 约 3370 字 </span>
+          <span class="more-meta"> 约 3401 字 </span>
           <span class="more-meta"> 预计阅读 7 分钟 </span>
         
       </div>
@@ -144,7 +144,7 @@
     <li><a href="#题目介绍">题目介绍</a></li>
     <li><a href="#我的实现一万个条件判断">我的实现——一万个条件判断</a></li>
     <li><a href="#dfa的实现">DFA的实现</a></li>
-    <li><a href="#举一反三">举一反三</a></li>
+    <li><a href="#举一反三isvalidnumber">举一反三——isValidNumber</a></li>
   </ul>
 </nav>
   </div>
@@ -538,7 +538,7 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>总之学习了！</p>
-<h1 id="举一反三">举一反三</h1>
+<h1 id="举一反三isvalidnumber">举一反三——isValidNumber</h1>
 <p>不实践，如何敢说自己掌握了？</p>
 <p><a href="https://leetcode-cn.com/problems/valid-number/">这一题</a>，要求判断一个数字字符串是否为合法数字。合法字符串应当只包括如下内容（以及前置后置空格）——</p>
 <ul>
@@ -550,7 +550,7 @@
 <p>数字可以分为三个部分——数字，指数符号e，指数，其中数字可以有正负和小数点，如-43.2。指数是可选的，但是如果有e，则必须要有指数。其中指数必须为整数，可以有正负号，比如-43.2e-10&hellip;</p>
 <p>然而题目告诉我，像.1这样的也合法，wtf？</p>
 <p>于是，容易画出状态转移图——</p>
-<p>不画了，有点麻烦（没有舒服的软件可用）……直接写状态转移表（这个有问题）——</p>
+<p>不画了，有点麻烦（没有舒服的软件可用）……草稿纸上手画后直接写状态转移表（这个有问题）——</p>
 <table>
 <thead>
 <tr>
@@ -657,7 +657,7 @@
 </tbody>
 </table>
 <p>这里需要注意的是, -.1e10是合法的，-1.e10是合法的，但是-.e10是不合法的，1.是合法的，.1是合法的，但.是不合法的，因此显然需要保存是否已经检测到数字……</p>
-<p>不过可以定两个小数点的状态，让start-&gt;dot-&gt;digit和start-&gt;digit-&gt;dot两条路径不经过同一个dot，就如下面官方的题解……这样也不需要做多余判定了。两个状态可以写叫……POINT_WITH_INT和POINT_WITHOUT_INT</p>
+<p>不过可以定两个小数点的状态，让start-&gt;dot-&gt;digit和start-&gt;digit-&gt;dot两条路径不经过同一个dot状态，就如下面官方题解给出的状态转移表……这样也不需要做多余判定了。两个状态可以写叫……POINT_WITH_INT和POINT_WITHOUT_INT</p>
 <p>下面是实现——</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -814,7 +814,7 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>然后看题解，wtf？路漫漫其修远兮啊……</p>
-<p><img src="https://pic.leetcode-cn.com/0683d701f2948a2bd8c235867c21a3aed5977691f129ecf34d681d43d57e339c-DFA.jpg" alt="DFA.jpg"></p>
+<p><img src="https://i.loli.net/2020/11/12/P279vhoX3OySaGn.png" alt="DFA.jpg"></p>
 <p>舒服多了，也不需要一个额外的bool，最终也只需要判断最后是不是状态3,5,6,8（8由状态3,5,6跳转，负责判断有没有后置0）……</p>
 <p>下面重写一次状态转移表，就不再实现了。</p>
 <table>
@@ -934,7 +934,11 @@
           <a href="/tags/nfa/">NFA</a>
           </div>
       <nav class="post-nav">
-        
+        <a class="prev" href="/post/%E5%85%B3%E4%BA%8Ejava%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">关于java的类和实例的初始化顺序</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
         <a class="next" href="/post/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
             <span class="next-text nav-default">排序算法</span>
             <span class="next-text nav-mobile">下一篇</span>
