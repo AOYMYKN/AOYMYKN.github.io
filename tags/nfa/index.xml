@@ -13,7 +13,7 @@
       <pubDate>Wed, 11 Nov 2020 21:36:38 +0800</pubDate>
       
       <guid>http://aoymykn.github.io/post/dfa%E5%AE%9E%E7%8E%B0atoi/</guid>
-      <description>编译原理没好好听（不如说脑子里没有那种思维），现在要遭重啦！ 题目介绍 这道题要求实现atoi函数，它要求将一个字符串转成整型，并且有以下要求—</description>
+      <description>使用NFA实现atoi函数</description>
     </item>
     
   </channel>

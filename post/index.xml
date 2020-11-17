@@ -8,12 +8,12 @@
     <language>zh-cn</language>
     <lastBuildDate>Fri, 13 Nov 2020 14:09:55 +0800</lastBuildDate><atom:link href="http://aoymykn.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>关于java的类和实例的初始化顺序</title>
+      <title>关于java的面向对象</title>
       <link>http://aoymykn.github.io/post/%E5%85%B3%E4%BA%8Ejava%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</link>
       <pubDate>Fri, 13 Nov 2020 14:09:55 +0800</pubDate>
       
       <guid>http://aoymykn.github.io/post/%E5%85%B3%E4%BA%8Ejava%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</guid>
-      <description>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 class Father { private int a = 1; // instance field initialization private int t; private static int b = 10; // object field</description>
+      <description>关于类和实例的初始化 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 class Father { private int a = 1; // instance field initialization private int</description>
     </item>
     
     <item>
@@ -22,7 +22,7 @@
       <pubDate>Wed, 11 Nov 2020 21:36:38 +0800</pubDate>
       
       <guid>http://aoymykn.github.io/post/dfa%E5%AE%9E%E7%8E%B0atoi/</guid>
-      <description>编译原理没好好听（不如说脑子里没有那种思维），现在要遭重啦！ 题目介绍 这道题要求实现atoi函数，它要求将一个字符串转成整型，并且有以下要求—</description>
+      <description>使用NFA实现atoi函数</description>
     </item>
     
     <item>
@@ -31,7 +31,7 @@
       <pubDate>Thu, 05 Nov 2020 21:50:24 +0800</pubDate>
       
       <guid>http://aoymykn.github.io/post/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</guid>
-      <description>排序 学习算法总是从排序开始的，我这再次重新学习也不例外。主要根据《算法图解》，《大话数据结构》，《啊哈算法》，《算法第四版》这四本书进行重新</description>
+      <description>学习各种排序算法</description>
     </item>
     
     <item>
