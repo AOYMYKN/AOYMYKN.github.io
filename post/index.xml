@@ -6,7 +6,16 @@
     <description>Recent content in Posts on AOYMYKN的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 13 Nov 2020 14:09:55 +0800</lastBuildDate><atom:link href="http://aoymykn.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 01 Dec 2020 17:27:55 +0800</lastBuildDate><atom:link href="http://aoymykn.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Atom下common lisp的环境搭建</title>
+      <link>http://aoymykn.github.io/post/atom%E4%B8%8Bcommon_lisp%E7%9A%84%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
+      <pubDate>Tue, 01 Dec 2020 17:27:55 +0800</pubDate>
+      
+      <guid>http://aoymykn.github.io/post/atom%E4%B8%8Bcommon_lisp%E7%9A%84%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
+      <description>几个月前的文章，可能将来还有参考意义… 搭建这破环境让我费了些脑筋，总之记录下来。 下载sbcl和slime 下载和安装sbcl （老实说，这点击表</description>
+    </item>
+    
     <item>
       <title>关于java的面向对象</title>
       <link>http://aoymykn.github.io/post/%E5%85%B3%E4%BA%8Ejava%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</link>
