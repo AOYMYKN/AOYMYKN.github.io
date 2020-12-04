@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>heap on AOYMYKN的博客</title>
+    <link>http://aoymykn.github.io/tags/heap/</link>
+    <description>Recent content in heap on AOYMYKN的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 03 Dec 2020 15:29:28 +0800</lastBuildDate><atom:link href="http://aoymykn.github.io/tags/heap/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>关于堆（heap）</title>
+      <link>http://aoymykn.github.io/post/%E5%85%B3%E4%BA%8E%E5%A0%86heap/</link>
+      <pubDate>Thu, 03 Dec 2020 15:29:28 +0800</pubDate>
+      
+      <guid>http://aoymykn.github.io/post/%E5%85%B3%E4%BA%8E%E5%A0%86heap/</guid>
+      <description>注，这里的堆指的都是二叉堆。 什么是堆 可以认为，堆是这样一种二叉树，它的每一个节点的值都大于（或小于）其两个子节点的值。前者称为大根堆，或大顶</description>
+    </item>
+    
+  </channel>
+</rss>

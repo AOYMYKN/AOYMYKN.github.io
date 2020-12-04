@@ -6,7 +6,16 @@
     <description>Recent content in Posts on AOYMYKN的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 01 Dec 2020 17:27:55 +0800</lastBuildDate><atom:link href="http://aoymykn.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 03 Dec 2020 15:29:28 +0800</lastBuildDate><atom:link href="http://aoymykn.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>关于堆（heap）</title>
+      <link>http://aoymykn.github.io/post/%E5%85%B3%E4%BA%8E%E5%A0%86heap/</link>
+      <pubDate>Thu, 03 Dec 2020 15:29:28 +0800</pubDate>
+      
+      <guid>http://aoymykn.github.io/post/%E5%85%B3%E4%BA%8E%E5%A0%86heap/</guid>
+      <description>注，这里的堆指的都是二叉堆。 什么是堆 可以认为，堆是这样一种二叉树，它的每一个节点的值都大于（或小于）其两个子节点的值。前者称为大根堆，或大顶</description>
+    </item>
+    
     <item>
       <title>Atom下common lisp的环境搭建</title>
       <link>http://aoymykn.github.io/post/atom%E4%B8%8Bcommon_lisp%E7%9A%84%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
