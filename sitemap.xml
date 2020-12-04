@@ -114,13 +114,6 @@
   </url>
   
   <url>
-    <loc>http://aoymykn.github.io/tags/%E6%8E%92%E5%BA%8F/</loc>
-    <lastmod>2020-11-05T21:50:24+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>http://aoymykn.github.io/post/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</loc>
     <lastmod>2020-11-05T21:50:24+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -128,15 +121,8 @@
   </url>
   
   <url>
-    <loc>http://aoymykn.github.io/tags/hello-happy-world/</loc>
-    <lastmod>2020-11-04T10:40:17+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://aoymykn.github.io/post/hhw/</loc>
-    <lastmod>2020-11-04T10:40:17+08:00</lastmod>
+    <loc>http://aoymykn.github.io/tags/%E6%8E%92%E5%BA%8F/</loc>
+    <lastmod>2020-11-05T21:50:24+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
