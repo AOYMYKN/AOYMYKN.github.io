@@ -13,7 +13,7 @@
       <pubDate>Tue, 01 Dec 2020 17:27:55 +0800</pubDate>
       
       <guid>http://aoymykn.github.io/post/atom%E4%B8%8Bcommon_lisp%E7%9A%84%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
-      <description>几个月前的文章，可能将来还有参考意义… 搭建这破环境让我费了些脑筋，总之记录下来。 下载sbcl和slime 下载和安装sbcl （老实说，这点击表</description>
+      <description>atom+slima搭建Common Lisp环境</description>
     </item>
     
   </channel>
