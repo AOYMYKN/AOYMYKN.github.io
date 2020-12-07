@@ -49,7 +49,7 @@
 <meta itemprop="description" content="学习各种排序算法">
 <meta itemprop="datePublished" content="2020-11-05T21:50:24+08:00" />
 <meta itemprop="dateModified" content="2020-11-05T21:50:24+08:00" />
-<meta itemprop="wordCount" content="3049">
+<meta itemprop="wordCount" content="3951">
 
 
 
@@ -92,7 +92,7 @@
       </a><a href="/about/">
         <li class="mobile-menu-item">About</li>
       </a><a href="/learningjava/">
-        <li class="mobile-menu-item">LearningJava</li>
+        <li class="mobile-menu-item">Java</li>
       </a>
   </ul>
 </nav>
@@ -115,7 +115,7 @@
       </li><li class="menu-item">
         <a class="menu-item-link" href="/about/">About</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/learningjava/">LearningJava</a>
+        <a class="menu-item-link" href="/learningjava/">Java</a>
       </li>
   </ul>
 </nav>
@@ -134,8 +134,8 @@
         <div class="post-category">
             <a href="/categories/%E7%AE%97%E6%B3%95/"> 算法 </a>
             </div>
-          <span class="more-meta"> 约 3049 字 </span>
-          <span class="more-meta"> 预计阅读 7 分钟 </span>
+          <span class="more-meta"> 约 3951 字 </span>
+          <span class="more-meta"> 预计阅读 8 分钟 </span>
         
       </div>
     </header>
@@ -440,8 +440,63 @@
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="堆排序">堆排序</h2>
-<p>To be Continued&hellip;</p>
-<p><img src="https://pic2.zhimg.com/80/v2-f552e4ec247aa71c9bd549924bdbc255_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>关于堆及其提供的两个方法swim，sink，见<a href="../%E5%85%B3%E4%BA%8E%E5%A0%86heap/">这篇文章</a>。</p>
+<p>堆排序的过程可以如下理解——</p>
+<ol>
+<li>首先将数组构建成一个堆（如果要升序排序，则构建大顶堆，如果要降序排序，则构建小顶堆），这构建过程表现在对堆中的<strong>从N/2到1</strong>为下标的元素进行sink操作（对没有子节点的元素进行sink方法是无意义的，从后往前使用sink方法保证对任何调用sink方法的元素，其<strong>子节点都是堆</strong>。也可以对所有元素调用swim方法，但这样显然是更加低效的，不像sink方法能够利用其左右节点是已经堆有序这样的性质）。</li>
+<li>然后，每次将堆顶元素同堆尾元素交换，将堆的长度-1，然后对堆顶调用sink方法（即让堆重新有序），这样就达到了把堆顶元素置于正确位置的目的。</li>
+<li>重复步骤二，直到堆的长度为1。</li>
+<li>下面给出的实现中只排序了arr[1:]，所以最终需要把arr[0]插入到其后的已排序数组中。或许将堆的编号从零开始计算会省去这一步？有点麻烦。</li>
+</ol>
+<blockquote>
+<p>这里为什么是从N/2开始？因为通过数学方法可以证明，N/2是从后往前数第一个有左右子节点的节点。</p>
+<p>首先需要明确，N/2的数学意义是随N的奇偶而变的，如果N为偶数，则N/2则为数学意义上的N/2，如果N为奇数，则N/2则要理解成Math.floor(N / 2.0)，其将向下取整（实际上是进行了带余数的除法，余数被舍弃了），这时候(N - 1) / 2才等价于数学意义上的N/2。</p>
+<p>当N为偶数的时候，N/2节点的左子结点为 N / 2 * 2 = N，为堆中最后一个节点，当N为奇数的时候，N/2等价于(N - 1) / 2，其右子节点为 (N - 1) / 2 * 2 + 1 = N，为堆中最后一个节点。</p>
+<p>因此，堆中最后一个节点必然是N/2的子节点，所以N/2必然是最后一个有左右节点的节点（N/2有最后一个子节点，则N/2 + 1必然没有子节点）</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="nf">heapSort</span><span class="o">(</span><span class="n">Comparable</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;[]</span><span class="n">arr</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">N</span><span class="o">/</span><span class="n">2</span><span class="o">;</span><span class="n">i</span><span class="o">&gt;=</span><span class="n">1</span><span class="o">;</span><span class="n">i</span><span class="o">--)</span>
+        <span class="n">sink</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span><span class="n">i</span><span class="o">,</span><span class="n">N</span><span class="o">);</span> <span class="c1">// 构建堆
+</span><span class="c1"></span>    
+    <span class="k">while</span> <span class="o">(</span><span class="n">N</span> <span class="o">&gt;</span> <span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">exch</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">N</span><span class="o">);</span> <span class="c1">// 每次将堆顶和堆尾交换
+</span><span class="c1"></span>        <span class="n">sink</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span><span class="n">1</span><span class="o">,--</span><span class="n">N</span><span class="o">);</span> <span class="c1">// 将N-1，然后对堆顶进行sink操作
+</span><span class="c1"></span>    <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="nf">sort</span><span class="o">(</span><span class="n">Comparable</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;[]</span> <span class="n">arr</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">arr</span><span class="o">==</span><span class="kc">null</span><span class="o">||</span><span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">&lt;=</span><span class="n">1</span><span class="o">)</span> <span class="k">return</span><span class="o">;</span>
+    <span class="n">heapSort</span><span class="o">(</span><span class="n">arr</span><span class="o">);</span> <span class="c1">// 堆排序
+</span><span class="c1"></span>    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">;</span><span class="n">i</span><span class="o">++)</span> <span class="c1">// 这里只排序了arr[1:]，因此需要对arr[0]插入到后面的数组中
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">less</span><span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">-</span><span class="n">1</span><span class="o">],</span><span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">]))</span> <span class="c1">// 这里的less的含义是arr[i-1]&gt;arr[i]
+</span><span class="c1"></span>            <span class="n">exch</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span><span class="n">i</span><span class="o">-</span><span class="n">1</span><span class="o">,</span><span class="n">i</span><span class="o">);</span>
+    	<span class="k">else</span> <span class="k">return</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://pic2.zhimg.com/80/v2-f552e4ec247aa71c9bd549924bdbc255_720w.jpg?source=1940ef5c" alt="img"></p>
 
     </div>
 

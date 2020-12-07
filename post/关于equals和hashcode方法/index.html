@@ -49,7 +49,7 @@
 <meta itemprop="description" content="为何重写equals方法就必须要重写hashCode方法？">
 <meta itemprop="datePublished" content="2020-12-06T10:52:56+08:00" />
 <meta itemprop="dateModified" content="2020-12-06T10:52:56+08:00" />
-<meta itemprop="wordCount" content="2301">
+<meta itemprop="wordCount" content="2363">
 
 
 
@@ -92,7 +92,7 @@
       </a><a href="/about/">
         <li class="mobile-menu-item">About</li>
       </a><a href="/learningjava/">
-        <li class="mobile-menu-item">LearningJava</li>
+        <li class="mobile-menu-item">Java</li>
       </a>
   </ul>
 </nav>
@@ -115,7 +115,7 @@
       </li><li class="menu-item">
         <a class="menu-item-link" href="/about/">About</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/learningjava/">LearningJava</a>
+        <a class="menu-item-link" href="/learningjava/">Java</a>
       </li>
   </ul>
 </nav>
@@ -134,7 +134,7 @@
         <div class="post-category">
             <a href="/categories/java/"> Java </a>
             </div>
-          <span class="more-meta"> 约 2301 字 </span>
+          <span class="more-meta"> 约 2363 字 </span>
           <span class="more-meta"> 预计阅读 5 分钟 </span>
         
       </div>
@@ -185,7 +185,7 @@
  <span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>再看看HashMap的put方法。要注意的是，hashMap中在插入元素达到一定数量（64？）后会被转化为红黑树，不过判断的流程还是一致的——首先将元素的hashCode使用杂凑函数进行处理，确定其插入位置，如果插入位置为空，则直接插入，（对于数组——链表）否则遍历该位置的所有元素，对每一个元素进行判断，首先比较哈希值是否相等，如果相等，则判断其是否是同一对象，判断其是否equal，如果是则说明是重复的key，对该key进行处理，如果到最后都未找到，则将其插入尾端。</p>
+</div><p>再看看HashMap的put方法。HashMap使用的是数组——链表结构，如果某个链表长度大于阀值（8）且数组长度大于64，则该链表将被转换为红黑树结构，否则会将数组的长度乘2。不过判断的流程还是一致的——首先将元素的hashCode使用杂凑函数进行处理，确定其插入位置，如果插入位置为空，则直接插入，（对于数组——链表）否则遍历该位置的所有元素，对每一个元素进行判断，首先比较哈希值是否相等，如果相等，则判断其是否是同一对象，判断其是否equal，如果是则说明是重复的key，对该key进行处理，如果到最后都未找到，则将其插入尾端。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -254,33 +254,29 @@
 </span><span class="lnt">64
 </span><span class="lnt">65
 </span><span class="lnt">66
-</span><span class="lnt">67
-</span><span class="lnt">68
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">V</span> <span class="nf">put</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">,</span> <span class="n">V</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">return</span> <span class="n">putVal</span><span class="o">(</span><span class="n">hash</span><span class="o">(</span><span class="n">key</span><span class="o">),</span> <span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
 <span class="o">}</span>
-<span class="c1">// HashMap中使用的哈希方法，显然它是和key的hashCode相关的
+<span class="c1">// HashMap中使用的哈希方法，它对对象的hashCode进行杂凑
 </span><span class="c1"></span><span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="nf">hash</span><span class="o">(</span><span class="n">Object</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
     <span class="kt">int</span> <span class="n">h</span><span class="o">;</span>
-    <span class="k">return</span> <span class="o">(</span><span class="n">key</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">?</span> <span class="n">0</span> <span class="o">:</span> <span class="o">(</span><span class="n">h</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="na">hashCode</span><span class="o">())</span> <span class="o">^</span> <span class="o">(</span><span class="n">h</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">16</span><span class="o">);</span>
+    <span class="k">return</span> <span class="o">(</span><span class="n">key</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">?</span> <span class="n">0</span> <span class="o">:</span> <span class="o">(</span><span class="n">h</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="na">hashCode</span><span class="o">())</span> <span class="o">^</span> <span class="o">(</span><span class="n">h</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">16</span><span class="o">);</span> 
 <span class="o">}</span>
 
 <span class="c1">// 这代码写出来是不是不想给人看的？？？
 </span><span class="c1"></span><span class="kd">final</span> <span class="n">V</span> <span class="nf">putVal</span><span class="o">(</span><span class="kt">int</span> <span class="n">hash</span><span class="o">,</span> <span class="n">K</span> <span class="n">key</span><span class="o">,</span> <span class="n">V</span> <span class="n">value</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">onlyIfAbsent</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">evict</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">Node</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;[]</span> <span class="n">tab</span><span class="o">;</span> <span class="n">Node</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;</span> <span class="n">p</span><span class="o">;</span> <span class="kt">int</span> <span class="n">n</span><span class="o">,</span> <span class="n">i</span><span class="o">;</span> <span class="c1">// 这里的Node是一个实现了Entry的类，其有链表结构
-</span><span class="c1"></span>    <span class="c1">// table是整个哈希表。它是数组——链表结构或是红黑树结构
-</span><span class="c1"></span>    <span class="c1">// 如果哈希表没有被初始化，则将其初始化
-</span><span class="c1"></span>    <span class="c1">// 如果哈希表已经初始化了但是表长为0……等等，我应该关注重点部分
+</span><span class="c1"></span>    <span class="c1">// table是整个哈希表。它是数组——链表结构或是数组——红黑树结构
 </span><span class="c1"></span>    <span class="k">if</span> <span class="o">((</span><span class="n">tab</span> <span class="o">=</span> <span class="n">table</span><span class="o">)</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="o">(</span><span class="n">n</span> <span class="o">=</span> <span class="n">tab</span><span class="o">.</span><span class="na">length</span><span class="o">)</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> 
         <span class="n">n</span> <span class="o">=</span> <span class="o">(</span><span class="n">tab</span> <span class="o">=</span> <span class="n">resize</span><span class="o">()).</span><span class="na">length</span><span class="o">;</span>
     
     <span class="c1">// 这个if-else是重点！
 </span><span class="c1"></span>    <span class="c1">// 如果要插入的位置没有元素，则直接插入
-</span><span class="c1"></span>    <span class="c1">// 这里需要注意的是，这个位置的所有元素不一定哈希值都是相等的，有可能哈希值不等的也被放到这里，因此在else里首先要查看哈希是否相等
-</span><span class="c1"></span>    <span class="k">if</span> <span class="o">((</span><span class="n">p</span> <span class="o">=</span> <span class="n">tab</span><span class="o">[</span><span class="n">i</span> <span class="o">=</span> <span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">1</span><span class="o">)</span> <span class="o">&amp;</span> <span class="n">hash</span><span class="o">])</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>  
-        <span class="n">tab</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">newNode</span><span class="o">(</span><span class="n">hash</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+</span><span class="c1"></span>    <span class="c1">// 这里需要注意的是，这个位置是对象的哈希对n取余的结果，所以存在这个位置的元素的哈希值并不一定是相等的
+</span><span class="c1"></span>    <span class="k">if</span> <span class="o">((</span><span class="n">p</span> <span class="o">=</span> <span class="n">tab</span><span class="o">[</span><span class="n">i</span> <span class="o">=</span> <span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">1</span><span class="o">)</span> <span class="o">&amp;</span> <span class="n">hash</span><span class="o">])</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>   <span class="c1">// 在n等于2的幂次方的时候，(n-1)&amp;hash==hash&amp;n，并且前者效率更高，这也是为什么HashMap的容积使用2的幂次方
+</span><span class="c1"></span>        <span class="n">tab</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">newNode</span><span class="o">(</span><span class="n">hash</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
     <span class="c1">// 如果有元素，则需要遍历该位置的所有元素
 </span><span class="c1"></span>    <span class="k">else</span> <span class="o">{</span>
         <span class="n">Node</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;</span> <span class="n">e</span><span class="o">;</span> <span class="n">K</span> <span class="n">k</span><span class="o">;</span>
@@ -292,7 +288,7 @@
 </span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">hash</span> <span class="o">==</span> <span class="n">hash</span> <span class="o">&amp;&amp;</span>
             <span class="o">((</span><span class="n">k</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="na">key</span><span class="o">)</span> <span class="o">==</span> <span class="n">key</span> <span class="o">||</span> <span class="o">(</span><span class="n">key</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">key</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">k</span><span class="o">))))</span>
             <span class="n">e</span> <span class="o">=</span> <span class="n">p</span><span class="o">;</span> 
-        <span class="c1">// 如果是红黑树
+        <span class="c1">// 如果这个位置是一个TreeNode，则说明使用的是红黑树结构
 </span><span class="c1"></span>        <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">p</span> <span class="k">instanceof</span> <span class="n">TreeNode</span><span class="o">)</span>
             <span class="n">e</span> <span class="o">=</span> <span class="o">((</span><span class="n">TreeNode</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;)</span><span class="n">p</span><span class="o">).</span><span class="na">putTreeVal</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">tab</span><span class="o">,</span> <span class="n">hash</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">);</span>
         <span class="c1">// 遍历p位置所在链表，找到第一个与其哈希相同，且指向同一个对象或equal的节点，如果到最后还没有找到，则插入到尾端。无论如何，e保存了最终的位置，无论是插入还是更新`。

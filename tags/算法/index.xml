@@ -9,10 +9,10 @@
     <lastBuildDate>Wed, 11 Nov 2020 21:36:38 +0800</lastBuildDate><atom:link href="http://aoymykn.github.io/tags/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>自动机——我的atoi函数</title>
-      <link>http://aoymykn.github.io/post/dfa%E5%AE%9E%E7%8E%B0atoi/</link>
+      <link>http://aoymykn.github.io/post/20-11-11dfa%E5%AE%9E%E7%8E%B0atoi/</link>
       <pubDate>Wed, 11 Nov 2020 21:36:38 +0800</pubDate>
       
-      <guid>http://aoymykn.github.io/post/dfa%E5%AE%9E%E7%8E%B0atoi/</guid>
+      <guid>http://aoymykn.github.io/post/20-11-11dfa%E5%AE%9E%E7%8E%B0atoi/</guid>
       <description>使用NFA实现atoi函数</description>
     </item>
     
