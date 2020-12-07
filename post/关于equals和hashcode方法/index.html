@@ -49,7 +49,7 @@
 <meta itemprop="description" content="为何重写equals方法就必须要重写hashCode方法？">
 <meta itemprop="datePublished" content="2020-12-06T10:52:56+08:00" />
 <meta itemprop="dateModified" content="2020-12-06T10:52:56+08:00" />
-<meta itemprop="wordCount" content="2126">
+<meta itemprop="wordCount" content="2301">
 
 
 
@@ -91,6 +91,8 @@
         <li class="mobile-menu-item">Categories</li>
       </a><a href="/about/">
         <li class="mobile-menu-item">About</li>
+      </a><a href="/learningjava/">
+        <li class="mobile-menu-item">LearningJava</li>
       </a>
   </ul>
 </nav>
@@ -112,6 +114,8 @@
         <a class="menu-item-link" href="/categories/">Categories</a>
       </li><li class="menu-item">
         <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/learningjava/">LearningJava</a>
       </li>
   </ul>
 </nav>
@@ -130,7 +134,7 @@
         <div class="post-category">
             <a href="/categories/java/"> Java </a>
             </div>
-          <span class="more-meta"> 约 2126 字 </span>
+          <span class="more-meta"> 约 2301 字 </span>
           <span class="more-meta"> 预计阅读 5 分钟 </span>
         
       </div>
@@ -144,9 +148,9 @@
     <li><a href="#为何重写equals就必须重写hashcode">为何重写equals就必须重写hashCode</a>
       <ul>
         <li><a href="#从hashset的源码入手">从HashSet的源码入手</a></li>
-        <li><a href="#ps看看identityhashmap">PS：看看IdentityHashMap</a></li>
       </ul>
     </li>
+    <li><a href="#ps看看identityhashmap">PS：看看IdentityHashMap</a></li>
   </ul>
 </nav>
   </div>
@@ -181,7 +185,7 @@
  <span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>再看看HashMap的put方法。这里的putVal接受五个参数——key的哈希值，key，value，………………</p>
+</div><p>再看看HashMap的put方法。要注意的是，hashMap中在插入元素达到一定数量（64？）后会被转化为红黑树，不过判断的流程还是一致的——首先将元素的hashCode使用杂凑函数进行处理，确定其插入位置，如果插入位置为空，则直接插入，（对于数组——链表）否则遍历该位置的所有元素，对每一个元素进行判断，首先比较哈希值是否相等，如果相等，则判断其是否是同一对象，判断其是否equal，如果是则说明是重复的key，对该key进行处理，如果到最后都未找到，则将其插入尾端。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -252,7 +256,6 @@
 </span><span class="lnt">66
 </span><span class="lnt">67
 </span><span class="lnt">68
-</span><span class="lnt">69
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">V</span> <span class="nf">put</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">,</span> <span class="n">V</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
@@ -267,30 +270,29 @@
 <span class="c1">// 这代码写出来是不是不想给人看的？？？
 </span><span class="c1"></span><span class="kd">final</span> <span class="n">V</span> <span class="nf">putVal</span><span class="o">(</span><span class="kt">int</span> <span class="n">hash</span><span class="o">,</span> <span class="n">K</span> <span class="n">key</span><span class="o">,</span> <span class="n">V</span> <span class="n">value</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">onlyIfAbsent</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">evict</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">Node</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;[]</span> <span class="n">tab</span><span class="o">;</span> <span class="n">Node</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;</span> <span class="n">p</span><span class="o">;</span> <span class="kt">int</span> <span class="n">n</span><span class="o">,</span> <span class="n">i</span><span class="o">;</span> <span class="c1">// 这里的Node是一个实现了Entry的类，其有链表结构
-</span><span class="c1"></span>    <span class="c1">// table是整个哈希表，它显然是遵循数组——链表这样的哈希表结构的。
+</span><span class="c1"></span>    <span class="c1">// table是整个哈希表。它是数组——链表结构或是红黑树结构
 </span><span class="c1"></span>    <span class="c1">// 如果哈希表没有被初始化，则将其初始化
 </span><span class="c1"></span>    <span class="c1">// 如果哈希表已经初始化了但是表长为0……等等，我应该关注重点部分
 </span><span class="c1"></span>    <span class="k">if</span> <span class="o">((</span><span class="n">tab</span> <span class="o">=</span> <span class="n">table</span><span class="o">)</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="o">(</span><span class="n">n</span> <span class="o">=</span> <span class="n">tab</span><span class="o">.</span><span class="na">length</span><span class="o">)</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> 
         <span class="n">n</span> <span class="o">=</span> <span class="o">(</span><span class="n">tab</span> <span class="o">=</span> <span class="n">resize</span><span class="o">()).</span><span class="na">length</span><span class="o">;</span>
     
     <span class="c1">// 这个if-else是重点！
-</span><span class="c1"></span>    <span class="c1">// 如果要插入的位置没有元素，则直接插入（它确信如果表中没有哈希相等的元素，则表中必定没有与其相等的元素）
-</span><span class="c1"></span>    
-    <span class="k">if</span> <span class="o">((</span><span class="n">p</span> <span class="o">=</span> <span class="n">tab</span><span class="o">[</span><span class="n">i</span> <span class="o">=</span> <span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">1</span><span class="o">)</span> <span class="o">&amp;</span> <span class="n">hash</span><span class="o">])</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>  
+</span><span class="c1"></span>    <span class="c1">// 如果要插入的位置没有元素，则直接插入
+</span><span class="c1"></span>    <span class="c1">// 这里需要注意的是，这个位置的所有元素不一定哈希值都是相等的，有可能哈希值不等的也被放到这里，因此在else里首先要查看哈希是否相等
+</span><span class="c1"></span>    <span class="k">if</span> <span class="o">((</span><span class="n">p</span> <span class="o">=</span> <span class="n">tab</span><span class="o">[</span><span class="n">i</span> <span class="o">=</span> <span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">1</span><span class="o">)</span> <span class="o">&amp;</span> <span class="n">hash</span><span class="o">])</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>  
         <span class="n">tab</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">newNode</span><span class="o">(</span><span class="n">hash</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
-    <span class="c1">// 如果有元素，则说明出现了哈希碰撞，应当调用equals来检测了。
+    <span class="c1">// 如果有元素，则需要遍历该位置的所有元素
 </span><span class="c1"></span>    <span class="k">else</span> <span class="o">{</span>
         <span class="n">Node</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;</span> <span class="n">e</span><span class="o">;</span> <span class="n">K</span> <span class="n">k</span><span class="o">;</span>
-        
         <span class="c1">// 需要注意的是，||的优先级是更高的。
 </span><span class="c1"></span>        <span class="c1">// 这里的p是碰撞位置的链表的第一个元素……至少最初是
-</span><span class="c1"></span>        <span class="c1">// 它先看该元素的hash和链表中该位置的hash是否相等 （这里就能看到，如果没有重写hashCode方法，对于任意非重复插入的对象实例，这个p.hash == hash将始终为假，因此就必定要在其后面插入了，而不关心其究竟是否equal）
+</span><span class="c1"></span>        <span class="c1">// 它先看该元素的hash和链表中该位置的hash是否相等 （这里就能看到，如果没有重写hashCode方法，对于任意非重复插入的对象实例，这个p.hash == hash将始终为假，equals方法将不被调用）
 </span><span class="c1"></span>        <span class="c1">// 然后看(k = p.key) == key，即这两个key是否指向同一个对象，如果不是，则调用equals方法比较
 </span><span class="c1"></span>        <span class="c1">// 如果这个if检查成功，说明这两个对象真的是相同的，因此将e的值设为p，等待下一步对其值进行更新并返回
 </span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">hash</span> <span class="o">==</span> <span class="n">hash</span> <span class="o">&amp;&amp;</span>
             <span class="o">((</span><span class="n">k</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="na">key</span><span class="o">)</span> <span class="o">==</span> <span class="n">key</span> <span class="o">||</span> <span class="o">(</span><span class="n">key</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">key</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">k</span><span class="o">))))</span>
             <span class="n">e</span> <span class="o">=</span> <span class="n">p</span><span class="o">;</span> 
-        <span class="c1">// 这是什么意思？
+        <span class="c1">// 如果是红黑树
 </span><span class="c1"></span>        <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">p</span> <span class="k">instanceof</span> <span class="n">TreeNode</span><span class="o">)</span>
             <span class="n">e</span> <span class="o">=</span> <span class="o">((</span><span class="n">TreeNode</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;)</span><span class="n">p</span><span class="o">).</span><span class="na">putTreeVal</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">tab</span><span class="o">,</span> <span class="n">hash</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">);</span>
         <span class="c1">// 遍历p位置所在链表，找到第一个与其哈希相同，且指向同一个对象或equal的节点，如果到最后还没有找到，则插入到尾端。无论如何，e保存了最终的位置，无论是插入还是更新`。
@@ -326,7 +328,7 @@
 <span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="ps看看identityhashmap">PS：看看IdentityHashMap</h2>
+</div><h1 id="ps看看identityhashmap">PS：看看IdentityHashMap</h1>
 <p>IdentityHashMap则是另一个极端。与HashMap不同，它只比较元素的内存地址（即Object的hashCode方法，或者说可以理解成==运算符）来判断其是否是同一个key，而不关心是否equal。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
