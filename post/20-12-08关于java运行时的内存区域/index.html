@@ -238,7 +238,7 @@
 <h3 id="运行时常量池runtime-constant-pool">运行时常量池（Runtime constant pool）</h3>
 <p>运行时常量池是方法区的一部分，其用于存放编译期生成的各种<strong>字面量</strong>和<strong>符号引用</strong>。<strong>字符串常量池在堆中，运行时常量池在方法区中</strong>（元空间中）。</p>
 <blockquote>
-<p>字面量指代码文件中直接给定的量，如&quot;hello&quot;, 3, 233l等。</p>
+<p><del>字面量指代码文件中直接给定的量，如&quot;hello&quot;, 3, 233l等。</del></p>
 <p>符号引用简单来说就是包含一定信息的符号，经过几层解析后，其最终指向一个具有类型和层次的字符串。见<a href="https://www.zhihu.com/question/30300585/answer/51335493">JVM里的符号引用如何存储？</a></p>
 </blockquote>
 <p>常量池中存储对象的引用，实际对象仍旧存储在堆中。</p>
@@ -382,7 +382,11 @@
           <a href="/tags/jvm/">JVM</a>
           </div>
       <nav class="post-nav">
-        
+        <a class="prev" href="/post/20-12-10%E5%85%B3%E4%BA%8E%E7%B1%BB%E7%9A%84%E5%8A%A0%E8%BD%BD/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">关于类的加载</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
         <a class="next" href="/post/20-12-07%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
             <span class="next-text nav-default">一些经典排序算法及其Java实现</span>
             <span class="next-text nav-mobile">下一篇</span>

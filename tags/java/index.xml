@@ -6,7 +6,16 @@
     <description>Recent content in Java on AOYMYKN的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 08 Dec 2020 16:17:33 +0800</lastBuildDate><atom:link href="http://aoymykn.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 10 Dec 2020 08:39:35 +0800</lastBuildDate><atom:link href="http://aoymykn.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>关于类的加载</title>
+      <link>http://aoymykn.github.io/post/20-12-10%E5%85%B3%E4%BA%8E%E7%B1%BB%E7%9A%84%E5%8A%A0%E8%BD%BD/</link>
+      <pubDate>Thu, 10 Dec 2020 08:39:35 +0800</pubDate>
+      
+      <guid>http://aoymykn.github.io/post/20-12-10%E5%85%B3%E4%BA%8E%E7%B1%BB%E7%9A%84%E5%8A%A0%E8%BD%BD/</guid>
+      <description>从具体到抽象，再从抽象到具体。这是认识的一般规律。</description>
+    </item>
+    
     <item>
       <title>关于Java运行时的内存区域</title>
       <link>http://aoymykn.github.io/post/20-12-08%E5%85%B3%E4%BA%8Ejava%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/</link>
