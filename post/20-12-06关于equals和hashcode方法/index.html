@@ -49,7 +49,7 @@
 <meta itemprop="description" content="为何重写equals方法就必须要重写hashCode方法？">
 <meta itemprop="datePublished" content="2020-12-06T10:52:56+08:00" />
 <meta itemprop="dateModified" content="2020-12-06T10:52:56+08:00" />
-<meta itemprop="wordCount" content="2363">
+<meta itemprop="wordCount" content="2362">
 
 
 
@@ -90,9 +90,7 @@
       </a><a href="/categories/">
         <li class="mobile-menu-item">Categories</li>
       </a><a href="/about/">
-        <li class="mobile-menu-item">About</li>
-      </a><a href="/java/">
-        <li class="mobile-menu-item">Java</li>
+        <li class="mobile-menu-item"></li>
       </a>
   </ul>
 </nav>
@@ -113,9 +111,7 @@
       </li><li class="menu-item">
         <a class="menu-item-link" href="/categories/">Categories</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">About</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/java/">Java</a>
+        <a class="menu-item-link" href="/about/"></a>
       </li>
   </ul>
 </nav>
@@ -134,7 +130,7 @@
         <div class="post-category">
             <a href="/categories/java/"> Java </a>
             </div>
-          <span class="more-meta"> 约 2363 字 </span>
+          <span class="more-meta"> 约 2362 字 </span>
           <span class="more-meta"> 预计阅读 5 分钟 </span>
         
       </div>
@@ -368,7 +364,7 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">hash</span><span class="o">(</span><span class="n">Object</span> <span class="n">x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">length</span><span class="o">)</span> <span class="o">{</span>
-    <span class="kt">int</span> <span class="n">h</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">identityHashCode</span><span class="o">(</span><span class="n">x</span><span class="o">);</span> <span class="c1">// 这个hashCode调用其父类，即Object类的hashCode方法，而无论它是否重写了hashCode
+    <span class="kt">int</span> <span class="n">h</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">identityHashCode</span><span class="o">(</span><span class="n">x</span><span class="o">);</span> <span class="c1">// 这个hashCode调用其父类，即Object类的hashCode方法，而无论它是否重写hashCode
 </span><span class="c1"></span>    <span class="c1">// Multiply by -127, and left-shift to use least bit as part of hash
 </span><span class="c1"></span>    <span class="k">return</span> <span class="o">((</span><span class="n">h</span> <span class="o">&lt;&lt;</span> <span class="n">1</span><span class="o">)</span> <span class="o">-</span> <span class="o">(</span><span class="n">h</span> <span class="o">&lt;&lt;</span> <span class="n">8</span><span class="o">))</span> <span class="o">&amp;</span> <span class="o">(</span><span class="n">length</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
 <span class="o">}</span>
@@ -417,11 +413,11 @@
       <nav class="post-nav">
         <a class="prev" href="/post/20-12-07%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">关于排序算法</span>
+            <span class="prev-text nav-default">一些经典排序算法及其Java实现</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
         <a class="next" href="/post/20-12-03%E5%85%B3%E4%BA%8E%E5%A0%86heap/">
-            <span class="next-text nav-default">关于堆（heap）</span>
+            <span class="next-text nav-default">关于数据结构中的堆（heap）</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>

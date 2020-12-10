@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>关于排序算法 - AOYMYKN的博客</title>
+  <title>一些经典排序算法及其Java实现 - AOYMYKN的博客</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="AOYMYKN" /><meta name="description" content="学习各种排序算法" /><meta name="keywords" content="Java, 后端, 计算机, 编程, 数据结构, 算法, 马克思主义, marxism, CS, IT" />
+<meta name="author" content="AOYMYKN" /><meta name="description" content="排序之于算法，就如小星星之于音乐" /><meta name="keywords" content="Java, 后端, 计算机, 编程, 数据结构, 算法, 马克思主义, marxism, CS, IT" />
 
 
 
@@ -39,24 +39,24 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="关于排序算法" />
-<meta property="og:description" content="学习各种排序算法" />
+<meta property="og:title" content="一些经典排序算法及其Java实现" />
+<meta property="og:description" content="排序之于算法，就如小星星之于音乐" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://aoymykn.github.io/post/20-12-07%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" />
 <meta property="article:published_time" content="2020-12-07T00:00:00+00:00" />
 <meta property="article:modified_time" content="2020-12-07T00:00:00+00:00" />
-<meta itemprop="name" content="关于排序算法">
-<meta itemprop="description" content="学习各种排序算法">
+<meta itemprop="name" content="一些经典排序算法及其Java实现">
+<meta itemprop="description" content="排序之于算法，就如小星星之于音乐">
 <meta itemprop="datePublished" content="2020-12-07T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2020-12-07T00:00:00+00:00" />
-<meta itemprop="wordCount" content="4222">
+<meta itemprop="wordCount" content="4395">
 
 
 
 <meta itemprop="keywords" content="排序," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="关于排序算法"/>
-<meta name="twitter:description" content="学习各种排序算法"/>
+<meta name="twitter:title" content="一些经典排序算法及其Java实现"/>
+<meta name="twitter:description" content="排序之于算法，就如小星星之于音乐"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -90,9 +90,7 @@
       </a><a href="/categories/">
         <li class="mobile-menu-item">Categories</li>
       </a><a href="/about/">
-        <li class="mobile-menu-item">About</li>
-      </a><a href="/java/">
-        <li class="mobile-menu-item">Java</li>
+        <li class="mobile-menu-item"></li>
       </a>
   </ul>
 </nav>
@@ -113,9 +111,7 @@
       </li><li class="menu-item">
         <a class="menu-item-link" href="/categories/">Categories</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">About</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/java/">Java</a>
+        <a class="menu-item-link" href="/about/"></a>
       </li>
   </ul>
 </nav>
@@ -127,14 +123,14 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">关于排序算法</h1>
+      <h1 class="post-title">一些经典排序算法及其Java实现</h1>
 
       <div class="post-meta">
         <span class="post-time"> 2020-12-07 </span>
         <div class="post-category">
             <a href="/categories/%E7%AE%97%E6%B3%95/"> 算法 </a>
             </div>
-          <span class="more-meta"> 约 4222 字 </span>
+          <span class="more-meta"> 约 4395 字 </span>
           <span class="more-meta"> 预计阅读 9 分钟 </span>
         
       </div>
@@ -224,8 +220,8 @@
 </div>
 </div><p>插入排序的最优比较次数是n，最优交换次数是0，最坏（完全逆序，每次插入需要插到数组首位）比较次数是n^2/2，最坏交换次数是n^2/2，平均（每次插入都正好插到正中间）交换次数是n^2/4，平均比较次数是n^2/4。显然，插入排序在大多数情况下是优于选择排序的TODO。</p>
 <h2 id="希尔排序">希尔排序</h2>
-<p>希尔排序是插入排序的改进。它定义间隔h，以此将数组分为h个子数组（如，定义h为2，则数组可以分为0，2，4，6……和1，3，5，7……），对任一子数组都进行插入排序（这使不相邻的元素也能够进行交换，因此能够减少交换次数），使任一子数组都有序，这时原数组称为h有序数组；然后减少h，再次重复以上过程，直到最后h达到1，此时的排序等同于插入排序，从而保证原数组有序。（可以认为，希尔排序的过程就是整体从无序越来越趋近有序的过程，前面提到过，插入排序对基本有序的数组是非常适合使用的）</p>
-<p>这里的h一般使用等比数列1/2(3^n - 1)中（它的值为1,4,13,40,121,364,1093……）大于等于n/3的第一个元素，这里的n为数组长度。</p>
+<p>希尔排序是插入排序的改进。它定义间隔h，以此将数组分为h个子数组（如，定义h为2，则数组可以分为0，2，4，6……和1，3，5，7……），对任一子数组都进行插入排序（这使不相邻的元素也能够进行交换，因此能够减少交换次数），使任一子数组都有序，这时原数组称为h有序数组；然后减少h，重复以上过程，直到最后h达到1，此时的排序等同于插入排序，从而保证原数组有序。（可以认为，希尔排序的过程就是整体从无序越来越趋近有序的过程，前面提到过，插入排序对基本有序的数组是非常适合使用的）</p>
+<p>这里的h一般使用等比数列1/2(3^n - 1)中（它的值为1,4,13,40,121,364,1093……）大于等于n/3的第一个元素，这里的n为数组长度。之后，每次将h除以3（获取数列中前一项），重复操作，直到最后一次h为1，操作后数组有序。</p>
 <p>比如对数组</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -477,9 +473,9 @@
 <p>堆排序的过程可以如下理解——</p>
 <ol>
 <li>首先将数组构建成一个堆（如果要升序排序，则构建大顶堆，如果要降序排序，则构建小顶堆），这构建过程表现在对堆中的<strong>从N/2到1</strong>为下标的元素进行sink操作（对没有子节点的元素进行sink方法是无意义的，从后往前使用sink方法保证对任何调用sink方法的元素，其<strong>子节点都是堆</strong>。也可以对所有元素调用swim方法，但这样显然是更加低效的，不像sink方法能够利用其左右节点是已经堆有序这样的性质）。</li>
-<li>然后，每次将堆顶元素同堆尾元素交换，将堆的长度-1，然后对堆顶调用sink方法（即让堆重新有序），这样就达到了把堆顶元素置于正确位置的目的。</li>
+<li>然后，每次将堆顶元素同堆尾元素交换，将堆的长度-1，然后对堆顶调用sink方法（即让堆重新有序），这样就达到了把堆顶元素置于正确位置的目的。（这过程就像选择排序，每次找到一个最大/小的元素，移到数组尾端。但是堆排序所需的比较更少，因为相比与选择排序，堆能够以常数时间找到最大/小的元素，并且在之后只需要logn次比较来让数组重新堆有序）</li>
 <li>重复步骤二，直到堆的长度为1。</li>
-<li>下面给出的实现中只排序了arr[1:]，所以最终需要把arr[0]插入到其后的已排序数组中。或许将堆的编号从零开始计算会省去这一步？有点麻烦。</li>
+<li>下面给出的实现中只排序了arr[1:]，所以最终需要把arr[0]插入到其后的已排序数组中。或许将堆的编号从零开始计算会省去这一步？有点麻烦。<strong>这里也可以对exch和sink方法进行修改，将其接受的索引都减1。</strong></li>
 </ol>
 <blockquote>
 <p>这里为什么是从N/2开始？因为通过数学方法可以证明，N/2是从后往前数第一个有左右子节点的节点。</p>
@@ -542,7 +538,11 @@
           <a href="/tags/%E6%8E%92%E5%BA%8F/">排序</a>
           </div>
       <nav class="post-nav">
-        
+        <a class="prev" href="/post/20-12-08%E5%85%B3%E4%BA%8Ejava%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">关于Java运行时的内存区域</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
         <a class="next" href="/post/20-12-06%E5%85%B3%E4%BA%8Eequals%E5%92%8Chashcode%E6%96%B9%E6%B3%95/">
             <span class="next-text nav-default">关于equals和hashCode方法</span>
             <span class="next-text nav-mobile">下一篇</span>

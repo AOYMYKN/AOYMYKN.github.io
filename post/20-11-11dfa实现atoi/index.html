@@ -49,7 +49,7 @@
 <meta itemprop="description" content="使用NFA实现atoi函数">
 <meta itemprop="datePublished" content="2020-11-11T21:36:38+08:00" />
 <meta itemprop="dateModified" content="2020-11-11T21:36:38+08:00" />
-<meta itemprop="wordCount" content="3408">
+<meta itemprop="wordCount" content="3426">
 
 
 
@@ -90,9 +90,7 @@
       </a><a href="/categories/">
         <li class="mobile-menu-item">Categories</li>
       </a><a href="/about/">
-        <li class="mobile-menu-item">About</li>
-      </a><a href="/java/">
-        <li class="mobile-menu-item">Java</li>
+        <li class="mobile-menu-item"></li>
       </a>
   </ul>
 </nav>
@@ -113,9 +111,7 @@
       </li><li class="menu-item">
         <a class="menu-item-link" href="/categories/">Categories</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/">About</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/java/">Java</a>
+        <a class="menu-item-link" href="/about/"></a>
       </li>
   </ul>
 </nav>
@@ -134,7 +130,7 @@
         <div class="post-category">
             <a href="/categories/%E7%AE%97%E6%B3%95/"> 算法 </a>
             </div>
-          <span class="more-meta"> 约 3408 字 </span>
+          <span class="more-meta"> 约 3426 字 </span>
           <span class="more-meta"> 预计阅读 7 分钟 </span>
         
       </div>
@@ -232,6 +228,7 @@
 </span><span class="lnt">54
 </span><span class="lnt">55
 </span><span class="lnt">56
+</span><span class="lnt">57
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-java" data-lang="java"><span class="kt">int</span> <span class="nf">myAtoi</span><span class="o">(</span><span class="n">String</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
@@ -265,7 +262,8 @@
 </span><span class="c1"></span>    <span class="k">if</span> <span class="o">(</span><span class="n">first</span> <span class="o">==</span> <span class="sc">&#39;-&#39;</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">positive</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
         <span class="n">pointer</span><span class="o">++;</span>
-    <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">first</span> <span class="o">==</span> <span class="sc">&#39;+&#39;</span><span class="o">)</span>
+    <span class="o">}</span> 
+    <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">first</span> <span class="o">==</span> <span class="sc">&#39;+&#39;</span><span class="o">)</span>
         <span class="n">pointer</span><span class="o">++;</span>
 
     <span class="k">if</span> <span class="o">(!</span><span class="n">Character</span><span class="o">.</span><span class="na">isDigit</span><span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">pointer</span><span class="o">)))</span>
@@ -292,7 +290,7 @@
 <span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>可以看到，这个实现是非常……臃肿的，代码并不好修改（也不好看），if和return到处都是。虽然我no bug AC了，但是这绝对是机缘巧合……</p>
+</div><p>可以看到，这个实现是非常……臃肿的，代码并不好修改（也不好看），if和return到处都是。虽然我no bug AC了，但是这绝对是机缘巧合。我码力不足以一次性搞定这样多分支的玩意。</p>
 <p>于是去翻了下题解，卧槽？DFA？还有这种操作？原来这种流程复杂的玩意可以用自动机优雅地解决……我是没想到编译原理里的东西可以用到这里……这必须得学习一波了。</p>
 <h1 id="dfa的实现">DFA的实现</h1>
 <p>状态转移图如下，start为初始，signed为判断正负，in_number则是正在处理有效数字，end为转换失败或转换完成</p>
@@ -661,7 +659,7 @@
 </tbody>
 </table>
 <p>这里需要注意的是, -.1e10是合法的，-1.e10是合法的，但是-.e10是不合法的，1.是合法的，.1是合法的，但.是不合法的，因此显然需要保存是否已经检测到数字……</p>
-<p>不过可以定两个小数点的状态，让start-&gt;dot-&gt;digit和start-&gt;digit-&gt;dot两条路径不经过同一个dot状态，就如下面官方题解给出的状态转移表……这样也不需要做多余判定了。两个状态可以写叫……POINT_WITH_INT和POINT_WITHOUT_INT</p>
+<p>不过可以定两个小数点的状态，让start-&gt;dot-&gt;digit和start-&gt;digit-&gt;dot两条路径不经过同一个dot状态，就如下面官方题解给出的状态转移表……这样也不需要做多余判定了。两个状态可以叫做POINT_WITH_INT和POINT_WITHOUT_INT</p>
 <p>下面是实现——</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -940,7 +938,7 @@
       <nav class="post-nav">
         <a class="prev" href="/post/20-11-13%E5%85%B3%E4%BA%8Ejava%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">关于java的面向对象</span>
+            <span class="prev-text nav-default">概观java的面向对象</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
         

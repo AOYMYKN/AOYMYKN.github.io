@@ -6,23 +6,32 @@
     <description>Recent content on AOYMYKN的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 07 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://aoymykn.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 08 Dec 2020 16:17:33 +0800</lastBuildDate><atom:link href="http://aoymykn.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>About</title>
+      <title></title>
       <link>http://aoymykn.github.io/about/</link>
       <pubDate>Thu, 20 Aug 2020 21:38:52 +0800</pubDate>
       
       <guid>http://aoymykn.github.io/about/</guid>
-      <description>你好，我是友纪，目前学习java，算法和计算机基础中 这个页面已经来访了—— 打算按这个书单开始努力—— java核心技术 卷1 前六章 Java编程思</description>
+      <description>你好，我是友纪，目前学习java，算法和计算机基础中 这个页面已经来访了—— 关于学习 我很有自知之明——菜的一笔。所以必须时刻保持学习才行。无论</description>
     </item>
     
     <item>
-      <title>关于排序算法</title>
+      <title>关于Java运行时的内存区域</title>
+      <link>http://aoymykn.github.io/post/20-12-08%E5%85%B3%E4%BA%8Ejava%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/</link>
+      <pubDate>Tue, 08 Dec 2020 16:17:33 +0800</pubDate>
+      
+      <guid>http://aoymykn.github.io/post/20-12-08%E5%85%B3%E4%BA%8Ejava%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/</guid>
+      <description>初步了解JVM</description>
+    </item>
+    
+    <item>
+      <title>一些经典排序算法及其Java实现</title>
       <link>http://aoymykn.github.io/post/20-12-07%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</link>
       <pubDate>Mon, 07 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>http://aoymykn.github.io/post/20-12-07%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</guid>
-      <description>学习各种排序算法</description>
+      <description>排序之于算法，就如小星星之于音乐</description>
     </item>
     
     <item>
@@ -35,7 +44,7 @@
     </item>
     
     <item>
-      <title>关于堆（heap）</title>
+      <title>关于数据结构中的堆（heap）</title>
       <link>http://aoymykn.github.io/post/20-12-03%E5%85%B3%E4%BA%8E%E5%A0%86heap/</link>
       <pubDate>Thu, 03 Dec 2020 15:29:28 +0800</pubDate>
       
@@ -53,7 +62,7 @@
     </item>
     
     <item>
-      <title>关于java的面向对象</title>
+      <title>概观java的面向对象</title>
       <link>http://aoymykn.github.io/post/20-11-13%E5%85%B3%E4%BA%8Ejava%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</link>
       <pubDate>Fri, 13 Nov 2020 14:09:55 +0800</pubDate>
       

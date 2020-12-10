@@ -8,12 +8,12 @@
     <language>zh-cn</language>
     <lastBuildDate>Mon, 07 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://aoymykn.github.io/categories/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>关于排序算法</title>
+      <title>一些经典排序算法及其Java实现</title>
       <link>http://aoymykn.github.io/post/20-12-07%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</link>
       <pubDate>Mon, 07 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>http://aoymykn.github.io/post/20-12-07%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</guid>
-      <description>学习各种排序算法</description>
+      <description>排序之于算法，就如小星星之于音乐</description>
     </item>
     
     <item>
