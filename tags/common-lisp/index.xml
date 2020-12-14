@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>common lisp on AOYMYKN的博客</title>
+    <title>common Lisp on AOYMYKN的博客</title>
     <link>http://aoymykn.github.io/tags/common-lisp/</link>
-    <description>Recent content in common lisp on AOYMYKN的博客</description>
+    <description>Recent content in common Lisp on AOYMYKN的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 01 Dec 2020 17:27:55 +0800</lastBuildDate><atom:link href="http://aoymykn.github.io/tags/common-lisp/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 04 Jul 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://aoymykn.github.io/tags/common-lisp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>一些lisp参考资料</title>
+      <link>http://aoymykn.github.io/post/20-07-04%E4%B8%80%E4%BA%9Blisp%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99/</link>
+      <pubDate>Sat, 04 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://aoymykn.github.io/post/20-07-04%E4%B8%80%E4%BA%9Blisp%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99/</guid>
+      <description>RT</description>
+    </item>
+    
     <item>
       <title>Atom下common lisp的环境搭建</title>
       <link>http://aoymykn.github.io/post/20-06-30atom%E4%B8%8Bcommon_lisp%E7%9A%84%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
-      <pubDate>Tue, 01 Dec 2020 17:27:55 +0800</pubDate>
+      <pubDate>Tue, 30 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>http://aoymykn.github.io/post/20-06-30atom%E4%B8%8Bcommon_lisp%E7%9A%84%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
       <description>atom+slima搭建Common Lisp环境</description>

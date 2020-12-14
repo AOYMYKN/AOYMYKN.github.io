@@ -49,11 +49,11 @@
 <meta itemprop="description" content="粗略的不能再粗略，就像古希腊人的科学，直观，具体，广泛但不深入。但是认识终究要经过这一步。">
 <meta itemprop="datePublished" content="2020-12-10T21:29:13+08:00" />
 <meta itemprop="dateModified" content="2020-12-10T21:29:13+08:00" />
-<meta itemprop="wordCount" content="1269">
+<meta itemprop="wordCount" content="1284">
 
 
 
-<meta itemprop="keywords" content="JVM," />
+<meta itemprop="keywords" content="JVM,Java," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="点击Run按钮时，JVM做了什么？"/>
 <meta name="twitter:description" content="粗略的不能再粗略，就像古希腊人的科学，直观，具体，广泛但不深入。但是认识终究要经过这一步。"/>
@@ -90,7 +90,7 @@
       </a><a href="/categories/">
         <li class="mobile-menu-item">Categories</li>
       </a><a href="/about/">
-        <li class="mobile-menu-item"></li>
+        <li class="mobile-menu-item">About</li>
       </a>
   </ul>
 </nav>
@@ -111,7 +111,7 @@
       </li><li class="menu-item">
         <a class="menu-item-link" href="/categories/">Categories</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/"></a>
+        <a class="menu-item-link" href="/about/">About</a>
       </li>
   </ul>
 </nav>
@@ -130,7 +130,7 @@
         <div class="post-category">
             <a href="/categories/java/"> Java </a>
             </div>
-          <span class="more-meta"> 约 1269 字 </span>
+          <span class="more-meta"> 约 1284 字 </span>
           <span class="more-meta"> 预计阅读 3 分钟 </span>
         
       </div>
@@ -184,11 +184,11 @@
 </div>
 </div><p>当执行Main类的main方法时（这里就假设我们在使用IDEA，点击了main前面的▶️按钮吧！）</p>
 <ol>
-<li>首先，我们调用javac，将Main.java编译成java字节码文件，即Main.class。</li>
-<li>使用java执行Main.class文件。这时，一个JVM进程被启动，它通过classpath路径找到Main.class文件，使用类加载器（<code>ClassLoader</code>）将类信息加载到运行时数据区的方法区内。然后，在堆中生成指向类信息的<code>Class</code>对象。这是Java的类加载过程（这里得提出一个问题，Class对象中究竟存储了什么？不会只有一个指向类信息的指针和一堆偏移量吧？）。然后是链接和初始化。</li>
+<li>首先，调用javac，将Main.java编译成java字节码文件，即Main.class。</li>
+<li>使用java执行Main.class文件。这时，一个JVM进程被启动，它通过classpath路径找到Main.class文件，使用类加载器（<code>ClassLoader</code>）将<strong>类信息加载到运行时数据区的方法区</strong>内。然后，在堆中生成指向类信息的<code>Class</code>对象。这是Java的类加载过程（这里得提出一个问题，Class对象中究竟存储了什么？不会只有一个指向类信息的指针和一堆偏移量吧？）。然后是链接和初始化。</li>
 <li>JVM找到Main的主程序入口（应该是通过Class对象找到的），执行main方法。</li>
 <li>main方法的第一句为<code>String stud = new Student(&quot;arisa&quot;)</code>，它要求JVM创建一个Student对象的实例。JVM将首先检查Student类是否被加载（如果没有加载，则方法区中不存在Student类的信息，因此无法创建实例）。这里显然是未被加载的。因此，将会进行类的加载过程。
-进行处理的首先是<code>AppClassLoader</code>。（当然，在这之前总得将Student.java编译并弄到内存里）它将委托它的父类加载器<code>ExtClassLoader</code>进行加载，<code>ExtClassLoader</code>再委托它的父类加载器<code>BootstrapClassLoader</code>进行加载。<code>BootstrapClassLoader</code>没有父类加载器，因而它将尝试加载，加载失败后，它将返回，由<code>ExtClassLoader</code>进行加载，其也将加载失败，由<code>AppClassLoader</code>进行加载。加载过程同Main.class相同。</li>
+进行处理的首先是<code>AppClassLoader</code>。（当然，在这之前总得将Student.java编译并弄到内存里）它将委托它的父类加载器<code>ExtClassLoader</code>进行加载，<code>ExtClassLoader</code>再委托它的父类加载器<code>BootstrapClassLoader</code>进行加载。<code>BootstrapClassLoader</code>没有父类加载器，因而它将尝试加载，加载失败后，它将返回，由<code>ExtClassLoader</code>进行加载，其也将加载失败，由<code>AppClassLoader</code>进行加载。这就是类加载器的所谓双亲委派机制。Main.class也是如此加载的。</li>
 <li>类加载后，JVM在<strong>堆</strong>中分配一个新的Student实例的内存。然后调用构造函数初始化Student的实例。每个Student的实例都持有对<strong>方法区中Student类信息</strong>的引用。之后，将该实例的地址赋给stud。这里的stud称为对象引用，它指向的堆中实际的对象称为对象实例。stud存储在栈中，而它指向的对象实例存在于堆中。</li>
 <li>然后它准备执行stud.sayName()。JVM根据stud这个引用找到在堆中的Student对象实例，然后根据Student对象持有的引用定位到方法区中Student的类信息中的方法表，获得sayName()的字节码地址。</li>
 <li>将stud作为参数（应该……如此），执行sayName()方法。（就像python中定义实例方法需要显式指明self一样，实例方法其实是需要对象实例作为参数的，因为实例方法其实也是只存在一个的，就如静态方法一样，它无法保存类的实例的地址在方法里，所以类的实例要被给予给实例方法，这时，this指针就指向该实例了）。</li>
@@ -200,9 +200,14 @@
 <footer class="post-footer">
       <div class="post-tags">
           <a href="/tags/jvm/">JVM</a>
+          <a href="/tags/java/">Java</a>
           </div>
       <nav class="post-nav">
-        
+        <a class="prev" href="/post/20-12-11%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3%E5%AE%9A%E4%B9%89/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">数据结构为什么使用接口定义？</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
         <a class="next" href="/post/20-12-10%E5%85%B3%E4%BA%8E%E7%B1%BB%E7%9A%84%E5%8A%A0%E8%BD%BD/">
             <span class="next-text nav-default">关于类的加载</span>
             <span class="next-text nav-mobile">下一篇</span>

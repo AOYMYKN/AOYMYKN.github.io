@@ -49,7 +49,7 @@
 <meta itemprop="description" content="思而不学则殆">
 <meta itemprop="datePublished" content="2020-11-13T14:09:55+08:00" />
 <meta itemprop="dateModified" content="2020-11-13T14:09:55+08:00" />
-<meta itemprop="wordCount" content="4707">
+<meta itemprop="wordCount" content="4774">
 
 
 
@@ -90,7 +90,7 @@
       </a><a href="/categories/">
         <li class="mobile-menu-item">Categories</li>
       </a><a href="/about/">
-        <li class="mobile-menu-item"></li>
+        <li class="mobile-menu-item">About</li>
       </a>
   </ul>
 </nav>
@@ -111,7 +111,7 @@
       </li><li class="menu-item">
         <a class="menu-item-link" href="/categories/">Categories</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/about/"></a>
+        <a class="menu-item-link" href="/about/">About</a>
       </li>
   </ul>
 </nav>
@@ -130,7 +130,7 @@
         <div class="post-category">
             <a href="/categories/java/"> Java </a>
             </div>
-          <span class="more-meta"> 约 4707 字 </span>
+          <span class="more-meta"> 约 4774 字 </span>
           <span class="more-meta"> 预计阅读 10 分钟 </span>
         
       </div>
@@ -169,7 +169,10 @@
   </div>
 </div>
     <div class="post-content">
-      <h1 id="类和实例的初始化">类和实例的初始化</h1>
+      <div class='align-center'>
+<p><strong>这一篇文章有非常多的错误……或许将来得“重构”。</strong></p>
+</div>
+<h1 id="类和实例的初始化">类和实例的初始化</h1>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -469,10 +472,13 @@ class java.lang.Integer
 <h1 id="接口">接口</h1>
 <p>接口(interface)是对类的一组<strong>需求描述</strong>，它们要遵从接口描述的统一格式进行定义（也因此可以统一地被使用，最典型的就是Comparable接口了，实现(implement)了这个接口的类都可以使用Arrays.sort方法进行排序，就像某种标准化的协议一样。</p>
 <p>同时，接口可以被作为声明类型或强制转换的结果，就如抽象类一样。instanceof可以查看类是否实现了这个接口。</p>
-<p>接口内可以增加静态方法和静态常量，借口方法可以被提供一个默认(default)实现。</p>
+<p>接口内可以增加静态方法和静态常量，接口方法可以被提供一个默认(default)实现。</p>
 <h1 id="lambda表达式和函数式接口">lambda表达式和函数式接口</h1>
+<div class='align-center'>
+<p><strong>lambda表达式的实质应该是匿名实现类。</strong></p>
+</div>
 <p>lambda表达式为Java提供了简易的函数式编程能力。Java的lambda表达式实质上是一种<strong>函数式接口</strong>（这是为了语言的简单性，一致性）。</p>
-<p>函数式接口指的是只有一个抽象方法的接口。<strong>函数式接口是能实例化的（！？）</strong>，但是需要在其后跟随代码块（或者lambda表达式）来实现其抽象方法。</p>
+<p>函数式接口指的是只有一个抽象方法的接口。<strong>函数式接口是能实例化的（一切接口都能够作为声明类型，但是不能作为实际类型）</strong>，但是需要在其后跟随代码块（或者lambda表达式）来实现其抽象方法。</p>
 <p>lambda一个常用的地方是排序方法中的自定义比较器——</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -690,9 +696,9 @@ class java.lang.Integer
           <a href="/tags/oop/">OOP</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/20-06-30atom%E4%B8%8Bcommon_lisp%E7%9A%84%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+        <a class="prev" href="/post/20-12-03%E5%85%B3%E4%BA%8E%E5%A0%86heap/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Atom下common lisp的环境搭建</span>
+            <span class="prev-text nav-default">关于数据结构中的堆（heap）</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
         <a class="next" href="/post/20-11-11dfa%E5%AE%9E%E7%8E%B0atoi/">
