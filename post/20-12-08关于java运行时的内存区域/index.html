@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.77.0 with theme even" />
+<meta name="generator" content="Hugo 0.79.0 with theme even" />
 
 
 <link rel="canonical" href="http://aoymykn.github.io/post/20-12-08%E5%85%B3%E4%BA%8Ejava%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/" />
@@ -49,7 +49,7 @@
 <meta itemprop="description" content="初步了解JVM">
 <meta itemprop="datePublished" content="2020-12-08T16:17:33+08:00" />
 <meta itemprop="dateModified" content="2020-12-09T16:17:33+08:00" />
-<meta itemprop="wordCount" content="4071">
+<meta itemprop="wordCount" content="4110">
 
 
 
@@ -130,7 +130,7 @@
         <div class="post-category">
             <a href="/categories/java/"> Java </a>
             </div>
-          <span class="more-meta"> 约 4071 字 </span>
+          <span class="more-meta"> 约 4110 字 </span>
           <span class="more-meta"> 预计阅读 9 分钟 </span>
         
       </div>
@@ -207,6 +207,9 @@
 <h2 id="程序计数器pc">程序计数器（PC）</h2>
 <p>程序计数器（Program Counter Register）可以认为是一个线程所执行的字节码的行号指示器。<strong>字节码解释器工作时通过改变这个计数器的值来选取下一条需要执行的字节码指令</strong>。分支，循环，跳转，异常处理等功能都需要PC来完成。在多线程切换时，每个线程都需要记录当前线程执行的位置，从而在获得运行权限的时候能够从切换前的位置继续执行（<strong>线程恢复</strong>），这也是PC的工作。</p>
 <p>程序计数器是唯一不会出现<code>OutOfMemoryError</code>的内存区域。</p>
+<blockquote>
+<p>PC在执行native方法的时候，其值为undefined（？），即不起作用。</p>
+</blockquote>
 <h2 id="本地方法栈native-method-stack">本地方法栈（Native Method Stack)</h2>
 <p>本地方法栈同虚拟机栈功能相似，唯一的区别在于虚拟机栈用来执行Java方法，本地方法栈则用来执行Native方法。</p>
 <h2 id="堆heap存放对象实例">堆（Heap）——存放对象实例</h2>
