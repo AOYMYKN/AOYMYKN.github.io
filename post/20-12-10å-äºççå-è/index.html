@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>关于类的加载 - AOYMYKN的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="AOYMYKN" /><meta name="description" content="从具体到抽象，再从抽象到具体。这是认识的一般规律。" /><meta name="keywords" content="Java, 后端, 计算机, 编程, 数据结构, 算法, 马克思主义, marxism, CS, IT" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.79.0 with theme even" />
+
+
+<link rel="canonical" href="http://aoymykn.github.io/post/20-12-10%C3%A5-%C3%A4%C2%BA%C3%A7%C3%A7%C3%A5-%C3%A8/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="关于类的加载" />
+<meta property="og:description" content="从具体到抽象，再从抽象到具体。这是认识的一般规律。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://aoymykn.github.io/post/20-12-10%C3%A5-%C3%A4%C2%BA%C3%A7%C3%A7%C3%A5-%C3%A8/" />
+<meta property="article:published_time" content="2020-12-10T08:39:35+08:00" />
+<meta property="article:modified_time" content="2020-12-10T08:39:35+08:00" />
+<meta itemprop="name" content="关于类的加载">
+<meta itemprop="description" content="从具体到抽象，再从抽象到具体。这是认识的一般规律。">
+<meta itemprop="datePublished" content="2020-12-10T08:39:35+08:00" />
+<meta itemprop="dateModified" content="2020-12-10T08:39:35+08:00" />
+<meta itemprop="wordCount" content="3017">
+
+
+
+<meta itemprop="keywords" content="Java,JVM," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="关于类的加载"/>
+<meta name="twitter:description" content="从具体到抽象，再从抽象到具体。这是认识的一般规律。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">AOYMYKN</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">AOYMYKN</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">关于类的加载</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-12-10 </span>
+        <div class="post-category">
+            <a href="/categories/java/"> Java </a>
+            </div>
+          <span class="more-meta"> 约 3017 字 </span>
+          <span class="more-meta"> 预计阅读 7 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#类的加载过程">类的加载过程</a>
+      <ul>
+        <li><a href="#加载">加载</a></li>
+        <li><a href="#验证">验证</a></li>
+        <li><a href="#准备">准备</a></li>
+        <li><a href="#解析">解析</a></li>
+        <li><a href="#初始化">初始化</a></li>
+        <li><a href="#卸载">卸载</a></li>
+      </ul>
+    </li>
+    <li><a href="#类加载器classloader">类加载器（ClassLoader）</a>
+      <ul>
+        <li><a href="#双亲委派模型">双亲委派模型</a></li>
+        <li><a href="#自定义类加载器">自定义类加载器</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!--Hello, Happy World-->
+<h1 id="类的加载过程">类的加载过程</h1>
+<p>当我们进行new一个对象，或者使用对象的静态方法，静态变量等操作时，JVM会先检查类是否被加载（我们知道，它被加载到方法区），如果未加载，则使用类加载器（<code>ClassLoader</code>）将类进行加载并<strong>初始化</strong>。这里需要注意的是，初始化并非是一定发生的。调用类的静态常量（静态常量存在方法区中，在链接阶段被初始化，静态变量也存在于方法区中，不过要在初始化阶段通过<code>&lt;clinit&gt;()</code>方法初始化）等操作并不会触发类的初始化。</p>
+<p>类的生命周期可以分为7步——<strong>加载</strong>，<strong>验证</strong>，<strong>准备</strong>，<strong>解析</strong>，<strong>初始化</strong>，<strong>使用</strong>和<strong>卸载</strong>。其中，类的初始化过程为前五步。</p>
+<p>验证，准备，解析过程可以归结为<strong>链接</strong>过程。因而，一般说类的初始化过程分为三步——<strong>加载</strong>，<strong>链接</strong>，<strong>初始化</strong>。</p>
+<p>再次强调，类的初始化不是一定发生的。但是如果要使用一个类，其加载和链接是必定发生的。</p>
+<h2 id="加载">加载</h2>
+<p>加载主要完成——</p>
+<ol>
+<li>通过全类名获取定义类的二进制字节流（通过ZIP，JAR包，Class文件以及其他）到内存中</li>
+<li>将字节流代表的静态存储结构（也就是Class字节码文件）转换为方法区的运行时数据结构</li>
+<li>在<strong>堆</strong>（！）中生成一个代表该类的<code>java.lang.Class</code>对象，它是方法区的这些数据的访问入口</li>
+</ol>
+<p>总之，是把Class字节码加载到方法区中，然后在堆中生成<code>Class</code>对象作为其入口。</p>
+<p>其中，<strong>第一步（获取类的二进制字节流）是高度可自定义的。可以自定义类加载器（重写类加载器的<code>loadClass()</code>方法）来控制字节流的获取方式。</strong></p>
+<blockquote>
+<p>数组类型不通过类加载器执行，而是JVM直接创建。</p>
+</blockquote>
+<p>关于这一步，<strong>类加载器</strong>和<strong>双亲委派机制</strong>是需要学习的。</p>
+<p>加载阶段和链接阶段是可以并行执行的。</p>
+<h2 id="验证">验证</h2>
+<p>验证是链接的第一步，它主要是验证Class文件（当然，已经被加载到方法区了）的合法性。</p>
+<p><img src="https://i.loli.net/2020/12/10/BPLWlZMCSYReHDc.png" alt=""></p>
+<h2 id="准备">准备</h2>
+<p>准备阶段主要<strong>为类变量（只有static变量！）分配内存（在方法区中！）并设置初始值</strong>。</p>
+<p>该阶段，静态变量和静态常量的行为是不同的，比如我们定义<code>public static int variable = 123; public static final int constant = 456;</code>，在这一步中，<code>variable</code>会被赋<code>int</code>型的零值（0），而<code>constant</code>会被赋值456。这表明——</p>
+<ul>
+<li>静态变量的<strong>真正的</strong>初始化在类初始化过程<code>&lt;clinit&gt;()</code>方法中进行。这一阶段只会被赋变量类型的初始值。</li>
+<li>静态常量的初始化在准备（链接）阶段就被完成。</li>
+</ul>
+<p>在后面的一些实例中可以看到，调用类的静态常量不会触发类的初始化操作，就是因为其在准备阶段已经被初始化过了，可以直接使用。</p>
+<h2 id="解析">解析</h2>
+<p>解析就是将常量池中的符号引用替换为直接引用的过程。解析动作主要针对类或接口，字段（field），类方法，接口方法，方法类型，方法句柄和调用限定符这7类符号引用进行。</p>
+<p>这里的直接引用是直接指向目标的指针，相对偏移量或一个间接定位到目标的句柄。在运行时，这些符号引用必须被转换成直接引用，因此JVM才能明确获得它们的位置。比如，当程序要执行一个方法，系统就需要明确知道这个方法所在的位置。JVM为每个类都准备了一个方法表来存放类中所有的方法。当需要调用一个类的方法的时候，只需要知道它在方法表中的偏移量。（有点麻，这个之后肯定还得继续学习）</p>
+<p>总之，<strong>解析是虚拟机将常量池中的符号应用替换为直接引用的过程，也就是得到类或字段，方法在内存中的指针或偏移量</strong>。</p>
+<h2 id="初始化">初始化</h2>
+<p>初始化是类加载的最后一步，其真正地执行类中定义的Java程序代码（static声明和static初始化块）。它会合并所有static的代码，将其组合为<code>&lt;clinit&gt;()</code>方法并执行。类的初始化并非是一定会被执行的。</p>
+<blockquote>
+<p>类的初始化只有在主动使用类（静态变量，静态方法，实例变量，实例方法……）时出现，其有五种情况——</p>
+<ol>
+<li>当遇到 new 、 getstatic、putstatic或invokestatic这4条直接码指令时，比如 new 一个类，读取一个静态字段(未被 final 修饰)、或调用一个类的静态方法时。
+<ul>
+<li>当jvm执行new指令时会初始化类。即当程序创建一个类的实例对象。</li>
+<li>当jvm执行getstatic指令时会初始化类。即程序访问类的静态变量(不是静态常量，常量会被加载到运行时常量池)。</li>
+<li>当jvm执行putstatic指令时会初始化类。即程序给类的静态变量赋值。</li>
+<li>当jvm执行invokestatic指令时会初始化类。即程序调用类的静态方法。</li>
+</ul>
+</li>
+<li>使用 <code>java.lang.reflect</code> 包的方法对类进行反射调用时如Class.forname(&quot;&hellip;&quot;),newInstance()等等。 ，如果类没初始化，需要触发其初始化。</li>
+<li>初始化一个类，如果其父类还未初始化，则先触发该父类的初始化。</li>
+<li>当虚拟机启动时，用户需要定义一个要执行的主类 (包含 main 方法的那个类)，虚拟机会先初始化这个类。</li>
+<li>MethodHandle和VarHandle可以看作是轻量级的反射调用机制，而要想使用这2个调用， 就必须先使用findStaticVarHandle来初始化要调用的类。</li>
+<li><strong>「补充<a href="https://github.com/Snailclimb/JavaGuide/issues/745">issue745</a>」</strong> 当一个接口中定义了JDK8新加入的默认方法（被default关键字修饰的接口方法）时，如果有这个接口的实现类发生了初始化，那该接口要在其之前被初始化。</li>
+</ol>
+</blockquote>
+<h2 id="卸载">卸载</h2>
+<p>类的卸载就是该类的<code>Class</code>对象被GC。</p>
+<p>类的卸载有三个前提——</p>
+<ol>
+<li>该类所有实例对象被GC，即堆中不存在该类的实例对象</li>
+<li>该类没有在其它任何地方被引用</li>
+<li><strong>该类的类加载器实例被GC</strong></li>
+</ol>
+<p><strong>JDK自带的三个类加载器BootstrapClassLoader,ExtClassLoader,AppClassLoader不会被GC，因而它们加载的类不会被卸载</strong>。</p>
+<p>学这些只是让我更加清楚地认识到，JVM和字节码是必须要深入学习的…</p>
+<h1 id="类加载器classloader">类加载器（ClassLoader）</h1>
+<p>类加载器的作用就是将.class文件加载到内存的方法区中。</p>
+<p>Java内置了三个ClassLoader。除了BootstrapClassLoader，其他类加载器都由Java实现，它们都继承自java.lang.ClassLoader。按加载的优先级，它们由顶层向底层分为：</p>
+<ol>
+<li><code>BootstrapClassLoader</code>是启动类加载器，它由C++实现，加载<code>%JAVA_HOME%/lib</code>目录下的jar包和类，或者被<code>-Xbootclasspath</code>参数指定的路径中的所有类。</li>
+<li><code>ExtensionClassLoader</code>是扩展类加载器，它加载目录<code>%JRE_HOME%/lib/ext</code>下的jar包和类，或者被<code>java.ext.dirs</code>系统变量所指定路径下的jar包。</li>
+<li><code>AppClassLoader</code>是应用程序类加载器，它面向用户，加载当前应用classpath下所有jar包和类。</li>
+</ol>
+<h2 id="双亲委派模型">双亲委派模型</h2>
+<p>每一个类都有加载它的类加载器。类加载器默认使用<strong>双亲委派模型</strong>。即类加载时，系统（该类加载器）首先判断当前类是否被加载过，如果已加载则直接返回，如果未加载，则尝试加载。</p>
+<p>加载时，该类加载器首先会把请求委派给父类加载器的<code>loadClass()</code>处理。因此，该请求会被递归传送到顶层的启动类加载器<code>BootstrapClassLoader</code>中。当父类加载器无法处理时，才由自己处理。当父类加载器为null时，会启动类加载器<code>BootstrapClassLoader</code>作为父类加载器。</p>
+<p><strong>双亲委派模型可以避免类的重复加载，并保证Java的核心API不被篡改</strong>。</p>
+<p>应该注意，这里的“双亲”只是用来指代“辈分”，而不是用来指代“父母”。</p>
+<h2 id="自定义类加载器">自定义类加载器</h2>
+<p>通过继承<code>ClassLoader</code>，我们可以自定义自己的类加载器。</p>
+<p><img src="https://i.loli.net/2020/12/10/iGmcEZOxaTwkBJU.png" alt=""></p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/java/">Java</a>
+          <a href="/tags/jvm/">JVM</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/20-12-10%C3%A7%C3%A5run%C3%A6%C3%A9%C3%A6jvm%C3%A5%C3%A4%C2%BA%C3%A4%C3%A4/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">点击Run按钮时，JVM做了什么？</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/20-12-08%C3%A5-%C3%A4%C2%BAjava%C3%A8%C3%A8%C3%A6%C3%A7%C3%A5-%C3%A5%C3%A5%C2%BA%C3%A5/">
+            <span class="next-text nav-default">关于Java运行时的内存区域</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2020-12-10 08:39:35 \u002b0800 CST',
+        title: '关于类的加载',
+        clientID: 'a6d39dcb11d3911b23d9',
+        clientSecret: 'a1b3afce97c2b2c21ef8ad1f40b0fce20a334be0',
+        repo: 'comments',
+        owner: 'AOYMYKN',
+        admin: ['AOYMYKN'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:cs596065766@hotmail.com" class="iconfont icon-email" title="email"></a>
+  <a href="http://aoymykn.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>AOYMYKN</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

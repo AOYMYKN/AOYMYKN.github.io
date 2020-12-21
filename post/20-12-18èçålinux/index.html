@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>20-12-18迁移到linux - AOYMYKN的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="AOYMYKN" /><meta name="description" content="打算抛弃windows，转战linux了。原因主要有三—— 最近win10用起来越来越难受，CPU和内存莫名奇妙占用很多，有时候还会出现顿卡（" /><meta name="keywords" content="Java, 后端, 计算机, 编程, 数据结构, 算法, 马克思主义, marxism, CS, IT" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.79.0 with theme even" />
+
+
+<link rel="canonical" href="http://aoymykn.github.io/post/20-12-18%C3%A8%C3%A7%C3%A5linux/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="20-12-18迁移到linux" />
+<meta property="og:description" content="打算抛弃windows，转战linux了。原因主要有三—— 最近win10用起来越来越难受，CPU和内存莫名奇妙占用很多，有时候还会出现顿卡（" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://aoymykn.github.io/post/20-12-18%C3%A8%C3%A7%C3%A5linux/" />
+<meta property="article:published_time" content="2020-12-18T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-12-19T00:00:00+00:00" />
+<meta itemprop="name" content="20-12-18迁移到linux">
+<meta itemprop="description" content="打算抛弃windows，转战linux了。原因主要有三—— 最近win10用起来越来越难受，CPU和内存莫名奇妙占用很多，有时候还会出现顿卡（">
+<meta itemprop="datePublished" content="2020-12-18T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-12-19T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1030">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="20-12-18迁移到linux"/>
+<meta name="twitter:description" content="打算抛弃windows，转战linux了。原因主要有三—— 最近win10用起来越来越难受，CPU和内存莫名奇妙占用很多，有时候还会出现顿卡（"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">AOYMYKN</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">AOYMYKN</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">20-12-18迁移到linux</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-12-18 </span>
+        <div class="post-category">
+            <a href="/categories/linux/"> linux </a>
+            </div>
+          <span class="more-meta"> 约 1030 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
+        
+      </div>
+    </header>
+
+    
+    <div class="post-content">
+      <!--Hello, Happy World-->
+<p>打算抛弃windows，转战linux了。原因主要有三——</p>
+<ol>
+<li>最近win10用起来越来越难受，CPU和内存莫名奇妙占用很多，有时候还会出现顿卡（即使性能还远远没有被榨干），程序也时而出现未响应的现象。用的杀软（火绒）也突然发疯，啥都没干却占用20%多的CPU……总之一万个不爽，受不了了。</li>
+<li>之前的面试经验表明，那些企业都更喜欢有linux经验的。</li>
+<li>我非常向往GNU所提倡的自由软件的概念，我想拥抱这个大家庭。而现在正是时候了。</li>
+</ol>
+<p>不过仍然得权衡利弊，迁移到linux上也是有一些缺点的——</p>
+<ol>
+<li>需要花很多时间来熟练命令行操作，以及常用的程序的使用，操作系统的内核（当然，这是必由之路，幸好我已经有CLI的基础了，也使用过一段时间的Vim）</li>
+<li>基于文本的配置虽然强大，但也带来了弊端，你必须了解这个软件的方方面面才能正确有效地配置，这要求实际上比图形界面的配置高很多，而且必须得有<strong>手册</strong>才能正确配置。</li>
+<li>一些常用软件的缺失，如输入法（部分是这样，之前使用manjaro，它居然不自带输入法…当时也不知道输入法是用啥软件配置的，到最后也没成，改用openSUSE，倒是自带输入法了），Word等办公软件（这个有很好的替代品），TIM等聊天软件（这个没得选……想着可以用wine或者安卓模拟器解决），以及绘画软件——目前linux上似乎没有什么很好的替代品，GIMP用不惯（<strong>Krita</strong>似乎不错），而且驱动的支持也是个问题&hellip;这个牌子的驱动在linux上是非常不完善的，功能完全就是糊弄人。或许可能因为这个原因，我必须得装个双系统，以运行PS。</li>
+<li>linux可能会比较不稳定。不过可以选择更新尽量长期的版本。</li>
+<li>梯子需要自己手动配置，不能像win下一键完成。</li>
+</ol>
+<p>一言既出，驷马难追，现在就上吧！我选择openSUSE leap KDE版！</p>
+<p>装完了……配置过程懒得写了……摸了。下周学并发，准备开题答辩。等搞定了面试和答辩，这一学期就过去了。寒假继续坚持学习，记博客。</p>
+<hr>
+<p>用了一两天，感觉它的包管理器舒服是舒服，但是好多软件都……太老了，比如它的sbcl居然是1.4的版本…甚至都没有format函数？？？想自己去编译吧，说runtime要求的glibc的版本不够，又不敢自己去编译……早知道不用这个leap版了…又想去整arch linux了XD。等将来再说吧。</p>
+<p>顺便，决定还是保留一个win系统用来画画，除非将来使用wacom数位板/屏——linux对wacom的支持非常好。这个板子的linux驱动是完全的残废。</p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/20-12-13%C3%A5csp%C3%A7%C3%A5%C3%A7/">
+            <span class="next-text nav-default">对CSP的复盘</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2020-12-18 00:00:00 \u002b0000 UTC',
+        title: '20-12-18迁移到linux',
+        clientID: 'a6d39dcb11d3911b23d9',
+        clientSecret: 'a1b3afce97c2b2c21ef8ad1f40b0fce20a334be0',
+        repo: 'comments',
+        owner: 'AOYMYKN',
+        admin: ['AOYMYKN'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:cs596065766@hotmail.com" class="iconfont icon-email" title="email"></a>
+  <a href="http://aoymykn.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>AOYMYKN</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
