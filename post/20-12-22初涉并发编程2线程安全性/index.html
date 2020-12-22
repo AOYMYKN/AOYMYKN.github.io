@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>初涉并发编程2——线程安全性 - AOYMYKN的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="AOYMYKN" /><meta name="description" content="此节讲述如何通过同步避免多个线程同一时刻访问相同的数据。" /><meta name="keywords" content="Java, 后端, 计算机, 编程, 数据结构, 算法, 马克思主义, marxism, CS, IT" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.79.1 with theme even" />
+
+
+<link rel="canonical" href="http://aoymykn.github.io/post/20-12-22%E5%88%9D%E6%B6%89%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B2%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E6%80%A7/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c9ac0cd19ce10a4f2eefd4195990291e493e392c8206d6b1583da261e491264a.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="初涉并发编程2——线程安全性" />
+<meta property="og:description" content="此节讲述如何通过同步避免多个线程同一时刻访问相同的数据。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://aoymykn.github.io/post/20-12-22%E5%88%9D%E6%B6%89%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B2%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E6%80%A7/" />
+<meta property="article:published_time" content="2020-12-21T13:23:19+08:00" />
+<meta property="article:modified_time" content="2020-12-21T13:23:19+08:00" />
+<meta itemprop="name" content="初涉并发编程2——线程安全性">
+<meta itemprop="description" content="此节讲述如何通过同步避免多个线程同一时刻访问相同的数据。">
+<meta itemprop="datePublished" content="2020-12-21T13:23:19+08:00" />
+<meta itemprop="dateModified" content="2020-12-21T13:23:19+08:00" />
+<meta itemprop="wordCount" content="3379">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="初涉并发编程2——线程安全性"/>
+<meta name="twitter:description" content="此节讲述如何通过同步避免多个线程同一时刻访问相同的数据。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">AOYMYKN</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">AOYMYKN</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">初涉并发编程2——线程安全性</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-12-21 </span>
+        <div class="post-category">
+            <a href="/categories/%E5%B9%B6%E5%8F%91/"> 并发 </a>
+            </div>
+          <span class="more-meta"> 约 3379 字 </span>
+          <span class="more-meta"> 预计阅读 7 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#线程安全性">线程安全性</a>
+      <ul>
+        <li><a href="#多线程程序编写的核心">多线程程序编写的核心</a></li>
+        <li><a href="#线程安全类">线程安全类</a></li>
+        <li><a href="#加锁机制">加锁机制</a>
+          <ul>
+            <li><a href="#内置锁">内置锁</a></li>
+          </ul>
+        </li>
+        <li><a href="#用锁保护状态">用锁保护状态</a></li>
+        <li><a href="#活跃性和性能">活跃性和性能</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!--Hello, Happy World-->
+<h1 id="线程安全性">线程安全性</h1>
+<p>此章节讲解线程安全性以及Java提供的一些加锁机制。</p>
+<h2 id="多线程程序编写的核心">多线程程序编写的核心</h2>
+<p>线程和锁之于并发编程，就如工字钢和铆钉之于房屋建筑。要想建筑坚固，钢材和铆钉的正确使用是必要的。要编写<strong>线程安全</strong>的代码，<strong>其核心就在于要对状态访问操作进行管理，特别是对共享的（shared）和可变的（Mutable）状态的访问</strong>。这里的状态指的是存储在状态变量（如静态/实例域）中的数据。其也可能包括其他依赖对象的域，比如Map的状态不仅保存在HashMap对象本身，也抱存在无数个Map.Entry对象中。对象的状态包含任何<strong>外部可见</strong>的数据。</p>
+<p>“共享”意味着对象能够被多个线程<strong>同时</strong>访问，“可变”指对象的值在生命周期内会发生变化。线程安全要求各线程以同步机制来协调对可变状态的访问。</p>
+<p><del>Java提供的主要同步机制是synchronized关键字，但是volatile，显式锁（Explicit Lock）和原子变量等也是同步机制的一部分。</del>（这句话可能已经过时了）</p>
+<h2 id="线程安全类">线程安全类</h2>
+<p>当访问一个可变状态又没有使用合适的同步，就容易出现错误，有三种方法修复它——</p>
+<ol>
+<li>不共享该状态</li>
+<li>更改其为不可变状态</li>
+<li>使用同步机制（大多数情况下……只有这个选择了吧）</li>
+</ol>
+<p>这些方法或许会导致代码的重大更改，所以应当<strong>从一开始就设计一个线程安全的类</strong>。同时，<strong>良好的封装</strong>也让线程安全更容易实现——访问某个变量的代码越少，越容易确保对变量的访问实现正确同步。然后，性能优化只有在必须优化，且优化必定有效果时才进行。“提前优化是万恶之源”。</p>
+<p>（我认为）线程安全类可以这样定义——<strong>其实际行为和其应当的行为完全一致，而无论单线程环境或是多线程环境，无论不同线程对其的调用顺序如何，无论有无采取同步机制</strong>。也就是说，不需要外界的程序（类）进行任何额外的同步或协同操作，这个类总是正确工作的（其实这时候在外界看来，线程安全类提供的所有操作都是原子的）。</p>
+<p>无状态的对象一定是线程安全的，因为它和其它对象没有共享状态，各玩各的，不会相互影响。</p>
+<h2 id="加锁机制">加锁机制</h2>
+<p>（注意，这里说的是机制，它并不局限于语言！）</p>
+<p>线程安全性要求，多个线程之间的操作无论采用何种执行时序或交替方式，都要保证<strong>不变性</strong>不被破坏。（“不变”是指在某个线程执行该操作的这整个周期中不变）</p>
+<p>考虑下面的代码，它描述了一个非线程安全的Servlet，其功能为返回一个整型变量的因数分解（它是一个数组），同时缓存上一次的值，如果为同一个值，则直接返回缓存中的值。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@NotThreadSafe</span> <span class="c1">// 这是作者定义的注解，只起描述作用
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UnsafeCachingFactorizer</span> <span class="kd">implements</span> <span class="n">Servlet</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">AtomicReference</span><span class="o">&lt;</span><span class="n">BigInteger</span><span class="o">&gt;</span> <span class="n">lastNumber</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AtomicReference</span><span class="o">&lt;&gt;();</span> <span class="c1">// 先无论这是什么玩意
+</span><span class="c1"></span>    <span class="kd">private</span> <span class="kd">final</span> <span class="n">AtomicReference</span><span class="o">&lt;</span><span class="n">BigInteger</span><span class="o">[]&gt;</span> <span class="n">lastFactors</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AtomicReference</span><span class="o">&lt;&gt;();</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">service</span><span class="o">(</span><span class="n">ServletRequest</span> <span class="n">reg</span><span class="o">,</span> <span class="n">ServletResponse</span> <span class="n">resp</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">BigInteger</span> <span class="n">i</span> <span class="o">=</span> <span class="n">extractFromRequest</span><span class="o">(</span><span class="n">reg</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">i</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">lastNumber</span><span class="o">.</span><span class="na">get</span><span class="o">()))</span> <span class="c1">// 缓存命中
+</span><span class="c1"></span>            <span class="n">encodeIntoResponse</span><span class="o">(</span><span class="n">resp</span><span class="o">,</span> <span class="n">lastFactors</span><span class="o">.</span><span class="na">get</span><span class="o">());</span> <span class="c1">// 这些原子类的所有操作都是原子的
+</span><span class="c1"></span>        <span class="k">else</span> <span class="o">{</span>
+            <span class="n">BigInteger</span><span class="o">[]</span> <span class="n">factors</span> <span class="o">=</span> <span class="n">factor</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+            <span class="n">lastNumber</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+            <span class="n">lastFactors</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">factors</span><span class="o">);</span>
+            <span class="n">encodeIntoResponse</span><span class="o">(</span><span class="n">resp</span><span class="o">,</span> <span class="n">factors</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里的不变性的条件之一是，lastNumber缓存的值的因数之积应当等于lastFactors中的值（这个条件在一个线程执行这个操作的整个周期中都不能被改变），这里显然是线程不安全的。通过加锁机制，可以简单地为操作提供原子性，从而保证线程安全性。</p>
+<h3 id="内置锁">内置锁</h3>
+<p>Java提供了一种内置的锁来支持原子性——同步代码块（Synchronized Block）。它可以作为关键字来修饰一个方法（对于静态方法，它使用Class对象作为对象，对于实例方法，使用this来作为对象），也可以以这种形式来规定一个代码块，这里的lock可以是任何类型的对象（书中说是Class对象，我觉得是翻译错误，它没理由接受一个<code>java.lang.Class</code>对象）——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">synchronized</span> <span class="o">(</span><span class="n">lock</span><span class="o">)</span> <span class="o">{</span>
+    <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里对象的作用是提供一个实现同步的锁，他称为<strong>内置锁</strong>（Intrinsic Lock）或<strong>监视器锁</strong>（Monitor Lock，这个似乎是用的更多的术语）。<strong>该锁为其保护起来的代码块提供原子性——每次只能有一个线程执行代码块</strong>。当有一个线程进入该代码块，它将获得该代码块的锁，即使该线程被切换出去，其它线程也无法进入代码块，直到该线程执行完代码块并释放锁。因此，这里的一组语句是作为一个<strong>不可分割的单元</strong>执行的。</p>
+<p>上面的Servlet中的service方法如果使用synchronized关键字修饰的话，就能正确地缓存了——每一时刻仅有一个线程能执行该方法，但是它的并发性是非常糟糕的（不过这不是线程安全问题，是性能问题），因为当多个请求到来的时候，它只能串行处理，即使有多处理器也无济于事。</p>
+<p>内置锁是可<strong>重入</strong>的，也就是说，<strong>一个线程如果持有了一个对象的锁，它还能再次获取这个对象的锁并保证不会发生死锁</strong>。重入的一个实现是给锁关联一个计数器和其所有者线程，如果计数器值为0则说明其未被持有，当线程请求一个未被持有的锁时，JVM记录锁的持有者，将计数器值设为1,如果该线程再次请求，则计数器递增，每次退出代码块时，计数器递减，计数器为0时锁被释放。</p>
+<blockquote>
+<p>可重入锁的粒度是“线程”而不是“调用”。</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 因为对象锁是可重入的，所以这样使用不会产生死锁。
+</span><span class="c1">// 这里把doSomething方法设为实例方法而非静态方法，是因为如果是静态方法，则相当于是先获取Son的Class对象锁（这个似乎叫类锁？），再获取Super的Class对象锁，它只能证明一个线程能同时持有多个锁，而不能证明内置锁是可重入的。
+</span><span class="c1"></span><span class="kd">class</span> <span class="nc">Super</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">doSomething</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;do something&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">class</span> <span class="nc">Son</span> <span class="kd">extends</span> <span class="n">Super</span><span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">doSomething</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;do some preparation&#34;</span><span class="o">);</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">doSomething</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">new</span> <span class="n">Son</span><span class="o">().</span><span class="na">doSomething</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="c1">// 上面的例子不明显，换一个
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">synchronized</span> <span class="o">(</span><span class="k">this</span><span class="o">)</span> <span class="o">{</span>
+            <span class="kd">synchronized</span> <span class="o">(</span><span class="k">this</span><span class="o">)</span> <span class="o">{</span>
+                <span class="kd">synchronized</span> <span class="o">(</span><span class="k">this</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="kd">synchronized</span> <span class="o">(</span><span class="k">this</span><span class="o">)</span> <span class="o">{</span>
+                        <span class="kd">synchronized</span> <span class="o">(</span><span class="k">this</span><span class="o">)</span> <span class="o">{</span>
+                            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;hello, world!&#34;</span><span class="o">);</span>
+                        <span class="o">}</span>
+                    <span class="o">}</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="用锁保护状态">用锁保护状态</h2>
+<p>锁要求其保护的代码被串行访问，因此可以通过锁构造一些<strong>协议</strong>来实现对共享状态的独占访问（就如上面的Servlet中的缓存）。</p>
+<p><strong>访问共享对象的复合操作必须是原子操作以避免产生竞态条件</strong>。如果用同步来协调对某个变量的访问，则在访问该变量的所有位置都应当使用同步。当使用锁来协调对某个变量的访问时，在访问变量的所有地方都应当使用同一个锁。这种情况下，称状态变量被这个锁<strong>保护</strong>。<strong>如果对象的不变性涉及多个状态变量时，不变性条件中的每一个变量都必须被同一个锁保护</strong>。</p>
+<p>一种约定是，<strong>将所有可变状态封装到对象的内部并通过内置锁对所有访问可变状态的代码路径进行同步以避免并发访问</strong>。这种加锁协议是非强制的。</p>
+<p>为什么不给每一个方法都设置<code>synchronized</code>关键字？因为这会导致许多多余的同步，而且<strong>并不能保证外界对其的复合操作是原子的</strong>，比如线程安全的<code>Vector</code>类，这样使用的话，仍然会出现竞态条件，还会导致活跃性和性能问题。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="k">if</span> <span class="o">(!</span><span class="n">vector</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">element</span><span class="o">))</span>
+    <span class="n">vector</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">element</span><span class="o">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="活跃性和性能">活跃性和性能</h2>
+<p>上面的Servlet是<strong>不良并发</strong>（Poor Concurrency）的。下面的新的实现进行了更改。它重新引入了两个计数器，分别计数调用次数和缓存命中次数。它引入两个同步代码块，第一个同步代码块检查是否命中，第二个同步代码块更新缓存。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@ThreadSafe</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CachingFactorizer</span> <span class="kd">implements</span> <span class="n">Servlet</span> <span class="o">{</span>
+    <span class="nd">@GuardedBy</span><span class="o">(</span><span class="s">&#34;this&#34;</span><span class="o">)</span> <span class="kd">private</span> <span class="n">BigInteger</span> <span class="n">lastNumber</span><span class="o">;</span> <span class="c1">//这里不需要使用原子引用了
+</span><span class="c1"></span>    <span class="nd">@GuardedBy</span><span class="o">(</span><span class="s">&#34;this&#34;</span><span class="o">)</span> <span class="kd">private</span> <span class="n">BigInteger</span><span class="o">[]</span> <span class="n">lastFactors</span><span class="o">;</span>
+    <span class="nd">@GuardedBy</span><span class="o">(</span><span class="s">&#34;this&#34;</span><span class="o">)</span> <span class="kd">private</span> <span class="kt">long</span> <span class="n">counts</span><span class="o">;</span>
+    <span class="nd">@GuardedBy</span><span class="o">(</span><span class="s">&#34;this&#34;</span><span class="o">)</span> <span class="kd">private</span> <span class="kt">long</span> <span class="n">hits</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">long</span> <span class="nf">getHits</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="n">counts</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">double</span> <span class="nf">getCacheHitRatio</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="o">(</span><span class="kt">double</span><span class="o">)</span> <span class="n">hits</span> <span class="o">/</span> <span class="o">(</span><span class="kt">double</span><span class="o">)</span> <span class="n">counts</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">service</span><span class="o">(</span><span class="n">ServletRequest</span> <span class="n">reg</span><span class="o">,</span> <span class="n">ServletResponse</span> <span class="n">resp</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">BigInteger</span> <span class="n">i</span> <span class="o">=</span> <span class="n">extractFromRequest</span><span class="o">(</span><span class="n">reg</span><span class="o">);</span>
+        <span class="n">BigInteger</span><span class="o">[]</span> <span class="n">factors</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="kd">synchronized</span> <span class="o">(</span><span class="k">this</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">counts</span><span class="o">++;</span>  <span class="c1">// 对于两个计数器的操作其实也可以分解在更细的代码块中，但是这样会带来不必要的锁的切换的开销。
+</span><span class="c1"></span>            <span class="k">if</span> <span class="o">(</span><span class="n">i</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">lastNumber</span><span class="o">))</span> <span class="o">{</span> <span class="c1">//缓存命中
+</span><span class="c1"></span>                <span class="n">hits</span><span class="o">++;</span>
+                <span class="n">factors</span> <span class="o">=</span> <span class="n">lastFactors</span><span class="o">.</span><span class="na">clone</span><span class="o">();</span> <span class="c1">// 我怀疑这个clone的必要性！
+</span><span class="c1"></span>            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">factors</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 未命中
+</span><span class="c1"></span>            <span class="n">factors</span> <span class="o">=</span> <span class="n">factor</span><span class="o">(</span><span class="n">i</span><span class="o">);</span> <span class="c1">// 因数分解操作可能是耗时的，并且它不需要状态变量，因此可以不包裹在同步代码块中，以尽量提高并发性。
+</span><span class="c1"></span>            <span class="kd">synchronized</span> <span class="o">(</span><span class="k">this</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 缓存的因数分解和值必须同时被更新，这是毫无疑问的。
+</span><span class="c1"></span>                <span class="n">lastNumber</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
+                <span class="n">lastFactors</span> <span class="o">=</span> <span class="n">factors</span><span class="o">.</span><span class="na">clone</span><span class="o">();</span> <span class="c1">// 同样，这里的clone我也持怀疑态度。
+</span><span class="c1"></span>            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="n">encodeIntoResponse</span><span class="o">(</span><span class="n">resp</span><span class="o">,</span> <span class="n">factors</span><span class="o">);</span> <span class="c1">//这里应当返回factors，如果返回lastFactors，则也需要包裹在同步代码块中。
+</span><span class="c1"></span>    <span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>我认为这里使用clone是没有必要的。毕竟，若不使用clone，在不在同步代码块时若lastFactors被赋了新值，只不过是它指向了一个新的地址，原来的地址仍旧是被factors引用着的，所以用不用clone无关紧要。这里没有任何代码调用过lastFactors的setter吧？</p>
+</blockquote>
+<p>重新构造后的该类<strong>取得了在简单性（对整个方法进行同步）与并发性（对尽可能短的代码路径进行同步）中的平衡</strong>。不要盲目地为了性能而放弃简单性，因为这会导致维护困难，破坏线程安全性。</p>
+<blockquote>
+<p>执行时间较长的计算或可能无法快速完成的操作（如I/O），<strong>一定不要持有锁</strong>。</p>
+</blockquote>
+<p><img src="https://s3.ax1x.com/2020/12/22/rDeJHg.png" alt="rDeJHg.png"></p>
+<p>换个图床……</p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/20-12-20%E5%88%9D%E6%B6%89%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B1%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/">
+            <span class="next-text nav-default">初涉并发编程1——基本概念</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2020-12-21 13:23:19 \u002b0800 CST',
+        title: '初涉并发编程2——线程安全性',
+        clientID: 'a6d39dcb11d3911b23d9',
+        clientSecret: 'a1b3afce97c2b2c21ef8ad1f40b0fce20a334be0',
+        repo: 'comments',
+        owner: 'AOYMYKN',
+        admin: ['AOYMYKN'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:cs596065766@hotmail.com" class="iconfont icon-email" title="email"></a>
+  <a href="http://aoymykn.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>AOYMYKN</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
