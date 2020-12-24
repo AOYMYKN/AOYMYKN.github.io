@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>公钥算法和私钥算法 - AOYMYKN的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="AOYMYKN" /><meta name="description" content="想去了解一下ssh，于是就去了解一下。" /><meta name="keywords" content="Java, 后端, 计算机, 编程, 数据结构, 算法, 马克思主义, marxism, CS, IT" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.79.1 with theme even" />
+
+
+<link rel="canonical" href="http://aoymykn.github.io/post/20-12-24%E5%85%AC%E9%92%A5%E5%92%8C%E7%A7%81%E9%92%A5%E7%AE%97%E6%B3%95/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c9ac0cd19ce10a4f2eefd4195990291e493e392c8206d6b1583da261e491264a.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="公钥算法和私钥算法" />
+<meta property="og:description" content="想去了解一下ssh，于是就去了解一下。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://aoymykn.github.io/post/20-12-24%E5%85%AC%E9%92%A5%E5%92%8C%E7%A7%81%E9%92%A5%E7%AE%97%E6%B3%95/" />
+<meta property="article:published_time" content="2020-12-24T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-12-24T00:00:00+00:00" />
+<meta itemprop="name" content="公钥算法和私钥算法">
+<meta itemprop="description" content="想去了解一下ssh，于是就去了解一下。">
+<meta itemprop="datePublished" content="2020-12-24T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-12-24T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1396">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="公钥算法和私钥算法"/>
+<meta name="twitter:description" content="想去了解一下ssh，于是就去了解一下。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">AOYMYKN</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">AOYMYKN</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">公钥算法和私钥算法</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-12-24 </span>
+        <div class="post-category">
+            <a href="/categories/linux/"> linux </a>
+            </div>
+          <span class="more-meta"> 约 1396 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#对称加密和非对称加密">对称加密和非对称加密</a>
+      <ul>
+        <li><a href="#非对称加密是如何传输数据的">非对称加密是如何传输数据的</a></li>
+        <li><a href="#公钥算法进行签名">公钥算法进行签名</a></li>
+        <li><a href="#公钥算法的缺点">公钥算法的缺点</a></li>
+      </ul>
+    </li>
+    <li><a href="#ssh是什么">ssh是什么</a></li>
+    <li><a href="#githubgit怎样使用ssh">github（git）怎样使用ssh</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!--Hello, Happy World-->
+<h1 id="对称加密和非对称加密">对称加密和非对称加密</h1>
+<p><strong>对称加密算法</strong>，其解密密钥和加密密钥是<strong>相同的</strong>，正因为解密密钥和加密密钥相同，所以该密钥不能公开。所以对称加密算法又称<strong>私钥算法</strong>。常用的对称加密算法有<strong>DES加密算法</strong>和<strong>AES加密算法</strong>。</p>
+<p><strong>非对称加密算法</strong>，其加密和解密的密钥是<strong>不一样</strong>的，<strong>其中公开的叫公钥，私有的叫私钥。公钥和私钥是成对的;公钥加密的数据，有且只有对亚它的私钥能解密;私钥加密的数据，有且只有对应它的公钥能解密</strong>（所以其实公钥和私钥的概念同加密密钥和解密密钥的概念并非是同一的）。</p>
+<p><strong>SSH是非对称加密的</strong>。</p>
+<p>这里随机生成了一对rsa密钥，私钥如下——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">-----BEGIN PRIVATE KEY-----
+MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQD3lkA6dVbIIcE5
+X12EjbsInujgYzU84Qo29LcFtn1zyODplCB6r4yKp8r5yu2v2FRErXE3/+YfkaKa
+9lW2JCYHFAm7KK6sXZ/qAMK9HljERjPvIEy9oTMQDQfnSjyU8xJ7zsLh/I108ibB
+R1SdIoIn+sJmJu7YVsPY52M5JTG3pQFTkkcBSYnTfs0Wdjbu9cnkYR0Gp6dWj12C
+17fe1xQxiF0tL90QCckx9g84arlXwRo+0o6JLWwbHzUZeELeeXetFu96k8VI5946
+bf+iFVq6ECqPzaKv3X9wkfjrV9B/PWDsDbPJ6PYd+6C1RBWJCDsf6jhR2YmWlATL
+DLpsio/VAgMBAAECggEBAO8ZIOnTi302a922JR/vp6IJpKed5znlsfGknmNb+wco
+BVxNephAlB8LL8/Pk37wEWFJhj8oV9pA0KGKJvgBLOBFD6i4/wbiW56mIWp1tg/G
+JD1YGgQ/eoqTqwBIBv1pSH5cDIQlW46Gk7qv4hzlyIBHgBkanCo8kGIWAxKawsqv
+HrbFlPd/omaeQ44t+KfTTImSDsVvIAyd6OzqRVJVAivwSTwKh0V24gmvBXR/a+iV
+xAha6pxl8W/nb/RFRVNgr76i1jgFR/eejfgdBqMCKEZU96h4VeWA3j9RQnVKVD14
+Phc8IbzNtpEUkIeaDqGrduOamHqK3nQ+giKnaA7MO0ECgYEA/O+F/fQGDHTjl7EZ
+Xf3DJlJ4kssihn5P6h/4Aj9TPoMudZV3GalencXBpH9pL1esFSNdXnYmdsqvO/d1
+2ugfhyJh3Di/AAeMILVGzeHR2FER8b/rLCIuKsWgJaELbBzlrj4wetWiFxc0eyEa
+jRYktbZu1pFxJo0W5hLjdrwbZ/kCgYEA+pYjdJgz3FmpJ5Otqy/5c3kP9b07PyqH
+YOXXjdXWFtUAjHXZ1kIeWGhPLmY+jvFw5IeESZWFR8Hmj7NL2LC2+allwHaWHZFC
+OAU76L2uC9IQ1BCLxZtrDeXdPvZnkUZj+t/I+l4/I9OY/P/64OUjzMy6op5geJd7
+8gj2osqadb0CgYEAhXaJ2F+r1WTUNtWfEgZ1s8Hul16SgC8kUeC+h8kMTr7/g9Hz
+P1osb8nKjNciFHYJejnn6ZEkaKg4YMcJrBGxmSeeRYq31fcljJi6nKZciOz2L/7Z
+w7bhb3ZKM7DPiyOQWim8gQQ6/D4lVhc4oFuf0TZLM/MYpoPqIkqzNZK6T1kCgYAX
+Xqkv1oH/qtz7s+oebPr2qfOzF1LPMUgu4UCZGbg9qN/EObl3IfNyi0fXK/HpotrE
+dV8A/dDQQGUgQbhxHQnzfrjemjCl0UY7s0FDE22H7K9lF6XxZ+0z/pwDozdFdSsd
+2oED2IZK8RDzh2v+TWBpWS6Ou/aDSJ1mlS9rPznogQKBgQDMkyFJnkDT3acyf6Ze
+Wjen6omH6JgE2s+uJGLi6rKZFmz994EHdTEI1EVZG65mfh2lxpiaoF76y16+uIOO
+Vae9KwoqraBnclZXXuuFwW4sVoMCvBNr26U1y7SUTqZeDm06lshvHa+2xKTPLTFA
+uhr1oZJ7uyGsqvdGkPaBm3qzNg==
+-----END PRIVATE KEY-----
+</code></pre></td></tr></table>
+</div>
+</div><p>公钥如下——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA95ZAOnVWyCHBOV9dhI27
+CJ7o4GM1POEKNvS3BbZ9c8jg6ZQgeq+MiqfK+crtr9hURK1xN//mH5GimvZVtiQm
+BxQJuyiurF2f6gDCvR5YxEYz7yBMvaEzEA0H50o8lPMSe87C4fyNdPImwUdUnSKC
+J/rCZibu2FbD2OdjOSUxt6UBU5JHAUmJ037NFnY27vXJ5GEdBqenVo9dgte33tcU
+MYhdLS/dEAnJMfYPOGq5V8EaPtKOiS1sGx81GXhC3nl3rRbvepPFSOfeOm3/ohVa
+uhAqj82ir91/cJH461fQfz1g7A2zyej2HfugtUQViQg7H+o4UdmJlpQEywy6bIqP
+1QIDAQAB
+-----END PUBLIC KEY-----
+</code></pre></td></tr></table>
+</div>
+</div><p>使用公钥加密&quot;Hello, Happy World!&quot;，得到如下字符串——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">7fmMleOdHEcS3k61RDm0DK7Y6grJSwcNZcbsvXWTbMfcklbCsKvmF2oeOthSxlJQVhp0KR/6/0HBjWri64YGSaws7KbJKZTd6EZnxhXESPb4HGOlnazdRIXhMtCYY9BtiRpnpw58iPd7O4Xzv7Rli4HAXPdwl6OmaOVRBJwqaW3GBsMQKsXpeL/UCcvLcfUFUJIVrUOPw+1A9tfouxCeql+Kd+MINlehnxNMYLCglEL86RLDclD1VLxYnuFgvvQHD5ueXu+2RglPD0UHfll2CUbj9Uacuzs2euKsSHZP1S1zqTGo4PUrDgsk5v68tBxWaD26DyqzG5u0zrMXOlX/4w==
+</code></pre></td></tr></table>
+</div>
+</div><p>将该字符串使用私钥进行解密，得到如下结果——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Hello, Happy World!
+</code></pre></td></tr></table>
+</div>
+</div><p>可不可以拿它生成的公钥当私钥使，它生成的私钥当公钥使？理论上是可以这么干的，但是至少这里ssh使用的rsa加密不允许这样干。</p>
+<h2 id="非对称加密是如何传输数据的">非对称加密是如何传输数据的</h2>
+<p>如果使用对称加密算法，加解密使用同一个密钥，这样就需要对方和自己都要持有密钥才能进行，但如果把密钥也一起传过去，就存在密码泄露的可能。而非对称加密算法……至少不会存在这样的可能。</p>
+<p>非对称加密算法传输数据的过程如下——</p>
+<ol>
+<li>首先<strong>接收方</strong>生成一对密钥，接收方自己持有私钥。</li>
+<li>接收方将公钥发送给<strong>发送方</strong>。</li>
+<li>发送方用公钥对数据进行加密，发送给接收方。</li>
+<li>接收方用私钥解密数据。</li>
+</ol>
+<p>可以看到，这个过程中，私钥是不暴露在传输过程中的，因而保证了传输过程的安全性。</p>
+<h2 id="公钥算法进行签名">公钥算法进行签名</h2>
+<p>公钥加密的数据<strong>只有</strong>私钥能够解密，私钥加密的数据<strong>只有</strong>公钥能解密，因此，如果某人用他的私钥加密数据并发布，其他人发现使用此人的公钥能解密该数据，说明这个数据一定是此人发布的。在这里，用私钥加密数据称为“签名”，其他人可以用公钥来验证该签名。</p>
+<p>数字签名能够保证——</p>
+<ol>
+<li>信息是签名者自己签名发送的（他的私钥，他很难否认）。</li>
+<li>信息未经过更改。</li>
+</ol>
+<h2 id="公钥算法的缺点">公钥算法的缺点</h2>
+<p>慢！它比对称加密算法慢一两个数量级。因此它不适合对大量原始数据进行加密。</p>
+<p>可以结合公钥算法和私钥算法，可以用公钥算法法来作为“引子”，实际传输使用私钥算法，其实质是把对称加密算法中使用的密钥使用非对称加密算法进行传输（这是为了防止在传输过程中暴露），从而避免非对称加密算法存在的一些缺点。</p>
+<ol>
+<li>发送方首先使用对称加密算法加密数据</li>
+<li>接收方通过公钥机制生成一对公私钥，将公钥发送给发送方。</li>
+<li>发送方将对称加密算法中的密钥使用公钥加密，发送给接收方。</li>
+<li>接收方进行解密，得到对称加密算法的密钥。</li>
+<li>发送方将加密的数据发送给接收方。</li>
+<li>接收方通过密钥解密。</li>
+</ol>
+<h1 id="ssh是什么">ssh是什么</h1>
+<p>ssh是Secure Shell的缩写，它是专为远程登录会话和其他网络服务提供安全性的<strong>协议</strong>。</p>
+<p>ssh协议使用<strong>对称加密</strong>，<strong>非对称加密</strong>和<strong>散列</strong>来确保信息的传输。客户端和服务器之间的SSH连接分为三个阶段：</p>
+<ol>
+<li>客户端对服务器的验证。</li>
+<li>生成会话密钥以加密所有通信。</li>
+<li>客户端认证。</li>
+</ol>
+<p>TODO：描述一下具体的</p>
+<h1 id="githubgit怎样使用ssh">github（git）怎样使用ssh</h1>
+<p>push的时候，可以使用github的账户密码作为验证，也可以使用ssh进行验证，要使用ssh，应当在github网页端设置自己的公钥。要注意的是，一个公钥只能对应一个仓库。</p>
+<p>TODO：同上</p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/20-12-24%E5%85%B3%E4%BA%8E%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1/">
+            <span class="next-text nav-default">关于毕业设计</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2020-12-24 00:00:00 \u002b0000 UTC',
+        title: '公钥算法和私钥算法',
+        clientID: 'a6d39dcb11d3911b23d9',
+        clientSecret: 'a1b3afce97c2b2c21ef8ad1f40b0fce20a334be0',
+        repo: 'comments',
+        owner: 'AOYMYKN',
+        admin: ['AOYMYKN'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:cs596065766@hotmail.com" class="iconfont icon-email" title="email"></a>
+  <a href="http://aoymykn.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>AOYMYKN</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

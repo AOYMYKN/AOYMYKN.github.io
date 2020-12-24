@@ -49,7 +49,7 @@
 <meta itemprop="description" content="为何重写equals方法就必须要重写hashCode方法？">
 <meta itemprop="datePublished" content="2020-12-06T10:52:56+08:00" />
 <meta itemprop="dateModified" content="2020-12-06T10:52:56+08:00" />
-<meta itemprop="wordCount" content="2362">
+<meta itemprop="wordCount" content="2423">
 
 
 
@@ -130,7 +130,7 @@
         <div class="post-category">
             <a href="/categories/java/"> Java </a>
             </div>
-          <span class="more-meta"> 约 2362 字 </span>
+          <span class="more-meta"> 约 2423 字 </span>
           <span class="more-meta"> 预计阅读 5 分钟 </span>
         
       </div>
@@ -320,7 +320,8 @@
 <span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h1 id="ps看看identityhashmap">PS：看看IdentityHashMap</h1>
+</div><p>PS：HashSet和HashMap，IdentityHashMap允许插入null或以null为key。它的哈希将为0。</p>
+<h1 id="ps看看identityhashmap">PS：看看IdentityHashMap</h1>
 <p>IdentityHashMap则是另一个极端。与HashMap不同，它只比较元素的内存地址（即Object的hashCode方法，或者说可以理解成==运算符）来判断其是否是同一个key，而不关心是否equal。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
