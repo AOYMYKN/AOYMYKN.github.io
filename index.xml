@@ -6,7 +6,7 @@
     <description>Recent content on AOYMYKN的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 21 Dec 2020 13:23:19 +0800</lastBuildDate><atom:link href="http://aoymykn.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 23 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://aoymykn.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
       <link>http://aoymykn.github.io/about/</link>
@@ -17,9 +17,18 @@
     </item>
     
     <item>
+      <title>初涉并发编程3——对象的共享</title>
+      <link>http://aoymykn.github.io/post/20-12-23%E5%88%9D%E6%B6%89%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B3%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%85%B1%E4%BA%AB/</link>
+      <pubDate>Wed, 23 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://aoymykn.github.io/post/20-12-23%E5%88%9D%E6%B6%89%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B3%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%85%B1%E4%BA%AB/</guid>
+      <description>麻了</description>
+    </item>
+    
+    <item>
       <title>初涉并发编程2——线程安全性</title>
       <link>http://aoymykn.github.io/post/20-12-22%E5%88%9D%E6%B6%89%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B2%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E6%80%A7/</link>
-      <pubDate>Mon, 21 Dec 2020 13:23:19 +0800</pubDate>
+      <pubDate>Tue, 22 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>http://aoymykn.github.io/post/20-12-22%E5%88%9D%E6%B6%89%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B2%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E6%80%A7/</guid>
       <description>此节讲述如何通过同步避免多个线程同一时刻访问相同的数据。</description>
@@ -157,7 +166,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://aoymykn.github.io/draft/%E6%B4%BB/</guid>
-      <description>20.12.20 运动 学习一下SQL 20.12.21 面试 学习一下ssh 继续学习并发 草！ 20.12.22 开始准备论文答辩 继续学习并发</description>
+      <description>20.12.20 运动 学习一下SQL 20.12.21 面试 学习一下ssh 继续学习并发 草！ 20.12.22 开始准备论文答辩 继续学习并发 ??? 20.12.23——29 开题！ SSH！ 算法第三章 坚持</description>
     </item>
     
   </channel>

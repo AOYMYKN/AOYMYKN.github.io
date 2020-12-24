@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>初涉并发编程3——对象的共享 - AOYMYKN的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="AOYMYKN" /><meta name="description" content="麻了" /><meta name="keywords" content="Java, 后端, 计算机, 编程, 数据结构, 算法, 马克思主义, marxism, CS, IT" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.79.1 with theme even" />
+
+
+<link rel="canonical" href="http://aoymykn.github.io/post/20-12-23%E5%88%9D%E6%B6%89%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B3%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%85%B1%E4%BA%AB/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c9ac0cd19ce10a4f2eefd4195990291e493e392c8206d6b1583da261e491264a.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="初涉并发编程3——对象的共享" />
+<meta property="og:description" content="麻了" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://aoymykn.github.io/post/20-12-23%E5%88%9D%E6%B6%89%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B3%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%85%B1%E4%BA%AB/" />
+<meta property="article:published_time" content="2020-12-23T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-12-23T00:00:00+00:00" />
+<meta itemprop="name" content="初涉并发编程3——对象的共享">
+<meta itemprop="description" content="麻了">
+<meta itemprop="datePublished" content="2020-12-23T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-12-23T00:00:00+00:00" />
+<meta itemprop="wordCount" content="2090">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="初涉并发编程3——对象的共享"/>
+<meta name="twitter:description" content="麻了"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">AOYMYKN</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">AOYMYKN</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">初涉并发编程3——对象的共享</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-12-23 </span>
+        <div class="post-category">
+            <a href="/categories/%E5%B9%B6%E5%8F%91/"> 并发 </a>
+            </div>
+          <span class="more-meta"> 约 2090 字 </span>
+          <span class="more-meta"> 预计阅读 5 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#可见性">可见性</a>
+      <ul>
+        <li><a href="#重排序">重排序</a></li>
+        <li><a href="#失效数据">失效数据</a></li>
+        <li><a href="#volatile确保可见性">volatile——确保可见性</a></li>
+        <li><a href="#发布和溢出">发布和溢出</a></li>
+        <li><a href="#线程封闭">线程封闭</a>
+          <ul>
+            <li><a href="#ad-hoc线程封闭">Ad-hoc线程封闭</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!--Hello, Happy World-->
+<blockquote>
+<p>维护并发程序的安全性，其关键在于：<strong>正确管理对共享的可变状态的访问</strong>。</p>
+</blockquote>
+<p>上一节讲述如何让对象同步访问相同数据，这一节介绍如何<strong>共享</strong>和<strong>发布</strong>对象。</p>
+<p>所谓的共享是指，一个对象可被多个线程访问，发布是指，一个对象能够在当前作用域之外的代码引用（这句话实际上是说，使该对象被不在当前作用域的变量引用），也就是说它逃逸出去了，这和之前所学的“逃逸分析”中的逃逸应该是同义的。</p>
+<h1 id="可见性">可见性</h1>
+<h2 id="重排序">重排序</h2>
+<p>同步代码块和同步方法不仅能用于实现原子性或确定<strong>临界区</strong>（Critical Section），同步还有一个重要的方面：<strong>内存可见性</strong>（Memory Visibility）。<strong>我们不仅希望防止当某个线程在使用对象状态时该状态被其它线程修改，也希望确保当一个线程修改了对象状态后，其它线程能够看到发生的状态变化</strong>。</p>
+<p>考虑如下代码——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">NoVisibility</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="n">ready</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">number</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">ReaderThread</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+            <span class="k">while</span> <span class="o">(!</span><span class="n">ready</span><span class="o">)</span>
+                <span class="n">Thread</span><span class="o">.</span><span class="na">yield</span><span class="o">();</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">number</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">new</span> <span class="n">ReaderThread</span><span class="o">().</span><span class="na">start</span><span class="o">();</span>
+        <span class="n">number</span> <span class="o">=</span> <span class="n">42</span><span class="o">;</span> <span class="c1">// 外国人真喜欢这个梗
+</span><span class="c1"></span>        <span class="n">ready</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里，ready和number的赋值可能被<strong>重排序</strong>（Reordering，它是编译器进行优化的结果），导致number还没有被赋值时，ready已经被赋值。因此，这里有可能会输出0，也有可能该ReaderThread会持续循环下去，因为它可能看不到ready被修改（<del>为啥？while不应该会无数次地检查ready的值吗？难道重排序会把这个判断条件挪到外面去？</del> 应该是因为现在的JDK版本做了很多优化，这种错误不容易复现了）。所以说应该使用锁使number，ready的赋值成为原子操作。</p>
+<blockquote>
+<p>我是知道为什么之前看那本Java并发程序设计，说多线程破坏了编程语言的抽象性了，这tm的把底全揭出来了，甚至都不能相信指令先后执行的顺序……</p>
+</blockquote>
+<p>为了避免这种问题，应当这样来解决——<strong>只要有数据在多个线程之间共享，就使用正确的同步</strong>。</p>
+<h2 id="失效数据">失效数据</h2>
+<p>该程序显示了缺乏同步的程序中可能产生错误结果的一种情况：<strong>失效数据</strong>。读线程查看ready时可能得到一个失效值，除非每次访问变量时都使用同步。</p>
+<p>getter和setter是非线程安全的，因为如果某个线程调用了setter，另一个调用getter的线程可能会看到更新后的value，也可能看不到。可以使用synchronized关键字来修饰getter和setter以保证可见性。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@NotThreadSafe</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MutableInteger</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">value</span><span class="o">;</span>
+    <span class="c1">//线程不安全的，需要同步关键字来修饰
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">get</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="n">value</span><span class="o">;</span> <span class="o">}</span> 
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">set</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span> <span class="n">value</span> <span class="o">=</span> <span class="n">n</span><span class="o">;</span> <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>需要注意的是，64位操作（对double，long）是非原子的，并且它不止会导致失效数据问题。应当使用<code>volatile</code>来声明（这样只能保证可见性）或用锁保护。</p>
+<h2 id="volatile确保可见性">volatile——确保可见性</h2>
+<p><code>synchronized</code>关键字保证<strong>可见性和原子性</strong>，而<code>volatile</code>关键字保证<strong>变量</strong>的<strong>可见性</strong>。</p>
+<p>考察下面的代码，它必定陷入无限循环——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="n">flag</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="c1">// 无限循环,等待flag变为true时才跳出循环
+</span><span class="c1"></span>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">while</span> <span class="o">(!</span><span class="n">flag</span><span class="o">);</span> <span class="c1">//这里如果给while代码块一个sysout，或者给flag加上volatile关键字，则能正常执行
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">42</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">Thread</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Main</span><span class="o">();</span>
+        <span class="n">t</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+        <span class="c1">// sleep的目的是等待线程启动完毕,也就是说进入run的无限循环体了
+</span><span class="c1"></span>        <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">100</span><span class="o">);</span>
+        <span class="n">flag</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>volatile</code>关键字保证变量的可见性，简单来说，当某个线程对变量进行修改后，在该线程后执行的线程能够看到该变量的更改，这是通过下面两条规则实现的——</p>
+<ul>
+<li>线程对变量进行修改后，要立刻写回到主内存中。</li>
+<li>线程对变量读取的时候，必须从主内存读，不能从缓存读。</li>
+</ul>
+<p>线程启动的时候，线程的栈中不仅包含它的局部变量，也包含线程所需要的共享变量（通常存在堆里）的<strong>副本</strong>。</p>
+<p>对于共享的（没有<code>volatile</code>关键字的）变量来说，JVM约定变量在工作内存中发生变化的时候，必须要回写到主内存（迟早，但并非马上），并且，当对变量读取频率很高的时候，它会持续读取缓存中的值（这就是问题所在！空的while循环读取太快了，因此如果添加别的代码，比如IO，降低读取的速度，就能让JVM去读主内存而非缓存了）。对于<code>volatile</code>变量，在工作内存中发生变化的时候，<strong>马上</strong>就要回写到主内存，读取时则必须要从主内存中读取。</p>
+<h2 id="发布和溢出">发布和溢出</h2>
+<p>关于发布（Publish）和逸出（Escape），发布的意义如前所述，逸出是指，<strong>本不应该发布的对象被发布</strong>。</p>
+<p>溢出的一个常见情况是发布了private变量——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">UnsafeStates</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span><span class="o">[]</span> <span class="n">states</span> <span class="o">=</span> <span class="o">{</span><span class="s">&#34;AK&#34;</span><span class="o">,</span><span class="s">&#34;AL&#34;</span><span class="o">,</span><span class="s">&#34;DDDA&#34;</span><span class="o">};</span>
+    <span class="kd">public</span> <span class="n">String</span><span class="o">[]</span> <span class="nf">getStates</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="n">states</span><span class="o">;</span> <span class="o">}</span> <span class="c1">// 这返回的可是一个数组！这让外界能够更改states的状态了！
+</span><span class="c1"></span><span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里，states就逸出了它的作用域（类中），这个本应是私有的变量被发布了。</p>
+<p>构造函数可能会让this逸出。</p>
+<p>TODO</p>
+<h2 id="线程封闭">线程封闭</h2>
+<p>实现线程安全性的最简单方式之一是<strong>线程封闭</strong>（Thread Confinement）——不共享数据。当某个对象被封闭在一个线程中时，这将自动实现线程安全性，而不需要额外的同步，即使该对象本身不是线程安全的（毕竟对这个对象来说，它所处的是单线程的环境）。</p>
+<p>显然，局部变量是线程封闭的。</p>
+<h3 id="ad-hoc线程封闭">Ad-hoc线程封闭</h3>
+<p>（这什么怪名字）</p>
+<p>TODO，我想先看看别的书（Java并发编程之美）再说。</p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/20-12-22%E5%88%9D%E6%B6%89%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B2%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E6%80%A7/">
+            <span class="next-text nav-default">初涉并发编程2——线程安全性</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2020-12-23 00:00:00 \u002b0000 UTC',
+        title: '初涉并发编程3——对象的共享',
+        clientID: 'a6d39dcb11d3911b23d9',
+        clientSecret: 'a1b3afce97c2b2c21ef8ad1f40b0fce20a334be0',
+        repo: 'comments',
+        owner: 'AOYMYKN',
+        admin: ['AOYMYKN'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:cs596065766@hotmail.com" class="iconfont icon-email" title="email"></a>
+  <a href="http://aoymykn.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>AOYMYKN</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
