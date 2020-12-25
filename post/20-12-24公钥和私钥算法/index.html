@@ -49,7 +49,7 @@
 <meta itemprop="description" content="想去了解一下ssh，于是就去了解一下。">
 <meta itemprop="datePublished" content="2020-12-24T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2020-12-24T00:00:00+00:00" />
-<meta itemprop="wordCount" content="1396">
+<meta itemprop="wordCount" content="1407">
 
 
 
@@ -130,7 +130,7 @@
         <div class="post-category">
             <a href="/categories/linux/"> linux </a>
             </div>
-          <span class="more-meta"> 约 1396 字 </span>
+          <span class="more-meta"> 约 1407 字 </span>
           <span class="more-meta"> 预计阅读 3 分钟 </span>
         
       </div>
@@ -159,8 +159,8 @@
 <h1 id="对称加密和非对称加密">对称加密和非对称加密</h1>
 <p><strong>对称加密算法</strong>，其解密密钥和加密密钥是<strong>相同的</strong>，正因为解密密钥和加密密钥相同，所以该密钥不能公开。所以对称加密算法又称<strong>私钥算法</strong>。常用的对称加密算法有<strong>DES加密算法</strong>和<strong>AES加密算法</strong>。</p>
 <p><strong>非对称加密算法</strong>，其加密和解密的密钥是<strong>不一样</strong>的，<strong>其中公开的叫公钥，私有的叫私钥。公钥和私钥是成对的;公钥加密的数据，有且只有对亚它的私钥能解密;私钥加密的数据，有且只有对应它的公钥能解密</strong>（所以其实公钥和私钥的概念同加密密钥和解密密钥的概念并非是同一的）。</p>
-<p><strong>SSH是非对称加密的</strong>。</p>
-<p>这里随机生成了一对rsa密钥，私钥如下——</p>
+<p><strong>SSH是非对称加密的</strong>。它默认使用RSA加密。</p>
+<p>这里随机生成了一对RSA密钥，私钥如下——</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
