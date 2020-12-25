@@ -89,6 +89,15 @@
     </item>
     
     <item>
+      <title>关于Java的泛型</title>
+      <link>http://aoymykn.github.io/post/20-12-12%E5%85%B3%E4%BA%8Ejava%E7%9A%84%E6%B3%9B%E5%9E%8B/</link>
+      <pubDate>Sat, 12 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://aoymykn.github.io/post/20-12-12%E5%85%B3%E4%BA%8Ejava%E7%9A%84%E6%B3%9B%E5%9E%8B/</guid>
+      <description>稍微了解一波</description>
+    </item>
+    
+    <item>
       <title>数据结构为什么使用接口定义？</title>
       <link>http://aoymykn.github.io/post/20-12-11%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3%E5%AE%9A%E4%B9%89/</link>
       <pubDate>Fri, 11 Dec 2020 00:00:00 +0000</pubDate>
