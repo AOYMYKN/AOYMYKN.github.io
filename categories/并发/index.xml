@@ -6,13 +6,13 @@
     <description>Recent content in 并发 on AOYMYKN的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 23 Dec 2020 16:29:58 +0800</lastBuildDate><atom:link href="http://aoymykn.github.io/categories/%E5%B9%B6%E5%8F%91/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 26 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://aoymykn.github.io/categories/%E5%B9%B6%E5%8F%91/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>关于Thread的一些代码</title>
-      <link>http://aoymykn.github.io/post/20-12-23%E5%85%B3%E4%BA%8Ethread%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B/</link>
-      <pubDate>Wed, 23 Dec 2020 16:29:58 +0800</pubDate>
+      <link>http://aoymykn.github.io/post/20-12-26%E5%85%B3%E4%BA%8Ethread%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B/</link>
+      <pubDate>Sat, 26 Dec 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://aoymykn.github.io/post/20-12-23%E5%85%B3%E4%BA%8Ethread%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B/</guid>
+      <guid>http://aoymykn.github.io/post/20-12-26%E5%85%B3%E4%BA%8Ethread%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B/</guid>
       <description>就感觉自己进入了某种循环，不知道究竟该如何入并发的门。</description>
     </item>
     
