@@ -49,7 +49,7 @@
 <meta itemprop="description" content="使用NFA实现atoi函数">
 <meta itemprop="datePublished" content="2020-11-11T21:36:38+08:00" />
 <meta itemprop="dateModified" content="2020-11-11T21:36:38+08:00" />
-<meta itemprop="wordCount" content="3426">
+<meta itemprop="wordCount" content="3427">
 
 
 
@@ -130,7 +130,7 @@
         <div class="post-category">
             <a href="/categories/%E7%AE%97%E6%B3%95/"> 算法 </a>
             </div>
-          <span class="more-meta"> 约 3426 字 </span>
+          <span class="more-meta"> 约 3427 字 </span>
           <span class="more-meta"> 预计阅读 7 分钟 </span>
         
       </div>
@@ -837,7 +837,7 @@
 <td style="text-align:center">START</td>
 <td style="text-align:center">SIGN</td>
 <td style="text-align:center">NUMBER</td>
-<td style="text-align:center">POINT_WITHOUT_INT</td>
+<td style="text-align:center">DOT_WITHOUT_INT</td>
 <td style="text-align:center">ERROR</td>
 <td style="text-align:center">ERROR</td>
 </tr>
@@ -846,7 +846,7 @@
 <td style="text-align:center">ERROR</td>
 <td style="text-align:center">ERROR</td>
 <td style="text-align:center">NUMBER</td>
-<td style="text-align:center">POINT_WITHOUT_INT</td>
+<td style="text-align:center">DOT_WITHOUT_INT</td>
 <td style="text-align:center">ERROR</td>
 <td style="text-align:center">ERROR</td>
 </tr>
@@ -855,12 +855,12 @@
 <td style="text-align:center">END</td>
 <td style="text-align:center">END</td>
 <td style="text-align:center">NUMBER</td>
-<td style="text-align:center">POINT_WITH_INT</td>
+<td style="text-align:center">DOT_WITH_INT</td>
 <td style="text-align:center">E</td>
 <td style="text-align:center">ERROR</td>
 </tr>
 <tr>
-<td style="text-align:center">POINT_WITH_INT</td>
+<td style="text-align:center">DOT_WITH_INT</td>
 <td style="text-align:center">END</td>
 <td style="text-align:center">ERROR</td>
 <td style="text-align:center">NUMBER</td>
@@ -869,7 +869,7 @@
 <td style="text-align:center">ERROR</td>
 </tr>
 <tr>
-<td style="text-align:center">POINT_WITHOUT_INT</td>
+<td style="text-align:center">DOT_WITHOUT_INT</td>
 <td style="text-align:center">ERROR</td>
 <td style="text-align:center">ERROR</td>
 <td style="text-align:center">NUMBER</td>
@@ -924,7 +924,7 @@
 </tr>
 </tbody>
 </table>
-<p>NUMBER，POINT_WITH_INT，E_NUMBER和END是终结状态，如果最终自动机处于这几个状态，则识别成功。</p>
+<p>NUMBER，DOT_WITHOUT_INT，E_NUMBER和END是终结状态，如果最终自动机处于这几个状态，则识别成功。</p>
 <p><img src="https://i.loli.net/2020/11/12/T7AykRZrEXo632l.png" alt="good"></p>
 
     </div>
