@@ -10,21 +10,35 @@
   
   <url>
     <loc>http://aoymykn.github.io/</loc>
-    <lastmod>2020-12-27T16:13:56+08:00</lastmod>
+    <lastmod>2020-12-31T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://aoymykn.github.io/categories/</loc>
-    <lastmod>2020-12-27T16:13:56+08:00</lastmod>
+    <lastmod>2020-12-31T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://aoymykn.github.io/post/</loc>
-    <lastmod>2020-12-27T16:13:56+08:00</lastmod>
+    <lastmod>2020-12-31T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://aoymykn.github.io/post/20-12-31%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2020-12-31T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://aoymykn.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2020-12-31T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -305,18 +319,6 @@
   <url>
     <loc>http://aoymykn.github.io/post/20-06-30atom%E4%B8%8Bcommon-lisp%E7%9A%84%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</loc>
     <lastmod>2020-06-30T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://aoymykn.github.io/draft/%E6%B4%BB/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://aoymykn.github.io/draft/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

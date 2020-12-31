@@ -6,7 +6,7 @@
     <description>Recent content on AOYMYKN的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 27 Dec 2020 16:13:56 +0800</lastBuildDate><atom:link href="http://aoymykn.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 31 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://aoymykn.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
       <link>http://aoymykn.github.io/about/</link>
@@ -14,6 +14,15 @@
       
       <guid>http://aoymykn.github.io/about/</guid>
       <description>你好，我是友纪，目前学习java，算法和计算机基础中。 这个页面已经来访了—— 关于学习 我很有自知之明——菜的一笔。所以必须时刻保持学习才行。无</description>
+    </item>
+    
+    <item>
+      <title>开始学习设计模式</title>
+      <link>http://aoymykn.github.io/post/20-12-31%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Thu, 31 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://aoymykn.github.io/post/20-12-31%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
+      <description>RT，学习设计模式对于我的发展和就业是很有帮助的。</description>
     </item>
     
     <item>
@@ -203,15 +212,6 @@
       
       <guid>http://aoymykn.github.io/post/20-06-30atom%E4%B8%8Bcommon-lisp%E7%9A%84%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
       <description>atom+slima搭建Common Lisp环境</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>http://aoymykn.github.io/draft/%E6%B4%BB/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://aoymykn.github.io/draft/%E6%B4%BB/</guid>
-      <description>20.12.20 运动 学习一下SQL 20.12.21 面试 学习一下ssh 继续学习并发 草！ 20.12.22 开始准备论文答辩 继续学习并发 ??? 20.12.23——29 开题！ SSH！ 算法第三章 泛型</description>
     </item>
     
   </channel>
