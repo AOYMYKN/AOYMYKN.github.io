@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>初涉并发编程1——基本概念 - AOYMYKN的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="AOYMYKN" /><meta name="description" content="感觉到的东西，我们不能立即去理解它，只有理解了的东西，我们才能更深刻地去感受它。" /><meta name="keywords" content="Java, 后端, 计算机, 编程, 数据结构, 算法, 马克思主义, marxism, CS, IT" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.79.1 with theme even" />
+
+
+<link rel="canonical" href="http://aoymykn.github.io/post/2020/12-20%E5%88%9D%E6%B6%89%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B1%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c9ac0cd19ce10a4f2eefd4195990291e493e392c8206d6b1583da261e491264a.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="初涉并发编程1——基本概念" />
+<meta property="og:description" content="感觉到的东西，我们不能立即去理解它，只有理解了的东西，我们才能更深刻地去感受它。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://aoymykn.github.io/post/2020/12-20%E5%88%9D%E6%B6%89%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B1%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" />
+<meta property="article:published_time" content="2020-12-18T19:50:36+08:00" />
+<meta property="article:modified_time" content="2020-12-18T19:50:36+08:00" />
+<meta itemprop="name" content="初涉并发编程1——基本概念">
+<meta itemprop="description" content="感觉到的东西，我们不能立即去理解它，只有理解了的东西，我们才能更深刻地去感受它。">
+<meta itemprop="datePublished" content="2020-12-18T19:50:36+08:00" />
+<meta itemprop="dateModified" content="2020-12-18T19:50:36+08:00" />
+<meta itemprop="wordCount" content="2777">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="初涉并发编程1——基本概念"/>
+<meta name="twitter:description" content="感觉到的东西，我们不能立即去理解它，只有理解了的东西，我们才能更深刻地去感受它。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">AOYMYKN</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">AOYMYKN</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">初涉并发编程1——基本概念</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-12-18 </span>
+        <div class="post-category">
+            <a href="/categories/%E5%B9%B6%E5%8F%91/"> 并发 </a>
+            </div>
+          <span class="more-meta"> 约 2777 字 </span>
+          <span class="more-meta"> 预计阅读 6 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#基础概念">基础概念</a>
+      <ul>
+        <li><a href="#进程和线程">进程和线程</a></li>
+        <li><a href="#串行和并行">串行和并行</a></li>
+        <li><a href="#同步和异步">同步和异步</a></li>
+        <li><a href="#什么是并发">什么是并发</a></li>
+      </ul>
+    </li>
+    <li><a href="#为什么要多线程">为什么要多线程？</a></li>
+    <li><a href="#多线程带来的问题">多线程带来的问题</a>
+      <ul>
+        <li><a href="#安全性">安全性</a>
+          <ul>
+            <li><a href="#竞态条件race-condition">竞态条件（Race Condition）</a></li>
+          </ul>
+        </li>
+        <li><a href="#活跃性">活跃性</a></li>
+        <li><a href="#性能问题">性能问题</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!--Hello, Happy World-->
+<p>从这篇文章起，都是在openSUSE环境下，使用vscode编写的了～</p>
+<p>主要是按照《Java并发编程实战（Java concurrency in practice）》来学习的，或许也会参考其他书籍。我目前仅有对多线程编程的一点非常粗糙的理解，需要大量的实践和理论学习来补足。</p>
+<p>一个必须要明确的问题是，看这本书，并非是要学习java中的并发编程，而是通过Java来学习并发编程的思想。在这里，思想才是真正的<strong>内容</strong>，语言只不过是这思想的表现<strong>形式</strong>而已。将来去学设计模式，也应该坚持这一点。</p>
+<h1 id="基础概念">基础概念</h1>
+<h2 id="进程和线程">进程和线程</h2>
+<p>简单来说，<strong>进程</strong>就是一个程序（存放在硬盘里的，静态的代码/机器码）的一次执行，或者说是一个程序的<strong>生命周期</strong>。而线程，则是进程所创建的“<strong>轻量级进程</strong>”。对于Java程序来说，JVM就是Java程序的进程，它维护数个线程，如执行main方法的主线程，GC线程等。</p>
+<p>就如之前所学习到的，各个进程之间一般上来说是相互隔离的，它们只能通过操作系统提供的一些方法来相互通信，如信号量，socket，共享内存，管道等。而进程下的各线程可以<strong>共享</strong>线程的资源。对于Java程序来说，各个线程都共享进程的方法区和堆，各个线程都私有栈和PC。</p>
+<p><strong>线程是CPU调度的最小单位</strong>。进程间的上下文切换消耗很大，而线程间的切换则消耗相对较小（这里减少的消耗似乎主要来源于线程间共享的资源，即堆的资源，因为是共享的，所以内存缺页的情况会较少，更容易命中……之类的），所以线程也叫轻量级进程。</p>
+<h2 id="串行和并行">串行和并行</h2>
+<p>所谓串行，就是指一连串的操作依次进行，它们是有严格的顺序关系的，没有两个操作是同时进行的。</p>
+<p>而并行，则是说其中有部分（或全部）操作是（严格上来说）同时执行的。并行只有在多核CPU的计算机中才能进行。</p>
+<h2 id="同步和异步">同步和异步</h2>
+<p>TODO</p>
+<h2 id="什么是并发">什么是并发</h2>
+<p>并发是指在<strong>宏观</strong>上来说，两个（或多个）操作是同时执行的。这时，计算机底层可能是串行的（所有操作可以都在一个所谓的主事件循环里进行，就如以前的GUI程序），也可能是并行的，可能是单线程的，也可能是多线程的。所以并发并不等于并行。</p>
+<h1 id="为什么要多线程">为什么要多线程？</h1>
+<p>首先一个原因是，多线程让程序<strong>更容易维护</strong>（把原本互相并行的操作，分割成一个个串行的操作），<strong>降低开发的成本</strong>（好家伙，有什么比这一条更重要？）。同时，多线程也能够<strong>增加资源利用率</strong>，在进行某些需要等待的操作时（比如等待外界的输入输出），能够空出手来干其他事（即使对单核处理器也如此）；对于现代的多用户系统，多线程能够保证用户和程序的<strong>公平性</strong>。</p>
+<p>还有硬件上的原因。随着摩尔定律的失效，CPU的频率遇到瓶颈，那些硬件厂商迫不得已，只能往CPU里塞更多的核心，为了利用好这些核心，多线程是必要的。比如说，单线程的程序跑在双核的计算机上，只能利用50%性能，在128核的计算机上则只能利用不到1%的性能。</p>
+<p>不过无论如何，多线程最香的一点在于它让建模简单了，<strong>它将复杂，异步的工作流分解为一组简单，同步的工作流</strong>——每个工作流在一个单独的线程中执行，并在特定的同步位置进行交互。它能够简化异步事件，让每一个组件都像是一个单线程程序。学习多线程，实际上就是学习如何让各线程间保持同步。</p>
+<blockquote>
+<p>这可能会让你以为，在单核处理器的情况下，编写并发代码是没有意义的。然而，有些情况下，并发模型会产生更简单的代码，光是为了这个目的就值得舍弃一些性能。——《On Java 8》</p>
+</blockquote>
+<h1 id="多线程带来的问题">多线程带来的问题</h1>
+<p>多线程要求开发者考虑三个问题——安全性，活跃性，以及性能问题。</p>
+<h2 id="安全性">安全性</h2>
+<p>如果线程间没有采取适当的同步措施，多个线程之间<strong>不可预测的执行顺序</strong>可能会让程序出现错误。并且这种错误是难以发现的，间歇性出现的。</p>
+<h3 id="竞态条件race-condition">竞态条件（Race Condition）</h3>
+<p>考虑这样的代码——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Counter</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nf">Counter</span><span class="o">()</span> <span class="o">{}</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">count</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">count</span><span class="o">++;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+        <span class="n">Thread</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(()-&gt;{</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">1000</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+                <span class="n">Counter</span><span class="o">.</span><span class="na">count</span><span class="o">();</span>
+        <span class="o">});</span>
+        <span class="n">Thread</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(()-&gt;{</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">1000</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+                <span class="n">Counter</span><span class="o">.</span><span class="na">count</span><span class="o">();</span>
+        <span class="o">});</span>
+        <span class="n">a</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+        <span class="n">b</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+        <span class="n">a</span><span class="o">.</span><span class="na">join</span><span class="o">();</span>
+        <span class="n">b</span><span class="o">.</span><span class="na">join</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Counter</span><span class="o">.</span><span class="na">count</span><span class="o">());</span> <span class="c1">// 结果是不可预测的，可能是1000到2000的任何值
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">exit</span><span class="o">(</span><span class="n">0</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>问题发生在count方法里，count++并非是原子操作，查看count的字节码，可以看到，其字节码有6步，这里简化它有三步——get值（到栈顶），计算，put值。它是<strong>读取——修改——写入</strong>操作。</p>
+<blockquote>
+<p><del>原子操作指不可被打断的操作，也就是说，当一个线程在执行原子操作的时候，该操作（块）保证不会被其他线程执行，即使该线程被切换出去。通过一定的加锁机制能够给与一串操作以原子性</del>（不知道如何正确定义原子性…这里被删掉的定义的外延似乎不能包括那种真正不可再分的原子操作，比如下面所示的字节码的单行，因为这样的操作在多处理器环境下完全可以是并行的，而锁将不允许并行。或许是我脑子里没货导致的……但是这里其实并不需要纠结，在实践中是能够分辨出来的）</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">public static int count();
+Code:
+    0: getstatic   #2  // Field count:I
+    3: dup
+    4: iconst_1
+    5: iadd
+    6: putstatic   #2  // Field count:I
+    9: ireturn
+</code></pre></td></tr></table>
+</div>
+</div><p>要知道，线程可以在进行到任意一行时进行线程调度。考虑下面的情况——</p>
+<p><img src="https://i.loli.net/2020/12/19/DxmSh9zpiRyNXju.png" alt="image.png"></p>
+<p>经历了两次count操作，它们正常的情况应该是分别返回9，10，而这里全部都返回了9。count在两次递增后值应当为11,但结果却为10。可以说，有一次递增操作<strong>丢失</strong>了。这里显然，<strong>不恰当的运行时线程交替执行的顺序导致了错误的结果</strong>。这是没有充分同步造成的。</p>
+<p>上面描述的是一种常见的并发安全问题——<strong>竞态条件（Race Condition）<strong>中的“<strong>先检查后执行（Check-Then-Act）</strong>”。它是指</strong>结果的正确性取决于多个线程的交替执行时序</strong>这样的情况。或者说，结果的正确性取决于运气。（老实说，我觉得condition或许翻译成“情况”更好）</p>
+<p>大多数竞态条件的本质是“<strong>观察结果的失效</strong>”。<del>比如这里的count方法，当一个线程获取了count的值后，它实际上已经无法再知道它所持有的count的值是否还是原来的count的值，而它却要拿这种不确定的结果来进行运算。如果该结果自始至终都是未改变的，则不会出现问题。但若是有改变，这里就失效了。</del>（该方法属于读取——修改——写入操作，有一定的共通性，但也有其个性）。</p>
+<p>（单例模式的？）延迟初始化也是先检查后执行的一个常见例子。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="k">if</span> <span class="o">(</span><span class="n">ins</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> 
+    <span class="k">return</span> <span class="n">ins</span> <span class="o">=</span> <span class="k">new</span> <span class="n">instance</span><span class="o">();</span> 
+<span class="k">else</span> <span class="k">return</span> <span class="n">ins</span><span class="o">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里由于不一致的调用顺序，可能会导致多个线程执行该方法后返回不一样的实例。</p>
+<h2 id="活跃性">活跃性</h2>
+<p>安全性是指，“<strong>永远不发生糟糕的事情</strong>”，而活跃性则是指，“<strong>正确的事情终究会发生</strong>”。在这里，死锁，饥饿，活锁等会导致活跃性问题。（或许死锁和饥饿的区别在于，死锁和活锁时所有线程都无法执行，饥饿时只有一部分线程无法执行……但无论如何，这都是我们不想看到的）</p>
+<h2 id="性能问题">性能问题</h2>
+<p>我们不仅要求正确的事情终究要发生，也要求正确的事情尽快发生。多线程程序相较于单线程程序，引入了多余的运行时开销——<strong>线程间的上下文切换和对临界区操作时同步机制带来的开销</strong>。前者如处理不当，会导致CPU时间主要用于线程调度而非运行，后者往往会抑制编译器的性能优化，使内存缓冲区中数据无效。</p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/2020/12-22%E5%88%9D%E6%B6%89%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B2%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E6%80%A7/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">初涉并发编程2——线程安全性</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/2020/12-18%E8%BF%81%E7%A7%BB%E5%88%B0linux/">
+            <span class="next-text nav-default">迁移到linux</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2020-12-18 19:50:36 \u002b0800 CST',
+        title: '初涉并发编程1——基本概念',
+        clientID: 'a6d39dcb11d3911b23d9',
+        clientSecret: 'a1b3afce97c2b2c21ef8ad1f40b0fce20a334be0',
+        repo: 'comments',
+        owner: 'AOYMYKN',
+        admin: ['AOYMYKN'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:cs596065766@hotmail.com" class="iconfont icon-email" title="email"></a>
+  <a href="http://aoymykn.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>AOYMYKN</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

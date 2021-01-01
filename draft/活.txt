@@ -1,0 +1,7 @@
+关于流的概念...
+
+MBR，GPT，BootLoader，BIOS，Grub等的关系（系统是怎样引导的）...
+
+![image.png](https://i.loli.net/2021/01/01/UROwSNZt9Guj5sT.png)
+
+如果出事了。我就去学抽烟。去他妈的。
