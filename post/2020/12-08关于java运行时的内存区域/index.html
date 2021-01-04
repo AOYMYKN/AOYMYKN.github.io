@@ -49,7 +49,7 @@
 <meta itemprop="description" content="初步了解JVM">
 <meta itemprop="datePublished" content="2020-12-08T16:17:33+08:00" />
 <meta itemprop="dateModified" content="2020-12-09T16:17:33+08:00" />
-<meta itemprop="wordCount" content="4155">
+<meta itemprop="wordCount" content="4148">
 
 
 
@@ -130,7 +130,7 @@
         <div class="post-category">
             <a href="/categories/java/"> Java </a>
             </div>
-          <span class="more-meta"> 约 4155 字 </span>
+          <span class="more-meta"> 约 4148 字 </span>
           <span class="more-meta"> 预计阅读 9 分钟 </span>
         
       </div>
@@ -331,7 +331,7 @@
 <h3 id="new-stringhello创建几个字符串对象">new String(&ldquo;hello&rdquo;)创建几个字符串对象？</h3>
 <p>答案是一个或两个。JVM首先检查常量池中是否存在字符串常量&quot;hello&quot;。如果存在，则只在堆中创建一个字符串常量&quot;hello&quot;，如果不存在，则先在池中创建，再在堆中创建。因此是一个或两个。</p>
 <h2 id="包装类型的常量池">包装类型的常量池</h2>
-<p>字符串常量池存在于堆中，而运行时常量池存在于方法区中。多多重复才好。</p>
+<p><strong>字符串常量池存在于堆中</strong>，<strong>而运行时常量池存在于方法区中</strong>。</p>
 <p>八种包装类型中，六种包装类型都实现了常量池技术。它们是四种整型Byte，Short，Integer和Long，Boolean和Character，两种浮点数Float和Double没有实现。</p>
 <p>四种整型包装类创建了[-128,127]范围类的相应类型的缓存数据，Character实现了数据在[0, 127]（从<code>\u0000</code>到<code>\u007f</code>）范围的缓存数据，Boolean直接返回True和False（也就是说，所有Boolean的变量，其值为true的都==常量池中的TRUE，其值为false的都==常量池中的FALSE）。</p>
 <p>在自动装箱（如通过字面量初始化）时，Java在编译时会自动封装代码，从而使用常量池中的对象。</p>
