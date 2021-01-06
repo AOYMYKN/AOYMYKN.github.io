@@ -6,22 +6,40 @@
     <description>Recent content in 并发 on AOYMYKN的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 21 Dec 2020 13:23:19 +0800</lastBuildDate><atom:link href="http://aoymykn.github.io/categories/%E5%B9%B6%E5%8F%91/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 26 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://aoymykn.github.io/categories/%E5%B9%B6%E5%8F%91/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>关于Thread的一些代码</title>
+      <link>http://aoymykn.github.io/post/2020/12-26%E5%85%B3%E4%BA%8Ethread%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B/</link>
+      <pubDate>Sat, 26 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://aoymykn.github.io/post/2020/12-26%E5%85%B3%E4%BA%8Ethread%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B/</guid>
+      <description>就感觉自己进入了某种循环，不知道究竟该如何入并发的门。</description>
+    </item>
+    
+    <item>
+      <title>初涉并发编程3——对象的共享</title>
+      <link>http://aoymykn.github.io/post/2020/12-23%E5%88%9D%E6%B6%89%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B3%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%85%B1%E4%BA%AB/</link>
+      <pubDate>Wed, 23 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://aoymykn.github.io/post/2020/12-23%E5%88%9D%E6%B6%89%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B3%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%85%B1%E4%BA%AB/</guid>
+      <description>麻了</description>
+    </item>
+    
     <item>
       <title>初涉并发编程2——线程安全性</title>
-      <link>http://aoymykn.github.io/post/20-12-22%E5%88%9D%E6%B6%89%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B2%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E6%80%A7/</link>
-      <pubDate>Mon, 21 Dec 2020 13:23:19 +0800</pubDate>
+      <link>http://aoymykn.github.io/post/2020/12-22%E5%88%9D%E6%B6%89%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B2%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E6%80%A7/</link>
+      <pubDate>Tue, 22 Dec 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://aoymykn.github.io/post/20-12-22%E5%88%9D%E6%B6%89%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B2%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E6%80%A7/</guid>
+      <guid>http://aoymykn.github.io/post/2020/12-22%E5%88%9D%E6%B6%89%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B2%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E6%80%A7/</guid>
       <description>此节讲述如何通过同步避免多个线程同一时刻访问相同的数据。</description>
     </item>
     
     <item>
       <title>初涉并发编程1——基本概念</title>
-      <link>http://aoymykn.github.io/post/20-12-20%E5%88%9D%E6%B6%89%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B1%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</link>
+      <link>http://aoymykn.github.io/post/2020/12-20%E5%88%9D%E6%B6%89%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B1%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</link>
       <pubDate>Fri, 18 Dec 2020 19:50:36 +0800</pubDate>
       
-      <guid>http://aoymykn.github.io/post/20-12-20%E5%88%9D%E6%B6%89%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B1%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</guid>
+      <guid>http://aoymykn.github.io/post/2020/12-20%E5%88%9D%E6%B6%89%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B1%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</guid>
       <description>感觉到的东西，我们不能立即去理解它，只有理解了的东西，我们才能更深刻地去感受它。</description>
     </item>
     

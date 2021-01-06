@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>对CSP的复盘 - AOYMYKN的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="AOYMYKN" /><meta name="description" content="只拿了200分……说实话有点菜" /><meta name="keywords" content="CSP" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.80.0 with theme even" />
+
+
+<link rel="canonical" href="http://aoymykn.github.io/post/2020/12-13%E5%AF%B9csp%E7%9A%84%E5%A4%8D%E7%9B%98/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c9ac0cd19ce10a4f2eefd4195990291e493e392c8206d6b1583da261e491264a.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="对CSP的复盘" />
+<meta property="og:description" content="只拿了200分……说实话有点菜" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://aoymykn.github.io/post/2020/12-13%E5%AF%B9csp%E7%9A%84%E5%A4%8D%E7%9B%98/" />
+<meta property="article:published_time" content="2020-12-13T22:33:00+08:00" />
+<meta property="article:modified_time" content="2020-12-13T22:33:00+08:00" />
+<meta itemprop="name" content="对CSP的复盘">
+<meta itemprop="description" content="只拿了200分……说实话有点菜">
+<meta itemprop="datePublished" content="2020-12-13T22:33:00+08:00" />
+<meta itemprop="dateModified" content="2020-12-13T22:33:00+08:00" />
+<meta itemprop="wordCount" content="1717">
+
+
+
+<meta itemprop="keywords" content="CSP," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="对CSP的复盘"/>
+<meta name="twitter:description" content="只拿了200分……说实话有点菜"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">AOYMYKN</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">AOYMYKN</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">对CSP的复盘</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-12-13 </span>
+        
+          <span class="more-meta"> 约 1717 字 </span>
+          <span class="more-meta"> 预计阅读 4 分钟 </span>
+        
+      </div>
+    </header>
+
+    
+    <div class="post-content">
+      <!--Hello, Happy World-->
+<p>这一次CSP感觉难度比以往的高一些，我只拿了200分就跑路了，本应该能拿一点分的第三题被放弃着实可惜……随便写点什么。</p>
+<p>第一二题都挺水的，但是题目却是费尽心思地往复杂的出，看题目半小时，coding 5分钟。第一题毫无压力，计算总和，大于零输出它，小于零就输出零。</p>
+<p>第二题麻烦很多，但也好解决。它可以简化为——给定n对数字i，j，其中j为0,1，现在定义一个k，k可为任意一个i，求这样的k，使这n对数字中，i &lt; k的数对中的0的数量加上i &gt;= k的数对中1的数量最大（我不想，也不会写严格的数学描述）。</p>
+<p>暴力解法是容易联想的，令k遍历所有的i，在每一次遍历中，遍历所有数对，每次保存最大时的k。这个解法是O(n^2)的。</p>
+<p>根据我的几个同学的成绩，n^2解法只能得到70分（题目要求n&lt;=50000，这显然不是平方时间复杂度的算法可以接受的）。我可能在实现上有一些问题，只获得了30分。于是我对算法进行了改进，使用滑动窗口的思想，统计对于每个i，其出现0和1的次数（使用两个哈希表实现，因为i的取值是非常大的，桶接受不了）。获取其keySet并排序。滚动记录对每一个i，小于i的0的数量和大于等于i的1的数量并记录最大值时的i。这样就把算法优化到nlogn时间复杂度（来自于排序，如果题目规定输入有序的话则是线性时间复杂度）。100分get</p>
+<p>第三题是我想要重点提及的题，它模拟创建文件并设置文件大小，更改目录的孩子限额，后代限额，删除目录这几个操作，操作有失败的可能（比如重复的创建，或超出限额），如果失败，则不进行操作（这个坑死人了！）。</p>
+<p>我认为，第三题我没有做出来的原因是对数据结构抽象的不彻底，试图在业务代码里直接操作数据结构，我使用二叉树来模拟文件树（显然是一个多叉树）——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Node</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="n">filetype</span> <span class="n">type</span><span class="o">;</span> <span class="c1">// {DIR, FILE}
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="n">Node</span> <span class="n">father</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="n">Node</span> <span class="n">son</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="n">Node</span> <span class="n">brother</span><span class="o">;</span>
+    <span class="c1">// 应当使用变量来记录当前的实际大小和孩子配额，后代配额
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="nf">Node</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">filetype</span> <span class="n">type</span><span class="o">)</span> <span class="o">{...}</span>
+    
+    <span class="c1">// 定义了设置son，添加brother等，事实证明这是不够的
+</span><span class="c1"></span>    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>我认为，在考试这样紧迫的环境里（特别是我码力还不行），应当尽全力利用已有的数据结构，不要搞幺蛾子……应当使用HashMap来进行简化，而且，链表的操作总是……反正考试的压力下我驾驭不了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Node</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="c1">// 应当不要在业务代码里操作数据结构，所以这里所有字段都设为了private
+</span><span class="c1"></span>    <span class="kd">private</span> <span class="kt">int</span> <span class="n">actualSize</span><span class="o">;</span> <span class="c1">// 对于目录应当是0
+</span><span class="c1"></span>    <span class="kd">private</span> <span class="kt">int</span> <span class="n">childSize</span><span class="o">;</span> <span class="c1">// 孩子的总大小，对于文件应当是0
+</span><span class="c1"></span>    <span class="kd">private</span> <span class="kt">int</span> <span class="n">descendantSize</span><span class="o">;</span> <span class="c1">// 子代的总大小，对于文件应当是0
+</span><span class="c1"></span>    <span class="kd">private</span> <span class="kt">int</span> <span class="n">childCapacity</span><span class="o">;</span> <span class="c1">// 孩子配额
+</span><span class="c1"></span>    <span class="kd">private</span> <span class="kt">int</span> <span class="n">descendantCapacity</span><span class="o">;</span> <span class="c1">// 子代配额
+</span><span class="c1"></span>    <span class="kd">private</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Node</span><span class="o">&gt;</span> <span class="n">children</span><span class="o">;</span> <span class="c1">// 用map实现多叉树，用名称进行匹配符合要求
+</span><span class="c1"></span>    <span class="kd">private</span> <span class="n">Node</span> <span class="n">father</span><span class="o">;</span> <span class="c1">// 方便回朔
+</span><span class="c1"></span>    <span class="kd">private</span> <span class="n">filetype</span> <span class="n">type</span><span class="o">;</span>
+    <span class="c1">// 对每个创建方法，应当递归更新该Node的father的childSize和descendantSize
+</span><span class="c1"></span>    <span class="c1">// 应该添加一个boolean addFileCheck(int size)方法，检查假如在该Node（目录）下插入一个文件会不会超出配额
+</span><span class="c1"></span>    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>以创建文件为例子，假设输入是<code>C /hello/happy/world/123 1234</code>，这代表创建文件并设置其大小为1234，首先把输入分隔成&quot;hello&quot;,&ldquo;happy&rdquo;,&ldquo;world&rdquo;,&ldquo;123&rdquo;。首先检查会不会操作失败，检查分为两步——先检查是否重复创建，且最后一个path是目录，再检查如果设置，其上级的各目录的配额能否满足。验证完了？找到需要创建文件/目录的地址，比如，假如已经存在/hello/happy/目录，就在happy文件夹递归创建其后的目录/文件（即world文件夹，123文件）。该创建的方法应当由数据结构抽象。如果匹配到了最后，则是更新操作，这里可以先remove，再重新插入，也可以递归更新其father……怎么舒服怎么来吧！记住，在编写代码的时候，不要直接想着优化，**提前优化是万恶之源！提前优化是万恶之源！提前优化是万恶之源！**等因为超时拿不到满分再去优化吧！</p>
+<p>第五题应该是一道线段树题，题目很容易看懂，可惜这个数据结构我还没学……总之写了个爆破的解法，应该能拿20分，但是我在出分前就跑路了，不知道拿到没有。</p>
+<p>道路还长着呢，继续学习！不过这考试是不会再参加了，再您的见！</p>
+<p><img src="https://i.loli.net/2020/11/12/T7AykRZrEXo632l.png" alt="good"></p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/csp/">CSP</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/2020/12-18%E8%BF%81%E7%A7%BB%E5%88%B0linux/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">迁移到linux</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/2020/12-12%E5%85%B3%E4%BA%8Ejava%E7%9A%84%E6%B3%9B%E5%9E%8B/">
+            <span class="next-text nav-default">关于Java的泛型</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2020-12-13 22:33:00 \u002b0800 CST',
+        title: '对CSP的复盘',
+        clientID: 'a6d39dcb11d3911b23d9',
+        clientSecret: 'a1b3afce97c2b2c21ef8ad1f40b0fce20a334be0',
+        repo: 'comments',
+        owner: 'AOYMYKN',
+        admin: ['AOYMYKN'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:cs596065766@hotmail.com" class="iconfont icon-email" title="email"></a>
+  <a href="http://aoymykn.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>AOYMYKN</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

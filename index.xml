@@ -6,7 +6,7 @@
     <description>Recent content on AOYMYKN的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 21 Dec 2020 13:23:19 +0800</lastBuildDate><atom:link href="http://aoymykn.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 06 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="http://aoymykn.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
       <link>http://aoymykn.github.io/about/</link>
@@ -17,147 +17,228 @@
     </item>
     
     <item>
-      <title>初涉并发编程2——线程安全性</title>
-      <link>http://aoymykn.github.io/post/20-12-22%E5%88%9D%E6%B6%89%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B2%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E6%80%A7/</link>
-      <pubDate>Mon, 21 Dec 2020 13:23:19 +0800</pubDate>
+      <title>ArchLinux及图形界面的安装</title>
+      <link>http://aoymykn.github.io/post/2021-spring/01-06%E7%BA%B5%E8%A7%88archlinux%E7%9A%84%E5%AE%89%E8%A3%85/</link>
+      <pubDate>Wed, 06 Jan 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://aoymykn.github.io/post/20-12-22%E5%88%9D%E6%B6%89%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B2%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E6%80%A7/</guid>
+      <guid>http://aoymykn.github.io/post/2021-spring/01-06%E7%BA%B5%E8%A7%88archlinux%E7%9A%84%E5%AE%89%E8%A3%85/</guid>
+      <description>第n次安装ArchLinux，记录（和概括）一下安装过程。顺便安装一下KDE图形界面，学习一下MBR和GPT格式及其区别，应用，和grub2的用途，使用……总之尽量多扯扯。</description>
+    </item>
+    
+    <item>
+      <title>开始学习设计模式——迭代器模式和适配器模式</title>
+      <link>http://aoymykn.github.io/post/2021-spring/01-01%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Fri, 01 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://aoymykn.github.io/post/2021-spring/01-01%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
+      <description>RT，学习设计模式对于我的发展和就业是很有帮助的。</description>
+    </item>
+    
+    <item>
+      <title>关于寒假的计划</title>
+      <link>http://aoymykn.github.io/post/2020/12-27%E5%85%B3%E4%BA%8E%E5%AF%92%E5%81%87%E7%9A%84%E8%AE%A1%E5%88%92/</link>
+      <pubDate>Sun, 27 Dec 2020 16:13:56 +0800</pubDate>
+      
+      <guid>http://aoymykn.github.io/post/2020/12-27%E5%85%B3%E4%BA%8E%E5%AF%92%E5%81%87%E7%9A%84%E8%AE%A1%E5%88%92/</guid>
+      <description>坚持学习，准备就业</description>
+    </item>
+    
+    <item>
+      <title>关于Thread的一些代码</title>
+      <link>http://aoymykn.github.io/post/2020/12-26%E5%85%B3%E4%BA%8Ethread%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B/</link>
+      <pubDate>Sat, 26 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://aoymykn.github.io/post/2020/12-26%E5%85%B3%E4%BA%8Ethread%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B/</guid>
+      <description>就感觉自己进入了某种循环，不知道究竟该如何入并发的门。</description>
+    </item>
+    
+    <item>
+      <title>公钥算法和私钥算法</title>
+      <link>http://aoymykn.github.io/post/2020/12-24%E5%85%AC%E9%92%A5%E5%92%8C%E7%A7%81%E9%92%A5%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Thu, 24 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://aoymykn.github.io/post/2020/12-24%E5%85%AC%E9%92%A5%E5%92%8C%E7%A7%81%E9%92%A5%E7%AE%97%E6%B3%95/</guid>
+      <description>想去了解一下ssh，于是就去了解一下。</description>
+    </item>
+    
+    <item>
+      <title>关于毕业设计</title>
+      <link>http://aoymykn.github.io/post/2020/12-24%E5%85%B3%E4%BA%8E%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1/</link>
+      <pubDate>Thu, 24 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://aoymykn.github.io/post/2020/12-24%E5%85%B3%E4%BA%8E%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1/</guid>
+      <description>虽然不太喜欢这个项目，但不能不说这是一个锻炼自己的机会。</description>
+    </item>
+    
+    <item>
+      <title>初涉并发编程3——对象的共享</title>
+      <link>http://aoymykn.github.io/post/2020/12-23%E5%88%9D%E6%B6%89%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B3%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%85%B1%E4%BA%AB/</link>
+      <pubDate>Wed, 23 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://aoymykn.github.io/post/2020/12-23%E5%88%9D%E6%B6%89%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B3%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%85%B1%E4%BA%AB/</guid>
+      <description>麻了</description>
+    </item>
+    
+    <item>
+      <title>初涉并发编程2——线程安全性</title>
+      <link>http://aoymykn.github.io/post/2020/12-22%E5%88%9D%E6%B6%89%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B2%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E6%80%A7/</link>
+      <pubDate>Tue, 22 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://aoymykn.github.io/post/2020/12-22%E5%88%9D%E6%B6%89%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B2%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E6%80%A7/</guid>
       <description>此节讲述如何通过同步避免多个线程同一时刻访问相同的数据。</description>
     </item>
     
     <item>
       <title>初涉并发编程1——基本概念</title>
-      <link>http://aoymykn.github.io/post/20-12-20%E5%88%9D%E6%B6%89%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B1%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</link>
+      <link>http://aoymykn.github.io/post/2020/12-20%E5%88%9D%E6%B6%89%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B1%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</link>
       <pubDate>Fri, 18 Dec 2020 19:50:36 +0800</pubDate>
       
-      <guid>http://aoymykn.github.io/post/20-12-20%E5%88%9D%E6%B6%89%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B1%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</guid>
+      <guid>http://aoymykn.github.io/post/2020/12-20%E5%88%9D%E6%B6%89%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B1%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</guid>
       <description>感觉到的东西，我们不能立即去理解它，只有理解了的东西，我们才能更深刻地去感受它。</description>
     </item>
     
     <item>
       <title>迁移到linux</title>
-      <link>http://aoymykn.github.io/post/20-12-18%E8%BF%81%E7%A7%BB%E5%88%B0linux/</link>
+      <link>http://aoymykn.github.io/post/2020/12-18%E8%BF%81%E7%A7%BB%E5%88%B0linux/</link>
       <pubDate>Fri, 18 Dec 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://aoymykn.github.io/post/20-12-18%E8%BF%81%E7%A7%BB%E5%88%B0linux/</guid>
+      <guid>http://aoymykn.github.io/post/2020/12-18%E8%BF%81%E7%A7%BB%E5%88%B0linux/</guid>
       <description>受不了windows了，转战linux</description>
     </item>
     
     <item>
       <title>对CSP的复盘</title>
-      <link>http://aoymykn.github.io/post/20-12-13%E5%AF%B9csp%E7%9A%84%E5%A4%8D%E7%9B%98/</link>
+      <link>http://aoymykn.github.io/post/2020/12-13%E5%AF%B9csp%E7%9A%84%E5%A4%8D%E7%9B%98/</link>
       <pubDate>Sun, 13 Dec 2020 22:33:00 +0800</pubDate>
       
-      <guid>http://aoymykn.github.io/post/20-12-13%E5%AF%B9csp%E7%9A%84%E5%A4%8D%E7%9B%98/</guid>
+      <guid>http://aoymykn.github.io/post/2020/12-13%E5%AF%B9csp%E7%9A%84%E5%A4%8D%E7%9B%98/</guid>
       <description>只拿了200分……说实话有点菜</description>
     </item>
     
     <item>
-      <title>数据结构为什么使用接口定义？</title>
-      <link>http://aoymykn.github.io/post/20-12-11%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3%E5%AE%9A%E4%B9%89/</link>
-      <pubDate>Fri, 11 Dec 2020 17:50:23 +0800</pubDate>
+      <title>关于Java的泛型</title>
+      <link>http://aoymykn.github.io/post/2020/12-12%E5%85%B3%E4%BA%8Ejava%E7%9A%84%E6%B3%9B%E5%9E%8B/</link>
+      <pubDate>Sat, 12 Dec 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://aoymykn.github.io/post/20-12-11%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3%E5%AE%9A%E4%B9%89/</guid>
+      <guid>http://aoymykn.github.io/post/2020/12-12%E5%85%B3%E4%BA%8Ejava%E7%9A%84%E6%B3%9B%E5%9E%8B/</guid>
+      <description>稍微了解一波</description>
+    </item>
+    
+    <item>
+      <title>数据结构为什么使用接口定义？</title>
+      <link>http://aoymykn.github.io/post/2020/12-11%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3%E5%AE%9A%E4%B9%89/</link>
+      <pubDate>Fri, 11 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://aoymykn.github.io/post/2020/12-11%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3%E5%AE%9A%E4%B9%89/</guid>
       <description>最近老在看JVM，该看点“上层建筑”了</description>
     </item>
     
     <item>
       <title>点击Run按钮时，JVM做了什么？</title>
-      <link>http://aoymykn.github.io/post/20-12-10%E7%82%B9%E5%87%BBrun%E6%8C%89%E9%92%AE%E6%97%B6jvm%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88/</link>
+      <link>http://aoymykn.github.io/post/2020/12-10%E7%82%B9%E5%87%BBrun%E6%8C%89%E9%92%AE%E6%97%B6jvm%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88/</link>
       <pubDate>Thu, 10 Dec 2020 21:29:13 +0800</pubDate>
       
-      <guid>http://aoymykn.github.io/post/20-12-10%E7%82%B9%E5%87%BBrun%E6%8C%89%E9%92%AE%E6%97%B6jvm%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88/</guid>
+      <guid>http://aoymykn.github.io/post/2020/12-10%E7%82%B9%E5%87%BBrun%E6%8C%89%E9%92%AE%E6%97%B6jvm%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88/</guid>
       <description>粗略的不能再粗略，就像古希腊人的科学，直观，具体，广泛但不深入。但是认识终究要经过这一步。</description>
     </item>
     
     <item>
       <title>关于类的加载</title>
-      <link>http://aoymykn.github.io/post/20-12-10%E5%85%B3%E4%BA%8E%E7%B1%BB%E7%9A%84%E5%8A%A0%E8%BD%BD/</link>
+      <link>http://aoymykn.github.io/post/2020/12-10%E5%85%B3%E4%BA%8E%E7%B1%BB%E7%9A%84%E5%8A%A0%E8%BD%BD/</link>
       <pubDate>Thu, 10 Dec 2020 08:39:35 +0800</pubDate>
       
-      <guid>http://aoymykn.github.io/post/20-12-10%E5%85%B3%E4%BA%8E%E7%B1%BB%E7%9A%84%E5%8A%A0%E8%BD%BD/</guid>
+      <guid>http://aoymykn.github.io/post/2020/12-10%E5%85%B3%E4%BA%8E%E7%B1%BB%E7%9A%84%E5%8A%A0%E8%BD%BD/</guid>
       <description>从具体到抽象，再从抽象到具体。这是认识的一般规律。</description>
     </item>
     
     <item>
       <title>关于Java运行时的内存区域</title>
-      <link>http://aoymykn.github.io/post/20-12-08%E5%85%B3%E4%BA%8Ejava%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/</link>
+      <link>http://aoymykn.github.io/post/2020/12-08%E5%85%B3%E4%BA%8Ejava%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/</link>
       <pubDate>Tue, 08 Dec 2020 16:17:33 +0800</pubDate>
       
-      <guid>http://aoymykn.github.io/post/20-12-08%E5%85%B3%E4%BA%8Ejava%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/</guid>
+      <guid>http://aoymykn.github.io/post/2020/12-08%E5%85%B3%E4%BA%8Ejava%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/</guid>
       <description>初步了解JVM</description>
     </item>
     
     <item>
       <title>一些经典排序算法及其Java实现</title>
-      <link>http://aoymykn.github.io/post/20-12-07%E4%B8%80%E4%BA%9B%E7%BB%8F%E5%85%B8%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E5%8F%8A%E5%85%B6java%E5%AE%9E%E7%8E%B0/</link>
+      <link>http://aoymykn.github.io/post/2020/12-07%E4%B8%80%E4%BA%9B%E7%BB%8F%E5%85%B8%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E5%8F%8A%E5%85%B6java%E5%AE%9E%E7%8E%B0/</link>
       <pubDate>Mon, 07 Dec 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://aoymykn.github.io/post/20-12-07%E4%B8%80%E4%BA%9B%E7%BB%8F%E5%85%B8%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E5%8F%8A%E5%85%B6java%E5%AE%9E%E7%8E%B0/</guid>
+      <guid>http://aoymykn.github.io/post/2020/12-07%E4%B8%80%E4%BA%9B%E7%BB%8F%E5%85%B8%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E5%8F%8A%E5%85%B6java%E5%AE%9E%E7%8E%B0/</guid>
       <description>排序之于算法，就如小星星之于音乐</description>
     </item>
     
     <item>
       <title>关于equals和hashCode方法</title>
-      <link>http://aoymykn.github.io/post/20-12-06%E5%85%B3%E4%BA%8Eequals%E5%92%8Chashcode%E6%96%B9%E6%B3%95/</link>
+      <link>http://aoymykn.github.io/post/2020/12-06%E5%85%B3%E4%BA%8Eequals%E5%92%8Chashcode%E6%96%B9%E6%B3%95/</link>
       <pubDate>Sun, 06 Dec 2020 10:52:56 +0800</pubDate>
       
-      <guid>http://aoymykn.github.io/post/20-12-06%E5%85%B3%E4%BA%8Eequals%E5%92%8Chashcode%E6%96%B9%E6%B3%95/</guid>
+      <guid>http://aoymykn.github.io/post/2020/12-06%E5%85%B3%E4%BA%8Eequals%E5%92%8Chashcode%E6%96%B9%E6%B3%95/</guid>
       <description>为何重写equals方法就必须要重写hashCode方法？</description>
     </item>
     
     <item>
       <title>关于数据结构中的堆（heap）</title>
-      <link>http://aoymykn.github.io/post/20-12-03%E5%85%B3%E4%BA%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%AD%E7%9A%84%E5%A0%86/</link>
+      <link>http://aoymykn.github.io/post/2020/12-03%E5%85%B3%E4%BA%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%AD%E7%9A%84%E5%A0%86/</link>
       <pubDate>Thu, 03 Dec 2020 15:29:28 +0800</pubDate>
       
-      <guid>http://aoymykn.github.io/post/20-12-03%E5%85%B3%E4%BA%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%AD%E7%9A%84%E5%A0%86/</guid>
+      <guid>http://aoymykn.github.io/post/2020/12-03%E5%85%B3%E4%BA%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%AD%E7%9A%84%E5%A0%86/</guid>
       <description>堆是什么，堆的简单操作以及应用</description>
     </item>
     
     <item>
       <title>概观java的面向对象</title>
-      <link>http://aoymykn.github.io/post/20-11-13%E6%A6%82%E8%A7%82java%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</link>
+      <link>http://aoymykn.github.io/post/2020/11-13%E6%A6%82%E8%A7%82java%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</link>
       <pubDate>Fri, 13 Nov 2020 14:09:55 +0800</pubDate>
       
-      <guid>http://aoymykn.github.io/post/20-11-13%E6%A6%82%E8%A7%82java%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</guid>
+      <guid>http://aoymykn.github.io/post/2020/11-13%E6%A6%82%E8%A7%82java%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</guid>
       <description>思而不学则殆</description>
     </item>
     
     <item>
       <title>自动机——我的atoi函数</title>
-      <link>http://aoymykn.github.io/post/20-11-11%E8%87%AA%E5%8A%A8%E6%9C%BA%E6%88%91%E7%9A%84atoi%E5%87%BD%E6%95%B0/</link>
+      <link>http://aoymykn.github.io/post/2020/11-11%E8%87%AA%E5%8A%A8%E6%9C%BA%E6%88%91%E7%9A%84atoi%E5%87%BD%E6%95%B0/</link>
       <pubDate>Wed, 11 Nov 2020 21:36:38 +0800</pubDate>
       
-      <guid>http://aoymykn.github.io/post/20-11-11%E8%87%AA%E5%8A%A8%E6%9C%BA%E6%88%91%E7%9A%84atoi%E5%87%BD%E6%95%B0/</guid>
+      <guid>http://aoymykn.github.io/post/2020/11-11%E8%87%AA%E5%8A%A8%E6%9C%BA%E6%88%91%E7%9A%84atoi%E5%87%BD%E6%95%B0/</guid>
       <description>使用NFA实现atoi函数</description>
     </item>
     
     <item>
+      <title>关于一些世界语的学习资源</title>
+      <link>http://aoymykn.github.io/post/2020/08-15%E4%B8%96%E7%95%8C%E8%AF%AD%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90/</link>
+      <pubDate>Sat, 15 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://aoymykn.github.io/post/2020/08-15%E4%B8%96%E7%95%8C%E8%AF%AD%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90/</guid>
+      <description>一些世界语的学习资源，似乎是在哪里转载的，但是我找不到出处了</description>
+    </item>
+    
+    <item>
+      <title>《CGMA colour and light》笔记</title>
+      <link>http://aoymykn.github.io/post/2020/07-30cgma-colour-and-light%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Thu, 30 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://aoymykn.github.io/post/2020/07-30cgma-colour-and-light%E7%AC%94%E8%AE%B0/</guid>
+      <description>一个非常有趣的画画的光影教程，其提出的色温理论至少看上去非常具有实践性。</description>
+    </item>
+    
+    <item>
       <title>一些lisp参考资料</title>
-      <link>http://aoymykn.github.io/post/20-07-04%E4%B8%80%E4%BA%9Blisp%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99/</link>
+      <link>http://aoymykn.github.io/post/2020/07-04%E4%B8%80%E4%BA%9Blisp%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99/</link>
       <pubDate>Sat, 04 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://aoymykn.github.io/post/20-07-04%E4%B8%80%E4%BA%9Blisp%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99/</guid>
+      <guid>http://aoymykn.github.io/post/2020/07-04%E4%B8%80%E4%BA%9Blisp%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99/</guid>
       <description>RT</description>
     </item>
     
     <item>
       <title>Atom下common lisp的环境搭建</title>
-      <link>http://aoymykn.github.io/post/20-06-30atom%E4%B8%8Bcommon-lisp%E7%9A%84%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
+      <link>http://aoymykn.github.io/post/2020/06-30atom%E4%B8%8Bcommon-lisp%E7%9A%84%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
       <pubDate>Tue, 30 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://aoymykn.github.io/post/20-06-30atom%E4%B8%8Bcommon-lisp%E7%9A%84%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
+      <guid>http://aoymykn.github.io/post/2020/06-30atom%E4%B8%8Bcommon-lisp%E7%9A%84%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
       <description>atom+slima搭建Common Lisp环境</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>http://aoymykn.github.io/draft/%E6%B4%BB/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://aoymykn.github.io/draft/%E6%B4%BB/</guid>
-      <description>20.12.20 运动 学习一下SQL 20.12.21 面试 学习一下ssh 继续学习并发 草！ 20.12.22 开始准备论文答辩 继续学习并发</description>
     </item>
     
   </channel>

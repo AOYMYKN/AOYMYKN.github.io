@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>ArchLinux及图形界面的安装 - AOYMYKN的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="AOYMYKN" /><meta name="description" content="第n次安装ArchLinux，记录（和概括）一下安装过程。顺便安装一下KDE图形界面，学习一下MBR和GPT格式及其区别，应用，和grub2的用途，使用……总之尽量多扯扯。" /><meta name="keywords" content="Java, 后端, 计算机, 编程, 数据结构, 算法, 马克思主义, marxism, CS, IT" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.80.0 with theme even" />
+
+
+<link rel="canonical" href="http://aoymykn.github.io/post/2021-spring/01-06%E7%BA%B5%E8%A7%88archlinux%E7%9A%84%E5%AE%89%E8%A3%85/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c9ac0cd19ce10a4f2eefd4195990291e493e392c8206d6b1583da261e491264a.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="ArchLinux及图形界面的安装" />
+<meta property="og:description" content="第n次安装ArchLinux，记录（和概括）一下安装过程。顺便安装一下KDE图形界面，学习一下MBR和GPT格式及其区别，应用，和grub2的用途，使用……总之尽量多扯扯。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://aoymykn.github.io/post/2021-spring/01-06%E7%BA%B5%E8%A7%88archlinux%E7%9A%84%E5%AE%89%E8%A3%85/" />
+<meta property="article:published_time" content="2021-01-06T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-01-06T00:00:00+00:00" />
+<meta itemprop="name" content="ArchLinux及图形界面的安装">
+<meta itemprop="description" content="第n次安装ArchLinux，记录（和概括）一下安装过程。顺便安装一下KDE图形界面，学习一下MBR和GPT格式及其区别，应用，和grub2的用途，使用……总之尽量多扯扯。">
+<meta itemprop="datePublished" content="2021-01-06T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-01-06T00:00:00+00:00" />
+<meta itemprop="wordCount" content="2066">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ArchLinux及图形界面的安装"/>
+<meta name="twitter:description" content="第n次安装ArchLinux，记录（和概括）一下安装过程。顺便安装一下KDE图形界面，学习一下MBR和GPT格式及其区别，应用，和grub2的用途，使用……总之尽量多扯扯。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">AOYMYKN</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">AOYMYKN</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">ArchLinux及图形界面的安装</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-01-06 </span>
+        <div class="post-category">
+            <a href="/categories/linux/"> linux </a>
+            </div>
+          <span class="more-meta"> 约 2066 字 </span>
+          <span class="more-meta"> 预计阅读 5 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#概括安装步骤">概括安装步骤</a></li>
+    <li><a href="#安装archlinux">安装ArchLinux</a>
+      <ul>
+        <li><a href="#验证启动模式">验证启动模式</a></li>
+        <li><a href="#配置网络连接">配置网络连接</a></li>
+        <li><a href="#建立磁盘分区">建立磁盘分区</a></li>
+        <li><a href="#格式化各分区并挂载">格式化各分区并挂载</a></li>
+        <li><a href="#安装系统">安装系统</a></li>
+        <li><a href="#对系统进行配置">对系统进行配置</a>
+          <ul>
+            <li><a href="#设置startx">设置startx</a></li>
+            <li><a href="#创建新用户">创建新用户</a></li>
+          </ul>
+        </li>
+        <li><a href="#安装系统引导">安装系统引导</a>
+          <ul>
+            <li><a href="#biosuefimbrgpt以及grub的关系">BIOS/UEFI，MBR/GPT以及GRUB的关系</a></li>
+          </ul>
+        </li>
+        <li><a href="#安装显卡驱动">安装显卡驱动</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!--Hello, Happy World-->
+<p>回到家里，决定把之前使用的系统（win10和Fedora）删掉，把硬盘的分区表改成GPT并安装ArchLinux和图形界面。打算把安装过程好好记录一下，同时也是概括一下，让之后再安装ArchLinux的时候不会只死跟着安装指南，不但要知其然，还要知其所以然嘛。<del>同时也联系一下我之前学过的一点关于开机引导的知识，网络配置的知识等，从而让我能够有一个感性（但是系统）的认识。总之什么相关的都涉及一下。</del>（摸了）</p>
+<p>顺便也要去了解一下图形界面的安装……还有常用的一些工具，如中文字体，fctix框架，wine（如果有必要的话）等的安装。</p>
+<p>这里使用VirtualBox虚拟机来安装以方便截图和记录之类的……</p>
+<h1 id="概括安装步骤">概括安装步骤</h1>
+<p>这里准备使用KDE桌面，使用NetworkManager提供网络服务。</p>
+<p>ArchLinux的<strong>安装</strong>步骤主要有以下内容——</p>
+<ol>
+<li>验证启动模式（是BIOS还是UEFI）</li>
+<li>配置和检查网络连接</li>
+<li>使用fdisk建立磁盘分区，对于MBR分区表的磁盘，必须建立根分区和交换分区，对于GPT分区表磁盘，如果使用UEFI，则还需建立EFI系统分区（如果使用BIOS，则会按照兼容MBR的方式进行加载，不需要EFI系统分区，但是需要一个至少1M的BIOS boot分区，这里可以直接放到34-2047扇区里）</li>
+<li>格式化各分区，交换分区使用<code>mkswap</code>命令，根分区使用<code>mkfs.ext4</code>命令，EFI系统分区使用<code>mkfs.fat -F32</code>命令。</li>
+<li>挂载分区</li>
+<li>编辑镜像源（可选），在mnt下安装必须的软件包base，linux，linux-firmware，networkmanager，sudo，vim等</li>
+<li>生成fstab文件（该文件应该标识了各分区的mount情况以便开机时自动mount）</li>
+<li>chroot到新安装的系统，配置时区，设置hostname，root的密码等，启动networkmanager服务……</li>
+<li><strong>安装引导程序</strong>（！），启动微码更新，重启</li>
+</ol>
+<p>然后是配置网络以及图形界面——</p>
+<ol>
+<li>创建新的用户供日常使用，添加到sudo</li>
+<li>配置网络</li>
+<li>安装KDE图形界面，配置startx（不使用登陆管理器之类的，每次手动startx来登录图形界面）</li>
+<li>安装显卡驱动</li>
+</ol>
+<h1 id="安装archlinux">安装ArchLinux</h1>
+<p>虚拟机设定使用EFI模式。下面的操作不完全按照上面的顺序。</p>
+<h2 id="验证启动模式">验证启动模式</h2>
+<p>首先要验证启动模式是BIOS还是UEFI。检查<code>/sys/firmware</code>目录，如果该目录下存在efi文件夹，则为UEFI，否则为BIOS。</p>
+<h2 id="配置网络连接">配置网络连接</h2>
+<p>首先使用<code>ping baidu.com</code>检查是否能ping通（在虚拟机下这玩意是开箱即用的），如果不能ping通，则需手动配置网络。有线……谁知道呢，直接使用<code>dhcpcd</code>命令试试？（这之前或许要把网卡打开之类的），对于无线，应当通过<code>iwctl</code>来连接。</p>
+<h2 id="建立磁盘分区">建立磁盘分区</h2>
+<p>使用<code>fdisk</code>命令来建立磁盘分区。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ fdisk /dev/sda
+</code></pre></td></tr></table>
+</div>
+</div><p>首先输入g，创建GPT分区表，然后使用n分别创建三个分区——UEFI System分区（1G大小），交换分区和根分区。并使用t更改这三个分区的type。分区结果如图——</p>
+<p><img src="https://i.loli.net/2021/01/06/FINUuBoKXZymb7E.png" alt="EZUSLE4_Z9_IWCYE5R8GOUL.png"></p>
+<p>记得使用w保存。</p>
+<blockquote>
+<p>在输入last sector的时候，使用+xG这样的形式能够非常容易地规划分区的大小。</p>
+</blockquote>
+<h2 id="格式化各分区并挂载">格式化各分区并挂载</h2>
+<p>UEFI System分区是FAT32格式，交换分区是交换分区格式，根分区这里使用xfs格式。使用如下命令对这些分区进行格式化。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">mkfs.fat -F32 /dev/sda1 <span class="c1"># EFI系统分区</span>
+mkswap /dev/sda2 <span class="c1"># 交换分区</span>
+swapon /dev/sda2
+mkfs.xfs /dev/sda3 <span class="c1"># 根分区</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后使用如下命令进行挂载。要注意的是，应先挂载根分区，再挂载efi分区。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">mount /dev/sda3 /mnt      <span class="c1"># 挂载根分区</span>
+mkdir /mnt/boot
+mount /dev/sda1 /mnt/boot <span class="c1"># 挂载efi分区</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="安装系统">安装系统</h2>
+<p>使用pacstrap安装必须的软件包。这里连带着把KDE图形界面的东西也安装了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">pacstrap /mnt base linux linux-firmware networkmanager vim sudo xorg xorg-xinit plasma kde-applications xdg-user-dirs grub efibootmgr
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>linux-firmware是固件相关的软件包，里面有很多必须的驱动。</p>
+</blockquote>
+<p>然后生成fstab并chroot到新系统中。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">genfstab -U /mnt &gt;&gt; /mnt/etc/fstab
+arch-chroot /mnt
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="对系统进行配置">对系统进行配置</h2>
+<p>配置主要有设置时区，修改hostname，设置root账号的password，创建新用户等。</p>
+<p>设置时区——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+hwclock --systohc
+</code></pre></td></tr></table>
+</div>
+</div><p>编辑/etc/hostname和/etc/hosts文件——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># /etc/hostname</span>
+myhostname
+
+<span class="c1"># /etc/hosts</span>
+127.0.0.1	localhost
+::1		localhost
+127.0.1.1	myhostname.localdomain	myhostname
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>使用passwd命令修改root的密码</strong>。</p>
+<h3 id="设置startx">设置startx</h3>
+<p>我决定不使用显示管理器，而是在tty中直接使用startx登录图形界面。</p>
+<p>设置startx应当编辑/etc/X11/xinit/xinitrc（当然，如果~/.xinitrc存在，会优先执行它）。这里对它进行备份，然后使它中只有一行内容<code>exec startplasma-x11</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">mv /etc/X11/xinit/xinitrc /etc/X11/xinit/xinitrc.bak
+<span class="nb">echo</span> <span class="s1">&#39;exec startplasma-x11&#39;</span> &gt; /etc/X11/xinit/xinitrc
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="创建新用户">创建新用户</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">useradd -m <span class="s1">&#39;aoymykn&#39;</span> <span class="c1"># -m意思是创建用户主目录</span>
+passwd aoymykn <span class="c1"># 修改密码</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>使用<code>visudo</code>命令编辑sudoers，将该用户添加到sudo中。这里需要取消注释<code>Default targetpw</code>和<code>ALL ALL=(ALL) ALL</code>两行。</p>
+<h2 id="安装系统引导">安装系统引导</h2>
+<p>使用该命令安装系统引导——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">grub-install --target<span class="o">=</span>x86_64-efi --efi-directory<span class="o">=</span>/boot --bootloader-id<span class="o">=</span>GRUB
+
+grub-mkconfig -o /boot/grub/grub.cfg  <span class="c1"># 自动生成配置文件</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>重启！</p>
+<h3 id="biosuefimbrgpt以及grub的关系">BIOS/UEFI，MBR/GPT以及GRUB的关系</h3>
+<p>TODO</p>
+<h2 id="安装显卡驱动">安装显卡驱动</h2>
+<p>TODO</p>
+<blockquote>
+<p>写这篇文章前前后后安装了3次，都快能默写了www</p>
+</blockquote>
+
+    </div>
+
+    
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/2021-spring/01-01%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+            <span class="next-text nav-default">开始学习设计模式——迭代器模式和适配器模式</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2021-01-06 00:00:00 \u002b0000 UTC',
+        title: 'ArchLinux及图形界面的安装',
+        clientID: 'a6d39dcb11d3911b23d9',
+        clientSecret: 'a1b3afce97c2b2c21ef8ad1f40b0fce20a334be0',
+        repo: 'comments',
+        owner: 'AOYMYKN',
+        admin: ['AOYMYKN'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:cs596065766@hotmail.com" class="iconfont icon-email" title="email"></a>
+  <a href="http://aoymykn.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>AOYMYKN</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
