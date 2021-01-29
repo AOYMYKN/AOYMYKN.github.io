@@ -6,7 +6,16 @@
     <description>Recent content in linux on AOYMYKN的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 24 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://aoymykn.github.io/categories/linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 06 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="http://aoymykn.github.io/categories/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ArchLinux及图形界面的安装</title>
+      <link>http://aoymykn.github.io/post/2021-spring/01-06%E7%BA%B5%E8%A7%88archlinux%E7%9A%84%E5%AE%89%E8%A3%85/</link>
+      <pubDate>Wed, 06 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://aoymykn.github.io/post/2021-spring/01-06%E7%BA%B5%E8%A7%88archlinux%E7%9A%84%E5%AE%89%E8%A3%85/</guid>
+      <description>第n次安装ArchLinux，记录（和概括）一下安装过程。顺便安装一下KDE图形界面，学习一下MBR和GPT格式及其区别，应用，和grub2的用途，使用……总之尽量多扯扯。</description>
+    </item>
+    
     <item>
       <title>公钥算法和私钥算法</title>
       <link>http://aoymykn.github.io/post/2020/12-24%E5%85%AC%E9%92%A5%E5%92%8C%E7%A7%81%E9%92%A5%E7%AE%97%E6%B3%95/</link>

@@ -49,7 +49,7 @@
 <meta itemprop="description" content="第n次安装ArchLinux，记录（和概括）一下安装过程。顺便安装一下KDE图形界面，学习一下MBR和GPT格式及其区别，应用，和grub2的用途，使用……总之尽量多扯扯。">
 <meta itemprop="datePublished" content="2021-01-06T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2021-01-06T00:00:00+00:00" />
-<meta itemprop="wordCount" content="2066">
+<meta itemprop="wordCount" content="2211">
 
 
 
@@ -130,7 +130,7 @@
         <div class="post-category">
             <a href="/categories/linux/"> linux </a>
             </div>
-          <span class="more-meta"> 约 2066 字 </span>
+          <span class="more-meta"> 约 2211 字 </span>
           <span class="more-meta"> 预计阅读 5 分钟 </span>
         
       </div>
@@ -148,7 +148,7 @@
         <li><a href="#配置网络连接">配置网络连接</a></li>
         <li><a href="#建立磁盘分区">建立磁盘分区</a></li>
         <li><a href="#格式化各分区并挂载">格式化各分区并挂载</a></li>
-        <li><a href="#安装系统">安装系统</a></li>
+        <li><a href="#配置源安装系统">配置源，安装系统</a></li>
         <li><a href="#对系统进行配置">对系统进行配置</a>
           <ul>
             <li><a href="#设置startx">设置startx</a></li>
@@ -244,14 +244,17 @@ mkdir /mnt/boot
 mount /dev/sda1 /mnt/boot <span class="c1"># 挂载efi分区</span>
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="安装系统">安装系统</h2>
+</div><h2 id="配置源安装系统">配置源，安装系统</h2>
+<p>应编辑/etc/pacman.conf，取消注释multilib源，并添加archlinuxcn源。</p>
 <p>使用pacstrap安装必须的软件包。这里连带着把KDE图形界面的东西也安装了。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">pacstrap /mnt base linux linux-firmware networkmanager vim sudo xorg xorg-xinit plasma kde-applications xdg-user-dirs grub efibootmgr
+<pre class="chroma"><code class="language-bash" data-lang="bash">pacstrap /mnt base linux linux-firmware networkmanager vim sudo xorg xorg-xinit plasma kde-applications xdg-user-dirs grub efibootmgr fcitx
+<span class="c1"># 这里还应当安装中文输入法，中文字体等</span>
 </code></pre></td></tr></table>
 </div>
 </div><blockquote>
@@ -262,9 +265,11 @@ mount /dev/sda1 /mnt/boot <span class="c1"># 挂载efi分区</span>
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
+</span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash">genfstab -U /mnt &gt;&gt; /mnt/etc/fstab
+<span class="c1"># 这个工具……</span>
 arch-chroot /mnt
 </code></pre></td></tr></table>
 </div>
@@ -302,7 +307,8 @@ myhostname
 127.0.1.1	myhostname.localdomain	myhostname
 </code></pre></td></tr></table>
 </div>
-</div><p><strong>使用passwd命令修改root的密码</strong>。</p>
+</div><p>*<em>编辑/etc/locale.gen文件，取消注释en_US.UTF-8和zh_CN.<em>行。然后调用locale-gen程序</em></em>。</p>
+<p><strong>使用passwd命令修改root的密码</strong>。</p>
 <h3 id="设置startx">设置startx</h3>
 <p>我决定不使用显示管理器，而是在tty中直接使用startx登录图形界面。</p>
 <p>设置startx应当编辑/etc/X11/xinit/xinitrc（当然，如果~/.xinitrc存在，会优先执行它）。这里对它进行备份，然后使它中只有一行内容<code>exec startplasma-x11</code>。</p>
@@ -357,7 +363,11 @@ grub-mkconfig -o /boot/grub/grub.cfg  <span class="c1"># 自动生成配置文�
 <footer class="post-footer">
       
       <nav class="post-nav">
-        
+        <a class="prev" href="/post/2021-spring/01-22%E5%85%B3%E4%BA%8E%E5%AF%92%E5%81%87%E7%9A%84%E8%AE%A1%E5%88%92/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">关于寒假的计划</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
         <a class="next" href="/post/2021-spring/01-01%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
             <span class="next-text nav-default">开始学习设计模式——迭代器模式和适配器模式</span>
             <span class="next-text nav-mobile">下一篇</span>
