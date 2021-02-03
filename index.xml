@@ -6,7 +6,7 @@
     <description>Recent content on AOYMYKN的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 26 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="http://aoymykn.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 01 Feb 2021 18:01:07 +0800</lastBuildDate><atom:link href="http://aoymykn.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
       <link>http://aoymykn.github.io/about/</link>
@@ -17,21 +17,30 @@
     </item>
     
     <item>
-      <title>从零开始使用gitbook生成书籍</title>
+      <title>设计模式——七原则，单例模式，简单工厂模式</title>
+      <link>http://aoymykn.github.io/post/2021-spring/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%83%E5%8E%9F%E5%88%99%E5%8D%95%E4%BE%8B%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82/</link>
+      <pubDate>Mon, 01 Feb 2021 18:01:07 +0800</pubDate>
+      
+      <guid>http://aoymykn.github.io/post/2021-spring/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%83%E5%8E%9F%E5%88%99%E5%8D%95%E4%BE%8B%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82/</guid>
+      <description>最近忧心忡忡……该沉下心来，好好运动，好好学习了。 面向对象七原则 面向对象编程有七个设计原则，相较于设计模式来说，它们是“根基”—— 单一职责原</description>
+    </item>
+    
+    <item>
+      <title>（未完成）设计模式——模板方法和工厂方法</title>
+      <link>http://aoymykn.github.io/post/2021-spring/02-01%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E5%92%8C%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Mon, 01 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://aoymykn.github.io/post/2021-spring/02-01%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E5%92%8C%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/</guid>
+      <description>模板方法（Template Method）和工厂方法（Factory Method）是两个和继承相关的设计模式。</description>
+    </item>
+    
+    <item>
+      <title>（未完成）从零开始使用gitbook生成书籍</title>
       <link>http://aoymykn.github.io/post/2021-spring/01-26%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%BC%9A%E4%BD%BF%E7%94%A8gitbook%E7%94%9F%E6%88%90%E4%B9%A6%E7%B1%8D/</link>
       <pubDate>Tue, 26 Jan 2021 00:00:00 +0000</pubDate>
       
       <guid>http://aoymykn.github.io/post/2021-spring/01-26%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%BC%9A%E4%BD%BF%E7%94%A8gitbook%E7%94%9F%E6%88%90%E4%B9%A6%E7%B1%8D/</guid>
       <description>使用gitbook生成书籍，让你免除麻烦的排版等过程。</description>
-    </item>
-    
-    <item>
-      <title>关于下周的计划</title>
-      <link>http://aoymykn.github.io/post/2021-spring/01-24%E5%85%B3%E4%BA%8E%E4%B8%8B%E5%91%A8%E7%9A%84%E8%AE%A1%E5%88%92/</link>
-      <pubDate>Sun, 24 Jan 2021 00:00:00 +0000</pubDate>
-      
-      <guid>http://aoymykn.github.io/post/2021-spring/01-24%E5%85%B3%E4%BA%8E%E4%B8%8B%E5%91%A8%E7%9A%84%E8%AE%A1%E5%88%92/</guid>
-      <description>ぼくだってできることがある！</description>
     </item>
     
     <item>
