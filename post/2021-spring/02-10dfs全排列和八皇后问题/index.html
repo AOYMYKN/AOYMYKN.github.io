@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>DFS从入门到入坟——全排列和八皇后问题 - AOYMYKN的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="AOYMYKN" /><meta name="description" content="《关于使用racket和Java来复习DFS这回事》" /><meta name="keywords" content="Java, 后端, 计算机, 编程, 数据结构, 算法, 马克思主义, marxism, CS, IT" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.80.0 with theme even" />
+
+
+<link rel="canonical" href="http://aoymykn.github.io/post/2021-spring/02-10dfs%E5%85%A8%E6%8E%92%E5%88%97%E5%92%8C%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c9ac0cd19ce10a4f2eefd4195990291e493e392c8206d6b1583da261e491264a.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="DFS从入门到入坟——全排列和八皇后问题" />
+<meta property="og:description" content="《关于使用racket和Java来复习DFS这回事》" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://aoymykn.github.io/post/2021-spring/02-10dfs%E5%85%A8%E6%8E%92%E5%88%97%E5%92%8C%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/" />
+<meta property="article:published_time" content="2021-02-10T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-02-10T00:00:00+00:00" />
+<meta itemprop="name" content="DFS从入门到入坟——全排列和八皇后问题">
+<meta itemprop="description" content="《关于使用racket和Java来复习DFS这回事》">
+<meta itemprop="datePublished" content="2021-02-10T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-02-10T00:00:00+00:00" />
+<meta itemprop="wordCount" content="3039">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="DFS从入门到入坟——全排列和八皇后问题"/>
+<meta name="twitter:description" content="《关于使用racket和Java来复习DFS这回事》"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">AOYMYKN</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">AOYMYKN</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">DFS从入门到入坟——全排列和八皇后问题</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-02-10 </span>
+        <div class="post-category">
+            <a href="/categories/%E7%AE%97%E6%B3%95/"> 算法 </a>
+            </div>
+          <span class="more-meta"> 约 3039 字 </span>
+          <span class="more-meta"> 预计阅读 7 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#数的全排列">数的全排列</a></li>
+    <li><a href="#八皇后问题">八皇后问题</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!--Hello, Happy World-->
+<p>太久没有好好敲代码了……最近整一堆花里胡哨的，学racket，haskell，scala（当然，日语也包含在内）之类的，但是一个都没深入。这里racket是我最感兴趣的，它的AOP（面向语言编程）我非常想去了解和学习，scala则是看重它运行在JVM上且有充足的函数式编程特性（函数式编程也是我想去了解的），在将来的项目中或许可以用到，haskell……新语法太多（但是它的函数的表现形式，对柯里化的支持等都是非常酷的…但是我苯，不想学:），还是纯函数式的，一时难以接受。</p>
+<p>于是现在重拾算法，发现之前学的都不知道忘到哪里去了……是时候该进行一波复习了。首先拿DFS开刀，这算法是能归纳出一个“范式”的。</p>
+<p>其实，无论DFS还是BFS，其实都是以不同的方式遍历一棵树（也就是搜索的路径，其实也是在动态构造这棵树），那些没有叶子节点的节点即为搜索成功或再没有路径可选。区别在于，如果要留下搜索路径，BFS需要保存所有的路径，而DFS则无此需要（可以说应该选择的路径被保存在函数调用栈中了）。从实例能看出这一点。</p>
+<h1 id="数的全排列">数的全排列</h1>
+<p>首先考虑数的全排列问题。这个问题要求给定一个数字n，输出从1到n的全排列。</p>
+<p>这里先按BFS来思考一下。假设n等于3，能得到这样的一棵树——</p>
+<p><img src="https://i.loli.net/2021/02/09/nFOuLSN94vhB3Gl.jpg" alt="2.jpg"></p>
+<p>任何一个排列都是从根结点到子节点的一条<strong>路径</strong>。BFS的方法就是不断维护所有路径，直到所有路径（或某个路径）成功（或失败）。</p>
+<blockquote>
+<p>这个树叫<strong>解空间树</strong>w，其实对树中每个节点（目前的路径），都需要遍历所有的可能，比如对路径(1 2)，要遍历1，2，3，然后发现1和2是不合法的，因此其子节点只有(1 2 3)了。</p>
+</blockquote>
+<p>比如下面的BFS的racket实现就是不断维护所有当前路径的列表，假设n为3，经历多次（n-1次）迭代后，所有路径都到达终点，每次迭代的结果如下，其中0为初始值——</p>
+<ol start="0">
+<li>&lsquo;((1) (2) (3))</li>
+<li>&lsquo;((1 2) (1 3) (2 1) (2 3) (3 1) (3 2))</li>
+<li>&lsquo;((1 2 3) (1 3 2) (2 1 3) (2 3 1) (3 1 2) (3 2 1))</li>
+</ol>
+<blockquote>
+<p>其实写完迭代的结果后我才突然意识到好像递归法满好写的…我用了非常丑陋的命令式的写法…</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-racket" data-lang="racket"><span class="c1">;; 写的累死人……我为啥不干脆用Java写？</span>
+<span class="c1">;; BFS的方法……由于我完全不熟悉racket，所以写的及其丑陋（而且用了非常命令式的写法…由于racket并没有提供太多有副作用的函数，所以写的还是蛮痛苦的……这时候或许应该用mutable list？）</span>
+<span class="c1">;; 顺便，羡慕haskell的偏函数调用</span>
+<span class="p">(</span><span class="k">require</span> <span class="n">control</span><span class="p">)</span>
+<span class="c1">;; 以二维list的形式返回从1到n的全排列</span>
+<span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="n">permutation-from-1-to-n</span> <span class="n">n</span><span class="p">)</span>
+  <span class="c1">;; 从(1)到(n)的list，它储存所有路径</span>
+  <span class="p">(</span><span class="k">define</span> <span class="n">paths</span> <span class="p">(</span><span class="nb">build-list</span> <span class="n">n</span> <span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">list</span> <span class="p">(</span><span class="nb">add1</span> <span class="n">x</span><span class="p">)))))</span>
+  
+  <span class="c1">;; 循环n-1次维护paths，增长（和分支）其中每条path并将其“打散”到paths中</span>
+  <span class="p">(</span><span class="n">dotimes</span> <span class="p">(</span><span class="n">__</span> <span class="p">(</span><span class="nb">sub1</span> <span class="n">n</span><span class="p">))</span>
+    <span class="p">(</span><span class="k">set!</span> <span class="n">paths</span> <span class="p">(</span><span class="nb">foldl</span> <span class="nb">append</span> <span class="nb">empty</span> <span class="p">(</span><span class="nb">map</span> <span class="p">(</span><span class="n">generate-paths</span> <span class="n">n</span><span class="p">)</span> <span class="n">paths</span><span class="p">))))</span>
+  <span class="n">paths</span><span class="p">)</span>
+
+<span class="c1">;; 一个柯里化函数，它维护和分支一条path。比如对于n=5，path=(1 3)的情况，它返回((1 3 2) (1 3 4) (1 3 5))</span>
+<span class="p">(</span><span class="k">define</span> <span class="n">generate-paths</span>
+  <span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="n">path</span><span class="p">)</span>
+      <span class="p">(</span><span class="k">for/list</span> <span class="p">([</span><span class="n">i</span> <span class="p">(</span><span class="nb">in-range</span> <span class="mi">1</span> <span class="p">(</span><span class="nb">add1</span> <span class="n">n</span><span class="p">))]</span>
+             <span class="kd">#:when</span> <span class="p">(</span><span class="nb">not</span> <span class="p">(</span><span class="nb">member</span> <span class="n">i</span> <span class="n">path</span><span class="p">)))</span>
+    <span class="p">(</span><span class="nb">append</span> <span class="n">path</span> <span class="p">(</span><span class="nb">list</span> <span class="n">i</span><span class="p">))))))</span><span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>也可以使用队列来实现，其实质仍旧是不断维护所有当前路径，只不过将每次延伸队列头部的路径，并将其出队，将延伸后的路径加入到队列尾，容易知道当队列头部的路径长度为n时已获取到所有路径——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-racket" data-lang="racket"><span class="p">(</span><span class="k">require</span> <span class="n">data/queue</span> <span class="n">control</span><span class="p">)</span>
+
+<span class="c1">;; 循环维护队列首，将其生成的路径入队，直到队首长度为n，此时已生成所有全排列</span>
+<span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="n">permutation-from-1-to-n</span> <span class="n">n</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">define</span> <span class="n">res</span> <span class="p">(</span><span class="n">make-queue</span><span class="p">))</span>
+  <span class="p">(</span><span class="k">for</span> <span class="p">([</span><span class="n">i</span> <span class="p">(</span><span class="nb">build-list</span> <span class="n">n</span> <span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">list</span> <span class="p">(</span><span class="nb">add1</span> <span class="n">x</span><span class="p">))))])</span>
+    <span class="p">(</span><span class="n">enqueue!</span> <span class="n">res</span> <span class="n">i</span><span class="p">))</span>
+  <span class="p">(</span><span class="n">while</span> <span class="p">(</span><span class="nb">not</span> <span class="p">(</span><span class="nb">=</span> <span class="p">(</span><span class="nb">length</span> <span class="p">(</span><span class="n">queue-head</span> <span class="n">res</span><span class="p">))</span> <span class="n">n</span><span class="p">))</span>
+    <span class="p">(</span><span class="k">for</span> <span class="p">([</span><span class="n">i</span> <span class="p">((</span><span class="n">generate-paths</span> <span class="n">n</span><span class="p">)</span> <span class="p">(</span><span class="n">dequeue!</span> <span class="n">res</span><span class="p">))])</span> <span class="c1">; define不能在循环体内使用</span>
+      <span class="p">(</span><span class="n">enqueue!</span> <span class="n">res</span> <span class="n">i</span><span class="p">)))</span>
+  <span class="p">(</span><span class="n">queue-&gt;list</span> <span class="n">res</span><span class="p">))</span>
+
+<span class="c1">;; racket的queue居然没有提供直接获取队列头部的过程，设计者究竟是什么意思……</span>
+<span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="n">queue-head</span> <span class="n">queue</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">let</span> <span class="p">([</span><span class="n">head</span> <span class="p">(</span><span class="n">dequeue!</span> <span class="n">queue</span><span class="p">)])</span>
+    <span class="p">(</span><span class="n">enqueue-front!</span> <span class="n">queue</span> <span class="n">head</span><span class="p">)</span>
+    <span class="n">head</span><span class="p">))</span>
+
+<span class="c1">;; 同上面的定义</span>
+<span class="p">(</span><span class="k">define</span> <span class="n">generate-paths</span>
+  <span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="n">path</span><span class="p">)</span>
+      <span class="p">(</span><span class="k">for/list</span> <span class="p">([</span><span class="n">i</span> <span class="p">(</span><span class="nb">in-range</span> <span class="mi">1</span> <span class="p">(</span><span class="nb">add1</span> <span class="n">n</span><span class="p">))]</span>
+             <span class="kd">#:when</span> <span class="p">(</span><span class="nb">not</span> <span class="p">(</span><span class="nb">member</span> <span class="n">i</span> <span class="n">path</span><span class="p">)))</span>
+    <span class="p">(</span><span class="nb">append</span> <span class="n">path</span> <span class="p">(</span><span class="nb">list</span> <span class="n">i</span><span class="p">))))))</span><span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>DFS相当与对每一条path，对它的所有子节点进行“尝试”，DFS解法的racket代码如下（这个比Java版好理解多了）——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-racket" data-lang="racket"><span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="n">permutation-from-1-to-n</span> <span class="n">n</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="n">DFS</span> <span class="n">path</span><span class="p">)</span>
+    <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">=</span> <span class="p">(</span><span class="nb">length</span> <span class="n">path</span><span class="p">)</span> <span class="n">n</span><span class="p">)</span> <span class="c1">; 如果path长度已经为n，说明必定已经完成一个排列。</span>
+        <span class="p">(</span><span class="nb">println</span> <span class="n">path</span><span class="p">)</span> <span class="c1">; 基线条件，此时的path即为一条路经</span>
+        <span class="p">(</span><span class="k">for</span> <span class="p">([</span><span class="n">i</span> <span class="p">(</span><span class="nb">in-range</span> <span class="mi">1</span> <span class="p">(</span><span class="nb">add1</span> <span class="n">n</span><span class="p">))])</span> <span class="c1">; 从1到n</span>
+          <span class="p">(</span><span class="k">unless</span> <span class="p">(</span><span class="nb">member</span> <span class="n">i</span> <span class="n">path</span><span class="p">)</span>
+            <span class="p">(</span><span class="n">DFS</span> <span class="p">(</span><span class="nb">append</span> <span class="n">path</span> <span class="p">(</span><span class="nb">list</span> <span class="n">i</span><span class="p">)))))))</span>
+  <span class="p">(</span><span class="n">DFS</span> <span class="nb">empty</span><span class="p">))</span><span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>可以形象地将DFS解法的函数调用栈这样表示——</p>
+<p><img src="https://i.loli.net/2021/02/09/FyI6SwducPlYVbi.jpg" alt="1.jpg"></p>
+<p>在每一次函数调用里，它都会对每一个可能进行递归，比如对路径&rsquo;(1)，它会递归&rsquo;(1 2)，'(1 3)……</p>
+<p>Java版的写法较此要麻烦一些（出于Java并不方便像racket这样的函数式语言一样使用不可变的数据结构），需要使用一个数组来维护当前路径，需要维护当前的“步长”。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">permutationFrom1ToN</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">DFS</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">n</span> <span class="o">+</span> <span class="n">1</span><span class="o">],</span> <span class="n">1</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">DFS</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">path</span><span class="o">,</span> <span class="kt">int</span> <span class="n">step</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">step</span> <span class="o">==</span> <span class="n">N</span> <span class="o">+</span> <span class="n">1</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 基线条件
+</span><span class="c1"></span>            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">N</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">i</span> <span class="o">+</span> <span class="s">&#34; &#34;</span><span class="o">);</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">N</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="c1">// 传统手段是使用一个bool数组来维护元素是否已经保存在path中。如果使用那种方式，
+</span><span class="c1"></span>            <span class="c1">// 需要在将元素置入path前将该位置置为true，在递归下一个位置后将该位置置为false。
+</span><span class="c1"></span>            <span class="c1">// 这里直接通过一次遍历来检查元素是否存在于path中
+</span><span class="c1"></span>            <span class="k">if</span> <span class="o">(</span><span class="n">numInPath</span><span class="o">(</span><span class="n">path</span><span class="o">,</span> <span class="n">step</span><span class="o">,</span> <span class="n">i</span><span class="o">))</span> 
+                <span class="k">continue</span><span class="o">;</span>
+            <span class="n">path</span><span class="o">[</span><span class="n">step</span><span class="o">]</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
+            <span class="n">DFS</span><span class="o">(</span><span class="n">path</span><span class="o">,</span> <span class="n">step</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">numInPath</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span><span class="n">path</span><span class="o">,</span> <span class="kt">int</span> <span class="n">step</span><span class="o">,</span> <span class="kt">int</span> <span class="n">num</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">step</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">path</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="n">num</span><span class="o">)</span> <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>总之，DFS可以归纳出一个“范式”——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">def DFS(step):
+    if (达到基线条件):
+        进行一些处理，比如打印，保存当前path等
+        return
+
+    for i in 所有元素 where i未被取出且合法: # 遍历该path的下一步所有的可能
+        books[i] = true # 取该元素
+        path[step] = i
+        DFS(step + 1) # 递归其子节点
+        books[i] = false # 放回该元素
+
+</code></pre></td></tr></table>
+</div>
+</div><p>八皇后问题也是遵循这样的范式的。</p>
+<h1 id="八皇后问题">八皇后问题</h1>
+<p>八皇后是这样一个问题——在一个8X8的棋盘上安排8个皇后，各个皇后两两之间要遵循这样的要求——每两个皇后不能在同一行，同一列，或相对棋盘边相互呈45度（即行距离和列距离相等）。</p>
+<p>一个问题是，如何定义“步长”？这里考虑到各个皇后两两不能在同一行同一列，但每一行，每一列又必须存在一个皇后，所以可以以行数或列数作为步长。比如对一个5X5的棋盘，可以有这样的树，其中(1 . 1)这样的值代表在位置(1, 1)安放皇后——</p>
+<p><img src="https://i.loli.net/2021/02/09/pZukVxjRL3TYoIb.jpg" alt="759c77ab01145604.jpg"></p>
+<blockquote>
+<p>其实就根本上来说，步长是每一个皇后的安置，也就是说每一步都可以遍历整个棋盘，检查该位置是否可以安置皇后，但是这样是不划算的——已经安置过皇后的行或列是不必要再遍历的，并且会造成有重复的情况。比如对路径&rsquo;((1 . 1) (2 . 3) &hellip;)，还可以有路径'((2 . 3) (1 . 1) &hellip;)……</p>
+</blockquote>
+<p>因此，可以很容易得到DFS的代码，这里以行作为step——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Queen</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="n">step</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="n">y</span><span class="o">;</span>
+
+    <span class="n">Queen</span><span class="o">(</span><span class="kt">int</span> <span class="n">step</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">step</span> <span class="o">=</span> <span class="n">step</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">n_queensCount</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">counter</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="n">DFS</span><span class="o">(</span><span class="k">new</span> <span class="n">Queen</span><span class="o">[</span><span class="n">n</span> <span class="o">+</span> <span class="n">1</span><span class="o">],</span> <span class="n">n</span><span class="o">,</span> <span class="n">1</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">counter</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">DFS</span><span class="o">(</span><span class="n">Queen</span><span class="o">[]</span> <span class="n">queens</span><span class="o">,</span> <span class="kt">int</span> <span class="n">n</span><span class="o">,</span> <span class="kt">int</span> <span class="n">step</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="n">queens</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">step</span> <span class="o">==</span> <span class="n">N</span> <span class="o">+</span> <span class="n">1</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 基线条件
+</span><span class="c1"></span>            <span class="n">counter</span><span class="o">++;</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span> <span class="c1">// 从第一列到第n列，这里的行数是step
+</span><span class="c1"></span>            <span class="k">if</span> <span class="o">(!</span><span class="n">canPlaceAt</span><span class="o">(</span><span class="n">step</span><span class="o">,</span> <span class="n">i</span><span class="o">,</span> <span class="n">queens</span><span class="o">))</span> <span class="c1">// 遍历第1到第step-1个queen，看这个queen能不能放在这里
+</span><span class="c1"></span>                <span class="k">continue</span><span class="o">;</span>
+            <span class="n">queens</span><span class="o">[</span><span class="n">step</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Queen</span><span class="o">(</span><span class="n">step</span><span class="o">,</span> <span class="n">i</span><span class="o">);</span>
+            <span class="n">DFS</span><span class="o">(</span><span class="n">queens</span><span class="o">,</span> <span class="n">n</span><span class="o">,</span> <span class="n">step</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">canPlaceAt</span><span class="o">(</span><span class="kt">int</span> <span class="n">step</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y</span><span class="o">,</span> <span class="n">Queen</span><span class="o">[]</span> <span class="n">queens</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">step</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+            <span class="c1">// 如果在同一列或对角线
+</span><span class="c1"></span>            <span class="k">if</span> <span class="o">(</span><span class="n">y</span> <span class="o">==</span> <span class="n">queens</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">y</span> <span class="o">||</span> 
+                <span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">step</span> <span class="o">-</span> <span class="n">queens</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">step</span><span class="o">)</span> <span class="o">==</span> <span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">queens</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">y</span><span class="o">))</span>
+                <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>racket代码如下（can-place?过程给我写麻了…），仍旧以行作为step——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-racket" data-lang="racket"><span class="p">(</span><span class="k">define-struct</span> <span class="n">queen</span> <span class="p">(</span><span class="n">step</span> <span class="n">y</span><span class="p">)</span> <span class="kd">#:transparent</span><span class="p">)</span>
+<span class="c1">; 判断(step . y)位置是否合法</span>
+<span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="n">can-place?</span> <span class="n">path</span> <span class="n">step</span> <span class="n">y</span><span class="p">)</span> <span class="c1">; 只要既有的path中没有和要放置的path处于同一行，同一列或对角线，则合法</span>
+  <span class="p">(</span><span class="nb">andmap</span> 
+    <span class="p">(</span><span class="k">λ</span> <span class="p">(</span><span class="n">queen</span><span class="p">)</span>
+      <span class="p">(</span><span class="k">and</span> <span class="p">(</span><span class="nb">not</span> <span class="p">(</span><span class="nb">=</span> <span class="p">(</span><span class="n">queen-y</span> <span class="n">queen</span><span class="p">)</span> <span class="n">y</span><span class="p">))</span>
+           <span class="p">(</span><span class="nb">not</span> <span class="p">(</span><span class="nb">=</span> <span class="p">(</span><span class="nb">abs</span> <span class="p">(</span><span class="nb">-</span> <span class="p">(</span><span class="n">queen-step</span> <span class="n">queen</span><span class="p">)</span> <span class="n">step</span><span class="p">))</span>
+                   <span class="p">(</span><span class="nb">abs</span> <span class="p">(</span><span class="nb">-</span> <span class="p">(</span><span class="n">queen-y</span> <span class="n">queen</span><span class="p">)</span> <span class="n">y</span><span class="p">))))))</span>
+    <span class="n">path</span><span class="p">))</span>
+
+<span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="n">n-queens</span> <span class="n">n</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="n">DFS</span> <span class="n">path</span><span class="p">)</span>
+    <span class="p">(</span><span class="k">define</span> <span class="n">step</span> <span class="p">(</span><span class="nb">add1</span> <span class="p">(</span><span class="nb">length</span> <span class="n">path</span><span class="p">)))</span>
+    <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">=</span> <span class="p">(</span><span class="nb">length</span> <span class="n">path</span><span class="p">)</span> <span class="n">n</span><span class="p">)</span>
+        <span class="p">(</span><span class="nb">println</span> <span class="n">path</span><span class="p">)</span> <span class="c1">; base case</span>
+        <span class="p">(</span><span class="k">for</span> <span class="p">([</span><span class="n">y</span> <span class="p">(</span><span class="nb">in-range</span> <span class="mi">1</span> <span class="p">(</span><span class="nb">add1</span> <span class="n">n</span><span class="p">))])</span> <span class="c1">; 迭代从1到n列</span>
+          <span class="p">(</span><span class="k">when</span> <span class="p">(</span><span class="n">can-place?</span> <span class="n">path</span> <span class="n">step</span> <span class="n">y</span><span class="p">)</span>
+            <span class="p">(</span><span class="n">DFS</span> <span class="p">(</span><span class="nb">append</span> <span class="n">path</span> <span class="p">(</span><span class="nb">list</span> <span class="p">(</span><span class="n">make-queen</span> <span class="n">step</span> <span class="n">y</span><span class="p">))))))))</span>
+  <span class="p">(</span><span class="n">DFS</span> <span class="nb">empty</span><span class="p">))</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>哦瓦！</p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/2021-spring/02-05%E6%97%A5%E8%AF%AD%E4%B8%AD%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4%E7%AD%89%E7%9A%84%E8%AF%BB%E9%9F%B3/">
+            <span class="next-text nav-default">日语中日期，时间等的读音</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2021-02-10 00:00:00 \u002b0000 UTC',
+        title: 'DFS从入门到入坟——全排列和八皇后问题',
+        clientID: 'a6d39dcb11d3911b23d9',
+        clientSecret: 'a1b3afce97c2b2c21ef8ad1f40b0fce20a334be0',
+        repo: 'comments',
+        owner: 'AOYMYKN',
+        admin: ['AOYMYKN'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:cs596065766@hotmail.com" class="iconfont icon-email" title="email"></a>
+  <a href="http://aoymykn.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>AOYMYKN</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

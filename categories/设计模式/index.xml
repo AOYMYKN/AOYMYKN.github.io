@@ -8,20 +8,20 @@
     <language>zh-cn</language>
     <lastBuildDate>Mon, 01 Feb 2021 18:01:07 +0800</lastBuildDate><atom:link href="http://aoymykn.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>设计模式——七原则，单例模式，简单工厂模式</title>
-      <link>http://aoymykn.github.io/post/2021-spring/02-03%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%83%E5%8E%9F%E5%88%99%E5%8D%95%E4%BE%8B%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82/</link>
+      <title>面向对象七原则，单例模式，简单工厂模式</title>
+      <link>http://aoymykn.github.io/post/2021-spring/02-03%E4%B8%83%E5%8E%9F%E5%88%99%E5%8D%95%E4%BE%8B%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82/</link>
       <pubDate>Mon, 01 Feb 2021 18:01:07 +0800</pubDate>
       
-      <guid>http://aoymykn.github.io/post/2021-spring/02-03%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%83%E5%8E%9F%E5%88%99%E5%8D%95%E4%BE%8B%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82/</guid>
-      <description>最近忧心忡忡……该沉下心来，好好运动，好好学习了。 面向对象七原则 面向对象编程有七个设计原则，相较于设计模式来说，它们是“根基”—— 单一职责原</description>
+      <guid>http://aoymykn.github.io/post/2021-spring/02-03%E4%B8%83%E5%8E%9F%E5%88%99%E5%8D%95%E4%BE%8B%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82/</guid>
+      <description>再 放 送</description>
     </item>
     
     <item>
-      <title>设计模式——模板方法</title>
-      <link>http://aoymykn.github.io/post/2021-spring/01-27%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/</link>
+      <title>模板方法</title>
+      <link>http://aoymykn.github.io/post/2021-spring/01-27%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/</link>
       <pubDate>Wed, 27 Jan 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://aoymykn.github.io/post/2021-spring/01-27%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/</guid>
+      <guid>http://aoymykn.github.io/post/2021-spring/01-27%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/</guid>
       <description>模板方法（Template Method）和工厂方法（Factory Method）是两个和继承相关的设计模式。</description>
     </item>
     

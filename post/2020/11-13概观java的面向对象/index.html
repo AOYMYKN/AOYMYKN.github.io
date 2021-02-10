@@ -49,7 +49,7 @@
 <meta itemprop="description" content="思而不学则殆">
 <meta itemprop="datePublished" content="2020-11-13T14:09:55+08:00" />
 <meta itemprop="dateModified" content="2020-11-13T14:09:55+08:00" />
-<meta itemprop="wordCount" content="4857">
+<meta itemprop="wordCount" content="4852">
 
 
 
@@ -130,7 +130,7 @@
         <div class="post-category">
             <a href="/categories/java/"> Java </a>
             </div>
-          <span class="more-meta"> 约 4857 字 </span>
+          <span class="more-meta"> 约 4852 字 </span>
           <span class="more-meta"> 预计阅读 10 分钟 </span>
         
       </div>
@@ -142,11 +142,7 @@
     <nav id="TableOfContents">
   <ul>
     <li><a href="#类和实例的初始化">类和实例的初始化</a></li>
-    <li><a href="#多态">多态</a>
-      <ul>
-        <li><a href="#置换原则">置换原则</a></li>
-      </ul>
-    </li>
+    <li><a href="#多态">多态</a></li>
     <li><a href="#抽象类">抽象类</a></li>
     <li><a href="#反射">反射</a>
       <ul>
@@ -395,8 +391,6 @@ son&#39;s constructor
 </div>
 </div><p>可以看到，选择调用哪个say方法是动态绑定的，<strong>看变量的实际类型</strong>。比如，这里定义neko是Animal类型（这里，Animal是neko的<strong>声明类型</strong>），却给他引用了一个Neko变量，它的say被JVM动态绑定到了Neko的类方法上。同时，<strong>它所能调用的方法是受其声明类型所限制的，如果要调用的方法（或类成员）不在超类的域内，则会出现编译错误，必须将该类强制转换为其实际类型才能调用其独有的方法</strong>。</p>
 <p>同时，超类数组能够存储子类，但是子类数组不能存储超类。比如，动物数组可以存储兔子，而兔子数组不能存储动物，这是很容易理解的，因为动物不全是兔子。一个类型的数组不应该存储超出他的范畴（这里的范畴不是哲学上的范畴，而是“用某种概念界定的范围”）。</p>
-<h2 id="置换原则">置换原则</h2>
-<p>TODO</p>
 <h1 id="抽象类">抽象类</h1>
 <p>当某个类中存在有含abstract关键字的方法，则该类为抽象类（也可以定义一个类为抽象类，即使其不含抽象方法），这样的方法称为抽象方法，它不需要提供实现（这是子类的活）。抽象类无法被实例化（但是可以有构造器）。继承抽象类的类可以不定义完其超类的所有抽象方法（如此则这个类也是抽象类）。Java提供的数据结构中，如map，list，set等都是抽象类，HashMap，LinkedList，HashSet等则是它们的子类。</p>
 <p>抽象类虽然不能实例化，但是能够作为声明类型，如——</p>

@@ -49,7 +49,7 @@
 <meta itemprop="description" content="使用NFA实现atoi函数">
 <meta itemprop="datePublished" content="2020-11-11T21:36:38+08:00" />
 <meta itemprop="dateModified" content="2020-11-11T21:36:38+08:00" />
-<meta itemprop="wordCount" content="3427">
+<meta itemprop="wordCount" content="3425">
 
 
 
@@ -130,7 +130,7 @@
         <div class="post-category">
             <a href="/categories/%E7%AE%97%E6%B3%95/"> 算法 </a>
             </div>
-          <span class="more-meta"> 约 3427 字 </span>
+          <span class="more-meta"> 约 3425 字 </span>
           <span class="more-meta"> 预计阅读 7 分钟 </span>
         
       </div>
@@ -228,7 +228,6 @@
 </span><span class="lnt">54
 </span><span class="lnt">55
 </span><span class="lnt">56
-</span><span class="lnt">57
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-java" data-lang="java"><span class="kt">int</span> <span class="nf">myAtoi</span><span class="o">(</span><span class="n">String</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
@@ -277,8 +276,7 @@
     <span class="c1">// 已经知晓有效数字的开始位置start，结束位置end，正负positive
 </span><span class="c1"></span>    <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
     <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">pointer</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">end</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
-        <span class="c1">//TODO
-</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i</span><span class="o">)</span> <span class="o">-</span> <span class="sc">&#39;0&#39;</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i</span><span class="o">)</span> <span class="o">-</span> <span class="sc">&#39;0&#39;</span><span class="o">;</span>
         <span class="k">if</span> <span class="o">(!</span><span class="n">positive</span><span class="o">)</span> <span class="n">temp</span> <span class="o">=</span> <span class="o">-</span><span class="n">temp</span><span class="o">;</span>
         <span class="k">if</span> <span class="o">(</span><span class="n">res</span> <span class="o">&gt;</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">/</span><span class="n">10</span> <span class="o">||</span> <span class="n">res</span> <span class="o">==</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">/</span><span class="n">10</span> <span class="o">&amp;&amp;</span> <span class="n">temp</span> <span class="o">&gt;</span> <span class="n">7</span><span class="o">)</span> 
             <span class="k">return</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">;</span> <span class="c1">// 判断是否溢出。为什么是temp &gt; 7？ 因为整型最大值的个位数是7

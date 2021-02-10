@@ -49,7 +49,7 @@
 <meta itemprop="description" content="麻了">
 <meta itemprop="datePublished" content="2020-12-23T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2020-12-23T00:00:00+00:00" />
-<meta itemprop="wordCount" content="2132">
+<meta itemprop="wordCount" content="2138">
 
 
 
@@ -130,7 +130,7 @@
         <div class="post-category">
             <a href="/categories/%E5%B9%B6%E5%8F%91/"> 并发 </a>
             </div>
-          <span class="more-meta"> 约 2132 字 </span>
+          <span class="more-meta"> 约 2138 字 </span>
           <span class="more-meta"> 预计阅读 5 分钟 </span>
         
       </div>
@@ -305,7 +305,7 @@
 </div>
 </div><p>这里，states就逸出了它的作用域（类中），这个本应是私有的变量被发布了。</p>
 <p>构造函数可能会让this逸出。</p>
-<p>TODO</p>
+<p>TODO:摸了</p>
 <h2 id="线程封闭">线程封闭</h2>
 <p>实现线程安全性的最简单方式之一是<strong>线程封闭</strong>（Thread Confinement）——不共享数据。当某个对象被封闭在一个线程中时，这将自动实现线程安全性，而不需要额外的同步，即使该对象本身不是线程安全的（毕竟对这个对象来说，它所处的是单线程的环境）。</p>
 <p>显然，局部变量是线程封闭的。</p>

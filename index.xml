@@ -6,7 +6,7 @@
     <description>Recent content on AOYMYKN的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 05 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="http://aoymykn.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 10 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="http://aoymykn.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
       <link>http://aoymykn.github.io/about/</link>
@@ -17,29 +17,38 @@
     </item>
     
     <item>
+      <title>DFS从入门到入坟——全排列和八皇后问题</title>
+      <link>http://aoymykn.github.io/post/2021-spring/02-10dfs%E5%85%A8%E6%8E%92%E5%88%97%E5%92%8C%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Wed, 10 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://aoymykn.github.io/post/2021-spring/02-10dfs%E5%85%A8%E6%8E%92%E5%88%97%E5%92%8C%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/</guid>
+      <description>《关于使用racket和Java来复习DFS这回事》</description>
+    </item>
+    
+    <item>
       <title>日语中日期，时间等的读音</title>
-      <link>http://aoymykn.github.io/post/2021-spring/02-07%E6%97%A5%E8%AF%AD%E4%B8%AD%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4%E7%AD%89%E7%9A%84%E8%AF%BB%E9%9F%B3/</link>
+      <link>http://aoymykn.github.io/post/2021-spring/02-05%E6%97%A5%E8%AF%AD%E4%B8%AD%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4%E7%AD%89%E7%9A%84%E8%AF%BB%E9%9F%B3/</link>
       <pubDate>Fri, 05 Feb 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://aoymykn.github.io/post/2021-spring/02-07%E6%97%A5%E8%AF%AD%E4%B8%AD%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4%E7%AD%89%E7%9A%84%E8%AF%BB%E9%9F%B3/</guid>
+      <guid>http://aoymykn.github.io/post/2021-spring/02-05%E6%97%A5%E8%AF%AD%E4%B8%AD%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4%E7%AD%89%E7%9A%84%E8%AF%BB%E9%9F%B3/</guid>
       <description>難しいな。。。</description>
     </item>
     
     <item>
-      <title>设计模式——七原则，单例模式，简单工厂模式</title>
-      <link>http://aoymykn.github.io/post/2021-spring/02-03%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%83%E5%8E%9F%E5%88%99%E5%8D%95%E4%BE%8B%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82/</link>
+      <title>面向对象七原则，单例模式，简单工厂模式</title>
+      <link>http://aoymykn.github.io/post/2021-spring/02-03%E4%B8%83%E5%8E%9F%E5%88%99%E5%8D%95%E4%BE%8B%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82/</link>
       <pubDate>Mon, 01 Feb 2021 18:01:07 +0800</pubDate>
       
-      <guid>http://aoymykn.github.io/post/2021-spring/02-03%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%83%E5%8E%9F%E5%88%99%E5%8D%95%E4%BE%8B%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82/</guid>
-      <description>最近忧心忡忡……该沉下心来，好好运动，好好学习了。 面向对象七原则 面向对象编程有七个设计原则，相较于设计模式来说，它们是“根基”—— 单一职责原</description>
+      <guid>http://aoymykn.github.io/post/2021-spring/02-03%E4%B8%83%E5%8E%9F%E5%88%99%E5%8D%95%E4%BE%8B%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82/</guid>
+      <description>再 放 送</description>
     </item>
     
     <item>
-      <title>设计模式——模板方法</title>
-      <link>http://aoymykn.github.io/post/2021-spring/01-27%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/</link>
+      <title>模板方法</title>
+      <link>http://aoymykn.github.io/post/2021-spring/01-27%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/</link>
       <pubDate>Wed, 27 Jan 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://aoymykn.github.io/post/2021-spring/01-27%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/</guid>
+      <guid>http://aoymykn.github.io/post/2021-spring/01-27%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/</guid>
       <description>模板方法（Template Method）和工厂方法（Factory Method）是两个和继承相关的设计模式。</description>
     </item>
     
