@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>工厂方法模式和抽象工厂模式 - AOYMYKN的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="AOYMYKN" /><meta name="description" content="没有骚话可说……" /><meta name="keywords" content="Java, 后端, 计算机, 编程, 数据结构, 算法, CS, IT" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.80.0 with theme even" />
+
+
+<link rel="canonical" href="http://aoymykn.github.io/post/2021-spring/02-12%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E5%92%8C%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c9ac0cd19ce10a4f2eefd4195990291e493e392c8206d6b1583da261e491264a.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="工厂方法模式和抽象工厂模式" />
+<meta property="og:description" content="没有骚话可说……" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://aoymykn.github.io/post/2021-spring/02-12%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E5%92%8C%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" />
+<meta property="article:published_time" content="2021-02-12T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-02-12T00:00:00+00:00" />
+<meta itemprop="name" content="工厂方法模式和抽象工厂模式">
+<meta itemprop="description" content="没有骚话可说……">
+<meta itemprop="datePublished" content="2021-02-12T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-02-12T00:00:00+00:00" />
+<meta itemprop="wordCount" content="5347">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="工厂方法模式和抽象工厂模式"/>
+<meta name="twitter:description" content="没有骚话可说……"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">AOYMYKN</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">AOYMYKN</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">工厂方法模式和抽象工厂模式</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-02-12 </span>
+        <div class="post-category">
+            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"> 设计模式 </a>
+            </div>
+          <span class="more-meta"> 约 5347 字 </span>
+          <span class="more-meta"> 预计阅读 11 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#工厂方法模式factory-method">工厂方法模式（Factory Method）</a>
+      <ul>
+        <li><a href="#从简单工厂到工厂方法">从简单工厂到工厂方法</a></li>
+        <li><a href="#总结">总结</a></li>
+      </ul>
+    </li>
+    <li><a href="#抽象工厂模式">抽象工厂模式</a>
+      <ul>
+        <li><a href="#例子">例子</a></li>
+      </ul>
+    </li>
+    <li><a href="#做一做题目">做一做题目</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!--Hello, Happy World-->
+<h1 id="工厂方法模式factory-method">工厂方法模式（Factory Method）</h1>
+<blockquote>
+<p>这个模式在之前看《图解设计模式》已经有部分了解，那本书并没有解释为何工厂方法模式要求一个抽象工厂的角色……这里讲的比较清楚。</p>
+</blockquote>
+<p>简单工厂的主要一个缺点是，工厂类的职责过重，存在大量if-else逻辑，且如果添加新产品时<strong>必须要修改工厂类</strong>，这违反了开闭原则和单一职责原则（而且，添加子类需要修改基类，这个怎么说也感觉有点怪吧？）。而工厂方法模式则消除了这一缺点——它给所有工厂一个抽象的基类（或接口），给每个产品提供它对应的工厂。如果添加新产品，只需要定义新的工厂类和产品即可。客户端可以通过反射等手段进行调用。</p>
+<h2 id="从简单工厂到工厂方法">从简单工厂到工厂方法</h2>
+<p>书中举了个十分容易理解的例子（不过我认为有改进的空间）——</p>
+<p>客户需要一个日志记录器，且需要能不更改源代码（即不需要重新编译）灵活选择不同的记录器。需求分析发现，<strong>日志记录器的初始化比较复杂</strong>，可能需要初始化其他相关的类，可能需要配置工作环境等，如果都写在构造函数里会<strong>导致构造函数庞大，不利于维护</strong>。因此，使用简单工厂方法进行系统设计，其中LoggerFactory为工厂角色，FileLogger，DatabaseLogger为具体产品，Logger为抽象产品——</p>
+<p><img src="https://i.loli.net/2021/02/08/5AMIoksLVbWHmrq.png" alt="未命名绘图.png"></p>
+<p>代码如下——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// Logger.java
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Logger</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">writeLog</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">FileLogger</span> <span class="kd">extends</span> <span class="n">Logger</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">writeLog</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;我是一个fileLogger&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">class</span> <span class="nc">DatabaseLogger</span> <span class="kd">extends</span> <span class="n">Logger</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">writeLog</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;我是一个DatabaseLogger&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// LoggerFactory.java
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">LoggerFactory</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nf">LoggerFactory</span><span class="o">(){}</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Logger</span> <span class="nf">getLogger</span><span class="o">(</span><span class="n">String</span> <span class="n">type</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Logger</span> <span class="n">res</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">type</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&#34;FileLogger&#34;</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileLogger</span><span class="o">();</span>
+            <span class="c1">// 做一些处理
+</span><span class="c1"></span>        <span class="o">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">type</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&#34;DatabaseLogger&#34;</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DatabaseLogger</span><span class="o">();</span>
+            <span class="c1">// 做另一些处理
+</span><span class="c1"></span>        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// Main.java 客户端
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="s">&#34;FileLogger&#34;</span><span class="o">);</span> <span class="c1">// 可以写在配置文件里
+</span><span class="c1"></span>        <span class="n">logger</span><span class="o">.</span><span class="na">writeLog</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>现在，缺点来了，一旦需要增加新的logger，必须更改工厂类，并且工厂类包含所有logger的初始化代码，职责过重。现在，通过使用工厂方法模式来解决这个问题。</p>
+<p>工厂方法的要点在于，给定一个抽象工厂类，任何具体工厂作为它的子类，对每一个工厂，都有一定的产品与之适配。用户构造工厂时以抽象工厂为类型。形如下面的代码——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">LoggerFactory</span> <span class="n">loggerFactory</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getFactory</span><span class="o">(</span><span class="s">&#34;Logger&#34;</span><span class="o">);</span> <span class="c1">// 可以写在配置文件里
+</span><span class="c1"></span>    <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">loggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">();</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">writeLog</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里的getFactory是个static方法，它应当根据字符串返回对应的工厂。书中的示例将这相关的代码放到外面，而我觉得这个方法其实很适合作为抽象工厂的一个静态方法。这里也可以将要生成的工厂写在配置文件里以保证开闭原则。</p>
+<p>这个方法中可以仍旧使用if-else来返回工厂（这陷入了一个循环吗？并非如此，因为工厂的初始化是不需要抽象工厂关心的，它只需返回一个new的对象即可。但是这仍旧违反了开闭原则——添加新工厂还是要修改抽象工厂的源代码），也可以使用反射机制。</p>
+<p>简单工厂模式可以使用反射来去掉if-else循环吗？不可以！每个具体产品的初始化过程是不同的，因此不同产品的初始化代码不能被抽象到一致。而工厂方法模式将产品的初始化下放到具体工厂中，其<strong>只负责具体工厂的初始化</strong>——只需要调用其构造函数即可嘛。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// LoggerFactory.java
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">LoggerFactory</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">Logger</span> <span class="nf">createLogger</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">LoggerFactory</span> <span class="nf">getFactory</span><span class="o">(</span><span class="n">String</span> <span class="n">type</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="o">(</span><span class="n">LoggerFactory</span><span class="o">)</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="n">type</span><span class="o">).</span><span class="na">newInstance</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 应该进一步处理
+</span><span class="c1"></span>            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// Main.java
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">LoggerFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getFactory</span><span class="o">(</span><span class="s">&#34;FileLoggerFactory&#34;</span><span class="o">);</span> <span class="c1">// 可以写在配置文件里
+</span><span class="c1"></span>        <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">createLogger</span><span class="o">();</span>
+        <span class="n">logger</span><span class="o">.</span><span class="na">writeLog</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>要添加新的实例？没问题，创建两个新文件，比如ImageLogger.java和ImageLoggerFactory.java，其中ImageLogger要继承Logger类，ImageLoggerFactory要继承LoggerFactory类，然后在配置文件里修改要生成的工厂即可。这里完全不需要更改任何源文件，只需要增加文件即可！这保证了开闭原则——对扩展开放，对修改封闭。</p>
+<p>这里也可以进行一些优化，比如重载createLogger方法以适应更多情况，比如可以直接在抽象工厂中定义writeLog方法，使客户端可以使用抽象工厂直接进行操作（这里使用了模板方法）——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">LoggerFactory</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">Logger</span> <span class="nf">createLogger</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">LoggerFactory</span> <span class="nf">getFactory</span><span class="o">(</span><span class="n">String</span> <span class="n">type</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="o">(</span><span class="n">LoggerFactory</span><span class="o">)</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="n">type</span><span class="o">).</span><span class="na">newInstance</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 应该进一步处理
+</span><span class="c1"></span>            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">writeLog</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">createLogger</span><span class="o">();</span> <span class="c1">// 模板方法模式——定义一个处理流程，让子类实现其中的具体步骤。
+</span><span class="c1"></span>        <span class="n">logger</span><span class="o">.</span><span class="na">writeLog</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="c1">// 客户端
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">LoggerFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getFactory</span><span class="o">(</span><span class="s">&#34;FileLoggerFactory&#34;</span><span class="o">);</span> <span class="c1">// 可以写在配置文件里
+</span><span class="c1"></span>        <span class="n">factory</span><span class="o">.</span><span class="na">writeLog</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="总结">总结</h2>
+<p>工厂方法模式的优点是显而易见的，保证开闭原则，且消除了简单工厂中工厂类负担过重的问题，且用户不需知道自己究竟使用的是什么类即可完成任务（从直接使用变成间接使用……感觉这是保持开闭原则不可或缺的&hellip;）。而它的缺点是会让系统中的类的数量<strong>成对增加</strong>，且要使用反射等手段，影响了系统的理解难度。</p>
+<p>工厂方法模式的类图如下——</p>
+<p><img src="https://i.loli.net/2021/02/08/zBmUGiTKaI3gJ2O.png" alt="未命名绘图.png"></p>
+<h1 id="抽象工厂模式">抽象工厂模式</h1>
+<p>工厂方法的缺点在于，它一个工厂只负责一类产品，因此会导致类的数量增加，增加维护难度。抽象工厂模式要求它的<strong>具体工厂</strong>并非只生成一类产品，而是一“族”产品。这对要求所有产品都符合一定规范是必要的，比如不同操作系统的各种UI控件，比如软件的皮肤……</p>
+<p>一族所指的并非是相似的关系，或者父类相同的关系，如白色按钮和蓝色按钮，而是具有相互约束关系的东西，即使它们没有直接关系，比如某个操作系统下的文本框和按钮（它们都是属于这个操作系统的）。</p>
+<p>工厂方法模式和抽象工厂模式的差别在于，工厂方法模式中每个具体工厂生产一类产品，比如白色按钮，红色按钮，蓝色按钮…抽象工厂模式中每个具体工厂生产一族产品，比如白色按钮，白色弹窗……可以说，<strong>工厂方法模式（中的每一系列工厂）针对的是一个产品等级结构（一系列继承结构），抽象工厂模式则需要面对多个产品等级结构。每一个工厂等级结构都需要负责多个不同产品等级结构中工厂的创建</strong>。</p>
+<p>显然，抽象工厂模式中，抽象工厂应当定义生成所有产品的接口，当为抽象工厂模式中这一族产品添加新成员的时候，需要修改所有具体工厂和抽象工厂的源代码。抽象工厂模式对添加产品族是符合开闭原则的，但是对修改产品等级结构（也就是说修改，添加新的产品到产品族中）是不符合开闭原则的。<strong>开闭原则的倾斜性</strong>。</p>
+<p><img src="https://i.loli.net/2021/02/11/V3FXR61CPSQIY8h.png" alt="image.png"></p>
+<p>工厂方法模式没有所谓产品族的实现，如果要添加新的产品族，需要添加一系列的工厂和产品，且这些工厂和产品间在代码上是没有直接关系的，需要提供额外约束（要求用户只使用同一个产品族的产品），增加维护成本。但是工厂方法模式对于修改产品等级结构是符合开闭原则的——只需要创建新的产品和工厂类即可。</p>
+<blockquote>
+<p>这个设计模式是最具抽象性和一般性的，我觉得我的描述也挺抽象的。</p>
+</blockquote>
+<h2 id="例子">例子</h2>
+<p>书中的例子还满贴切的，可以直接用——</p>
+<p>考虑这样的情景——要给软件添加“皮肤”的功能，现在假设有Spring皮肤和Summer皮肤，设计者先使用工厂方法进行系统设计——</p>
+<p><img src="https://i.loli.net/2021/02/11/t69KeXsqVWA4wYg.png" alt="image.png"></p>
+<p>用户应当一次选择一种皮肤——也就是说使用同一族的产品（SummerTextField，SummerButton……），而使用工厂方法，用户要选择逐个配置选择哪个具体工厂，当然也可以使用字符串拼接+反射等方式来进行约束，但是仍旧是比较复杂的（而且抽象，难以调试，维护）。且每次添加新的皮肤（产品族），需要对每一个产品都新增一个具体工厂，增加了类的数量。</p>
+<blockquote>
+<p>这里其实拿不同操作系统的UI为例更好，这年代，谁拿Java写UI啊（</p>
+</blockquote>
+<p>考虑到有添加新皮肤（新的产品族）的需求，没有添加新的组件（新的产品等级结构）的需求，使用抽象工厂模式进行重构——</p>
+<p><img src="https://i.loli.net/2021/02/11/2YaRnI9xEwMzKLO.png" alt="image.png"></p>
+<p>其代码如下——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 抽象工厂
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">SkinFactory</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">Button</span> <span class="nf">createButton</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">TextField</span> <span class="nf">createTextField</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">ComboBox</span> <span class="nf">createComboBox</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">SkinFactory</span> <span class="nf">getSkinFactory</span><span class="o">(</span><span class="n">String</span> <span class="n">type</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="o">(</span><span class="n">SkinFactory</span><span class="o">)</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="n">type</span><span class="o">).</span><span class="na">newInstance</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 应该进一步处理
+</span><span class="c1"></span>            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// 各个组件的接口
+</span><span class="c1"></span><span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Button</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">displayButton</span><span class="o">();</span>
+<span class="o">}</span>
+<span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">TextField</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">displayTextField</span><span class="o">();</span>
+<span class="o">}</span>
+<span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">ComboBox</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">displayComboBox</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="c1">// ---------具体工厂和具体组件----------
+</span><span class="c1">//SummerSkinFactory
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SummerSkinFactory</span> <span class="kd">extends</span> <span class="n">SkinFactory</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">Button</span> <span class="nf">createButton</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">SummerButton</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">TextField</span> <span class="nf">createTextField</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">SummerTextField</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">ComboBox</span> <span class="nf">createComboBox</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">SummerComboBox</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">SummerTextField</span> <span class="kd">extends</span> <span class="n">TextField</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">displayTextField</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;一个Summer皮肤的文本框&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">class</span> <span class="nc">SummerButton</span> <span class="kd">extends</span> <span class="n">Button</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">displayButton</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;一个Summer皮肤的按钮&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">class</span> <span class="nc">SummerComboBox</span> <span class="kd">extends</span> <span class="n">ComboBox</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">displayComboBox</span><span class="o">()</span> <span class="o">{</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;一个Summer皮肤的复选框&#34;</span><span class="o">);</span>
+	<span class="o">}</span> 
+<span class="o">}</span>
+
+<span class="c1">//SpringSkinFactory和Summer的基本一致，不复制了
+</span><span class="c1"></span>
+<span class="c1">// 客户端
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">SkinFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="n">SkinFactory</span><span class="o">.</span><span class="na">getSkinFactory</span><span class="o">(</span><span class="s">&#34;SpringSkinFactory&#34;</span><span class="o">);</span>
+        <span class="n">factory</span><span class="o">.</span><span class="na">createButton</span><span class="o">().</span><span class="na">displayButton</span><span class="o">();</span>
+        <span class="n">factory</span><span class="o">.</span><span class="na">createComboBox</span><span class="o">().</span><span class="na">displayComboBox</span><span class="o">();</span>
+        <span class="n">factory</span><span class="o">.</span><span class="na">createTextField</span><span class="o">().</span><span class="na">displayTextField</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>要添加和使用新皮肤？没问题，添加新的具体的皮肤工厂和相应的组件即可。添加新组件？emmmm，大刀阔斧地改吧。优缺点我觉得已经说够了。</p>
+<p>抽象工厂模式的一般形式如图——</p>
+<p><img src="https://i.loli.net/2021/02/11/icOJlbfS5TkphdG.png" alt="image.png"></p>
+<h1 id="做一做题目">做一做题目</h1>
+<p>两个题目——提供一个程序，它能读取不同编码的图像文件，需保证扩展性和灵活性；针对不同操作系统平台，提供一套游戏操作控制类（OperatonController）和游戏界面控制类（InterfaceController），需封装这些类的初始化过程。</p>
+<p>第一个题目显然适合用工厂方法模式，假设图像的编码总是符合它的后缀，对所有有多后缀的编码格式，都假设它是其中一个编码——比如对jpeg和jpg，假设只有jpg。</p>
+<p>代码如下，这里ImageReader是抽象工厂，JPGReader和PNGReader则是具体工厂，Image是抽象产品，JPG，PNG是具体产品，它们理应返回Image作为产品，考虑到要根据后缀选择工厂，所以后缀应当作为工厂的一个域（这恐怕在实际生产中是不合理的，应当掩盖掉具体工厂的构造，直接返回Image）——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">ImageReader</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">path</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">ImageReader</span><span class="o">(</span><span class="n">String</span> <span class="n">path</span><span class="o">){</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">path</span> <span class="o">=</span> <span class="n">path</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">Image</span> <span class="nf">readImage</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">ImageReader</span> <span class="nf">getReader</span><span class="o">(</span><span class="n">String</span> <span class="n">path</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span><span class="o">[]</span> <span class="n">split</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">&#34;\\.&#34;</span><span class="o">);</span>
+        <span class="n">String</span> <span class="n">postfix</span> <span class="o">=</span> <span class="n">split</span><span class="o">[</span><span class="n">split</span><span class="o">.</span><span class="na">length</span><span class="o">-</span><span class="n">1</span><span class="o">].</span><span class="na">toUpperCase</span><span class="o">();</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="o">(</span><span class="n">ImageReader</span><span class="o">)</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="n">postfix</span> <span class="o">+</span> <span class="s">&#34;Reader&#34;</span><span class="o">).</span><span class="na">getConstructor</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">newInstance</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 应该进一步处理
+</span><span class="c1"></span>            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Image</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">path</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">Image</span><span class="o">(</span><span class="n">String</span> <span class="n">path</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">path</span> <span class="o">=</span> <span class="n">path</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">show</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">JPGReader</span> <span class="kd">extends</span> <span class="n">ImageReader</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">JPGReader</span><span class="o">(</span><span class="n">String</span> <span class="n">path</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">Image</span> <span class="nf">readImage</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;读取JPG文件：&#34;</span> <span class="o">+</span> <span class="n">path</span><span class="o">);</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">JPG</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">JPG</span> <span class="kd">extends</span> <span class="n">Image</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="nf">JPG</span><span class="o">(</span><span class="n">String</span> <span class="n">path</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">show</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;展示这个JPG的信息&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">PNGReader</span> <span class="kd">extends</span> <span class="n">ImageReader</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="nf">PNGReader</span><span class="o">(</span><span class="n">String</span> <span class="n">path</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">PNG</span> <span class="nf">readImage</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;读取PNG文件：&#34;</span> <span class="o">+</span> <span class="n">path</span><span class="o">);</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">PNG</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">PNG</span> <span class="kd">extends</span> <span class="n">Image</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="nf">PNG</span><span class="o">(</span><span class="n">String</span> <span class="n">path</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">show</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;展示这个PNG的信息&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">path</span> <span class="o">=</span> <span class="s">&#34;/home/abc/hello.jpg&#34;</span><span class="o">;</span>
+        <span class="n">ImageReader</span> <span class="n">reader</span> <span class="o">=</span> <span class="n">ImageReader</span><span class="o">.</span><span class="na">getReader</span><span class="o">(</span><span class="n">path</span><span class="o">);</span> <span class="c1">// 使用ImageReader直接返回图像在这里更合理些
+</span><span class="c1"></span>        <span class="n">Image</span> <span class="n">Image</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="na">readImage</span><span class="o">();</span>
+        <span class="n">Image</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://i.loli.net/2021/02/11/xZuFakIJcoBAj9i.png" alt="image.png"></p>
+<p>更加合适的解决方案是这样——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">ImageReader</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">path</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">ImageReader</span><span class="o">(</span><span class="n">String</span> <span class="n">path</span><span class="o">){</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">path</span> <span class="o">=</span> <span class="n">path</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">Image</span> <span class="nf">readImage</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Image</span> <span class="nf">getImage</span><span class="o">(</span><span class="n">String</span> <span class="n">path</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span><span class="o">[]</span> <span class="n">split</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">&#34;\\.&#34;</span><span class="o">);</span>
+        <span class="n">String</span> <span class="n">postfix</span> <span class="o">=</span> <span class="n">split</span><span class="o">[</span><span class="n">split</span><span class="o">.</span><span class="na">length</span><span class="o">-</span><span class="n">1</span><span class="o">].</span><span class="na">toUpperCase</span><span class="o">();</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="o">((</span><span class="n">ImageReader</span><span class="o">)</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="n">postfix</span> <span class="o">+</span> <span class="s">&#34;Reader&#34;</span><span class="o">).</span><span class="na">getConstructor</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">newInstance</span><span class="o">(</span><span class="n">path</span><span class="o">)).</span><span class="na">readImage</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 应该进一步处理
+</span><span class="c1"></span>            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">path</span> <span class="o">=</span> <span class="s">&#34;/home/abc/hello.jpg&#34;</span><span class="o">;</span>
+        <span class="n">Image</span> <span class="n">image</span> <span class="o">=</span> <span class="n">ImageReader</span><span class="o">.</span><span class="na">getImage</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
+        <span class="n">image</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>第二个题目，每个操作系统下的各种组件显然是属于一个产品族的，这里显然要使用抽象工厂模式。角色分类如下——ControllerFactory为抽象工厂类，定义createOperatonController和createInterfaceController抽象方法。它们返回OperatonController和InterfaceController，这是两个抽象产品，它们属于一个产品族。AndroidControllerFactory和IOSControllerFactory为两个具体工厂，它们生产AndroidOperatonController，AndroidInterfaceController和IOSOperatonController，IOSInterfaceController这四个具体产品。</p>
+<p><img src="https://i.loli.net/2021/02/12/Mhk6Xzbqm4Y15DG.png" alt="未命名绘图.png"></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 抽象层
+</span><span class="c1"></span><span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">ControllerFactory</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">OperationController</span> <span class="nf">createOperationController</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">InterfaceController</span> <span class="nf">createInterfaceController</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">ControllerFactory</span> <span class="nf">getControllerFactory</span><span class="o">(</span><span class="n">String</span> <span class="n">systemType</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="o">(</span><span class="n">ControllerFactory</span><span class="o">)</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="n">systemType</span> <span class="o">+</span> <span class="s">&#34;ControllerFactory&#34;</span><span class="o">).</span><span class="na">newInstance</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 应该进一步处理
+</span><span class="c1"></span>            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">OperationController</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">doSomething</span><span class="o">();</span>
+<span class="o">}</span>
+<span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">InterfaceController</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">doSomething</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="c1">// Android的具体工厂和产品族
+</span><span class="c1"></span><span class="kd">class</span> <span class="nc">AndroidControllerFactory</span> <span class="kd">extends</span> <span class="n">ControllerFactory</span><span class="o">{</span>
+
+    <span class="kd">public</span> <span class="n">OperationController</span> <span class="nf">createOperationController</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">AndroidOperationController</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">InterfaceController</span> <span class="nf">createInterfaceController</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">AndroidInterfaceController</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">class</span> <span class="nc">AndroidOperationController</span> <span class="kd">extends</span> <span class="n">OperationController</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doSomething</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;初始化Android的操作控制类&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">class</span> <span class="nc">AndroidInterfaceController</span> <span class="kd">extends</span> <span class="n">InterfaceController</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doSomething</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;初始化Android的界面控制类&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// IOS的具体工厂和产品族
+</span><span class="c1"></span><span class="kd">class</span> <span class="nc">IOSControllerFactory</span> <span class="kd">extends</span> <span class="n">ControllerFactory</span><span class="o">{</span>
+
+    <span class="kd">public</span> <span class="n">OperationController</span> <span class="nf">createOperationController</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">IOSOperationController</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">InterfaceController</span> <span class="nf">createInterfaceController</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">IOSInterfaceController</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">class</span> <span class="nc">IOSOperationController</span> <span class="kd">extends</span> <span class="n">OperationController</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doSomething</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;初始化IOS的操作控制类&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">class</span> <span class="nc">IOSInterfaceController</span> <span class="kd">extends</span> <span class="n">InterfaceController</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doSomething</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;初始化IOS的界面控制类&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// 客户端
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span> 
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">ControllerFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="n">ControllerFactory</span><span class="o">.</span><span class="na">getControllerFactory</span><span class="o">(</span><span class="s">&#34;IOS&#34;</span><span class="o">);</span>
+        <span class="n">factory</span><span class="o">.</span><span class="na">createInterfaceController</span><span class="o">().</span><span class="na">doSomething</span><span class="o">();</span>
+        <span class="n">factory</span><span class="o">.</span><span class="na">createOperationController</span><span class="o">().</span><span class="na">doSomething</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>挺复杂，但其实也不太复杂，重要的是如何将其运用到具体开发中。</p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/2021-spring/02-10dfs%E5%85%A8%E6%8E%92%E5%88%97%E5%92%8C%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/">
+            <span class="next-text nav-default">DFS从入门到入坟——全排列和八皇后问题</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2021-02-12 00:00:00 \u002b0000 UTC',
+        title: '工厂方法模式和抽象工厂模式',
+        clientID: 'a6d39dcb11d3911b23d9',
+        clientSecret: 'a1b3afce97c2b2c21ef8ad1f40b0fce20a334be0',
+        repo: 'comments',
+        owner: 'AOYMYKN',
+        admin: ['AOYMYKN'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:cs596065766@hotmail.com" class="iconfont icon-email" title="email"></a>
+  <a href="http://aoymykn.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>AOYMYKN</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
