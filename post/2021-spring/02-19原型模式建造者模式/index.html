@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>原型模式和建造者模式 - AOYMYKN的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="AOYMYKN" /><meta name="description" content="頑張ります" /><meta name="keywords" content="Java, 后端, 计算机, 编程, 数据结构, 算法, CS, IT" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.80.0 with theme even" />
+
+
+<link rel="canonical" href="http://aoymykn.github.io/post/2021-spring/02-19%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c9ac0cd19ce10a4f2eefd4195990291e493e392c8206d6b1583da261e491264a.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="原型模式和建造者模式" />
+<meta property="og:description" content="頑張ります" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://aoymykn.github.io/post/2021-spring/02-19%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" />
+<meta property="article:published_time" content="2021-02-19T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-02-19T00:00:00+00:00" />
+<meta itemprop="name" content="原型模式和建造者模式">
+<meta itemprop="description" content="頑張ります">
+<meta itemprop="datePublished" content="2021-02-19T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-02-19T00:00:00+00:00" />
+<meta itemprop="wordCount" content="3656">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="原型模式和建造者模式"/>
+<meta name="twitter:description" content="頑張ります"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">AOYMYKN</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">AOYMYKN</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">原型模式和建造者模式</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-02-19 </span>
+        <div class="post-category">
+            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"> 设计模式 </a>
+            </div>
+          <span class="more-meta"> 约 3656 字 </span>
+          <span class="more-meta"> 预计阅读 8 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#原型模式">原型模式</a></li>
+    <li><a href="#组装的艺术建造者模式">组装的艺术——建造者模式</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!--Hello, Happy World-->
+<h1 id="原型模式">原型模式</h1>
+<p>原型模式就是<strong>从一个原型克隆出多个一模一样的对象</strong>的模式。原型模式对于这样的情形适用——需要一个和已有的对象大体相同的对象，但无法接受从零开始创建该对象。比如当编写PPT时，当上一页和当前页面元素基本一致的时候，就将上一页复制，进行一些编辑即可，从而免去再次的排版等工序。</p>
+<p>原型模式的角色有抽象原型，具体原型和客户端。其中抽象原型类是一个提供clone方法的接口（Java本身有一个这样作用的接口Cloneable，但它仅仅起标记作用）。具体原型类是实现了该接口的类。客户端使用时调用原型类的clone方法。</p>
+<p>对于Java，clone方法的实现，应当通过构造函数定义一个Object对象（在这里，Object负责抽象原型类的角色，它就是Prototype），其值为super.clone()，并设定其各个域成员与被克隆的对象一致（需注意浅拷贝和深拷贝，深拷贝可以简单使用序列化接口来实现），最后强制类型转换并返回该对象。其代码形式如下——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 这个类应当实现Cloneable接口
+</span><span class="c1"></span><span class="kd">public</span> <span class="n">Prototype</span> <span class="nf">clone</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">Object</span> <span class="n">obj</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="kd">super</span><span class="o">.</span><span class="na">clone</span><span class="o">();</span> <span class="c1">// Object所定义的方法，其是native的。
+</span><span class="c1"></span>        <span class="c1">// 设定各种属性与该对象一致
+</span><span class="c1"></span>        <span class="c1">// . . .
+</span><span class="c1"></span>        <span class="k">return</span> <span class="o">(</span><span class="n">Prototype</span><span class="o">)</span> <span class="n">obj</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">catch</span> <span class="o">(</span><span class="n">CloneNotSupportedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>还可使用所谓的原型管理器——其实质是一个&lt;String, Prototype&gt;的HashMap，其通过单例模式创建，维护着所需的原型对象，并应客户端的要求返回特定的对象。</p>
+<p>原型模式的优点在于能够节约初始化的成本（特别是需要调用硬盘甚至网络资源的时候），简化复杂实例的创建，且其扩展性高，可以针对抽象原型类进行编程，而<strong>具体原型类编写在配置文件中</strong>，增加，减少具体原型类都不需要修改源代码（甚至修改也可能可以不需要，不过可能会造成配置文件繁琐？）。</p>
+<p>缺点在于深拷贝时代码可能比较复杂，且克隆方法必须位于类的内部，修改时需要修改源代码，违反开闭原则。</p>
+<h1 id="组装的艺术建造者模式">组装的艺术——建造者模式</h1>
+<p>建造者模式就像游戏中的捏人系统，人的外观分为几个特定的部分，如发型，脸型，五官，躯干……一次捏人的完成，是对各个部分都进行“建造”，最后将其组合出结果（当然，这里没有组合，或许也可以联想飞船的各模块的建造……就像Space Engineer里那样的？）。</p>
+<p>建造者模式的实质就是将<strong>复杂对象</strong>（具有多个实例域的对象）的构建和对象的表示（其属性）相分离，建造者<strong>将对象所属的类中各个共通的部分抽象成一个个模块</strong>，按模块地进行建设（比如划分为登陆模块，控制模块，推进模块，战斗模块……），最后将各个模块进行组合，得出最终的舰船。而非是直接上手创建这样一个复杂的对象——抽象啊抽象！这就和用汇编写http服务器一样离谱。</p>
+<p>建造者模式有如下角色：<strong>抽象建造者</strong>——提供各部分的构造方法的接口，以及返回最终对象的方法的接口。这里的抽象建造者可以是抽象类（它可以维护一个最终产品并直接实现返回最终对象的方法），也可以是接口；<strong>产品</strong>——建造的对象；<strong>建造者</strong>——对抽象建造者的实现；<strong>导演</strong>——指挥建造者进行建造并返回结果（也就是调用建造者提供的方法返回最终对象）（这个导演倒是可以直接设定成抽象建造者的一个方法…这便使用了类似模板方法的一种设计…这样简化了系统的结构，但可能会让抽象建造者类职责过重）；<strong>客户端</strong>——与导演交互，获取最终对象。</p>
+<p>类图如下——</p>
+<p><img src="https://i.loli.net/2021/02/19/LPcNWHBatRJUjOo.png" alt="image.png"></p>
+<p>然后是各个角色的一般形式——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 复杂对象
+</span><span class="c1"></span><span class="kd">class</span> <span class="nc">Product</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">dataA</span> <span class="n">partA</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">dataB</span> <span class="n">partB</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">dataC</span> <span class="n">partC</span><span class="o">;</span>
+    <span class="c1">// 和其getter和setter
+</span><span class="c1"></span><span class="o">}</span>
+
+<span class="c1">// 抽象建造者类
+</span><span class="c1"></span><span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Builder</span> <span class="o">{</span>
+    <span class="kd">protected</span> <span class="n">Product</span> <span class="n">product</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Product</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">buildPartA</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">buildPartB</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">buildPartC</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="n">Product</span> <span class="nf">getResult</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">product</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// 导演类
+</span><span class="c1"></span><span class="kd">class</span> <span class="nc">Director</span> <span class="o">{</span> <span class="c1">// 导演类大可直接作为Builder类的一个方法
+</span><span class="c1"></span>    <span class="kd">private</span> <span class="n">Builder</span> <span class="n">builder</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Director</span><span class="o">(</span><span class="n">Builder</span> <span class="n">builder</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">builder</span> <span class="o">=</span> <span class="n">builder</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">Product</span> <span class="nf">construct</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">builder</span><span class="o">.</span><span class="na">buildPartA</span><span class="o">();</span>
+        <span class="n">builder</span><span class="o">.</span><span class="na">buildPartB</span><span class="o">();</span>
+        <span class="n">builder</span><span class="o">.</span><span class="na">buildPartC</span><span class="o">();</span>
+        <span class="k">return</span> <span class="n">builder</span><span class="o">.</span><span class="na">getResult</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// 具体建造者
+</span><span class="c1"></span><span class="kd">class</span> <span class="nc">ConcreteBuilder</span> <span class="kd">extends</span> <span class="n">Builder</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">buildPartA</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// blablabla
+</span><span class="c1"></span>    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">buildPartB</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// blablabla
+</span><span class="c1"></span>    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">buildPartC</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// blablabla
+</span><span class="c1"></span>    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>客户端形式如下——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Builder</span> <span class="n">builder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConcreteBuilder</span><span class="o">();</span> <span class="c1">// 显然，这里的new可以使用工厂模式干掉以（无论是简单工厂还是工厂方法模式）
+</span><span class="c1"></span>        <span class="n">Director</span> <span class="n">director</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Director</span><span class="o">(</span><span class="n">builder</span><span class="o">);</span>
+        <span class="n">Product</span> <span class="n">product</span> <span class="o">=</span> <span class="n">director</span><span class="o">.</span><span class="na">construct</span><span class="o">();</span>
+        <span class="c1">// ...如此复杂，果然construct方法应该直接放到建造者类中，
+</span><span class="c1"></span>        <span class="c1">//无论是抽象建造者类中还是具体建造者类中（取决于有无必要对construct方法进行重载）
+</span><span class="c1"></span>        <span class="c1">//然后使用工厂方法进行进一步抽象，让其能够这样调用——
+</span><span class="c1"></span>        <span class="c1">// Product product = BuilderFactory.createBuilder(&#34;angel&#34;).construct(); // 这里的createBuilder方法既可以返回具体建造者，也可以返回一个导演类……
+</span><span class="c1"></span>        <span class="c1">// . . .
+</span><span class="c1"></span>    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可见还是简化后的形式更加舒服。</p>
+<p>关于建造过程，其实能够给其添加更多程序结构来更加精细地控制建造过程。比如添加所谓的钩子方法（Hook Method），它控制是否需要调用某个buildPartX()方法。</p>
+<p>钩子方法的形式是置于抽象建造者类中的一个返回布尔值的方法（我更喜欢叫它谓词predicate），来决定某个部分的是否构建。比如对于一个建造船舰的抽象建造者类ShipBuilder，给定一个名为isArmed的方法，对于运输船，它不需要火力模块，因此对于这个方法它就返回false。导演类就可以这样construct——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">Product</span> <span class="nf">construct</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">shipBuilder</span><span class="o">.</span><span class="na">buildPowerModule</span><span class="o">();</span> <span class="c1">// 无论什么船，都需要能源，对吧？
+</span><span class="c1"></span>    <span class="k">if</span> <span class="o">(</span><span class="n">shipBuilder</span><span class="o">.</span><span class="na">isArmed</span><span class="o">())</span>
+        <span class="n">shipBuilder</span><span class="o">.</span><span class="na">buildFireModule</span><span class="o">();</span>
+    <span class="c1">// . . .
+</span><span class="c1"></span>    <span class="k">return</span> <span class="n">builder</span><span class="o">.</span><span class="na">getResult</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>一个练习——某视频播放软件有多种界面显示模式——标准模式，精简模式，编辑模式等等。不同界面显示模式中组成元素有差异。其中，各界面现实如下元素——</p>
+<ul>
+<li>标准模式：播放窗口，控制条，显示菜单，播放列表</li>
+<li>编辑模式：播放窗口，控制条，显示菜单，编辑栏</li>
+<li>精简模式：播放窗口，控制条</li>
+</ul>
+<p>可以使用一些钩子函数对窗口的构建进行精细控制。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="cm">/**
+</span><span class="cm"> *  - 完整模式：播放窗口，控制条，显示菜单，播放列表
+</span><span class="cm">    - 编辑模式：播放窗口，控制条，显示菜单，编辑条
+</span><span class="cm">    - 精简模式：播放窗口，控制条
+</span><span class="cm"> */</span>
+
+<span class="c1">// 产品，这里为简洁需要..
+</span><span class="c1"></span><span class="kd">class</span> <span class="nc">Window</span> <span class="o">{</span>
+    <span class="c1">// . . .
+</span><span class="c1"></span><span class="o">}</span>
+<span class="c1">// 抽象建造类，导演类包含在其中
+</span><span class="c1"></span><span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">UIBuilder</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Window</span> <span class="n">window</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Window</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">buildPlayWindow</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">buildCtrlBar</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">buildDisplayMenu</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">buildPlayList</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">buildEditBar</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">needDisplayMenu</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">needPlayList</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">needEditBar</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">Window</span> <span class="nf">createWindow</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">window</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Window</span> <span class="nf">construct</span><span class="o">(</span><span class="n">UIBuilder</span> <span class="n">builder</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">builder</span><span class="o">.</span><span class="na">buildPlayWindow</span><span class="o">();</span>
+        <span class="n">builder</span><span class="o">.</span><span class="na">buildCtrlBar</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">builder</span><span class="o">.</span><span class="na">needDisplayMenu</span><span class="o">())</span>
+            <span class="n">builder</span><span class="o">.</span><span class="na">buildDisplayMenu</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">builder</span><span class="o">.</span><span class="na">needPlayList</span><span class="o">())</span>
+            <span class="n">builder</span><span class="o">.</span><span class="na">buildPlayList</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">builder</span><span class="o">.</span><span class="na">needEditBar</span><span class="o">())</span>
+            <span class="n">builder</span><span class="o">.</span><span class="na">buildEditBar</span><span class="o">();</span>
+        <span class="k">return</span> <span class="n">builder</span><span class="o">.</span><span class="na">createWindow</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="c1">// 三个具体建造类
+</span><span class="c1"></span><span class="kd">class</span> <span class="nc">StandardWindowBuilder</span> <span class="kd">extends</span> <span class="n">UIBuilder</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">buildPlayWindow</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;标准模式：播放窗口&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">buildCtrlBar</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;标准模式：控制条&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">buildDisplayMenu</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;标准模式：显示菜单&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">buildPlayList</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;标准模式：播放列表&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">buildEditBar</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;不应该被执行&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">needDisplayMenu</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">needEditBar</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">needPlayList</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">class</span> <span class="nc">EditWindowBuilder</span> <span class="kd">extends</span> <span class="n">UIBuilder</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">buildPlayWindow</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;编辑模式：播放窗口&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">buildCtrlBar</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;编辑模式：控制条&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">buildDisplayMenu</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;编辑模式：显示菜单&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">buildPlayList</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;不应该被执行&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">buildEditBar</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;编辑模式：编辑条&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">needDisplayMenu</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">needEditBar</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">needPlayList</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">class</span> <span class="nc">MinusWindowBuilder</span> <span class="kd">extends</span> <span class="n">UIBuilder</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">buildPlayWindow</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;精简模式：播放窗口&#34;</span><span class="o">);</span>
+
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">buildCtrlBar</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;精简模式：控制条&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">buildDisplayMenu</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;不应该被执行&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">buildPlayList</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;不应该被执行&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">buildEditBar</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;不应该被执行&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">needDisplayMenu</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">needEditBar</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">needPlayList</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// 客户端
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 可以使用反射或者工厂模式干掉这个new
+</span><span class="c1"></span>        <span class="n">Window</span> <span class="n">window</span> <span class="o">=</span> <span class="n">UIBuilder</span><span class="o">.</span><span class="na">construct</span><span class="o">(</span><span class="k">new</span> <span class="n">EditWindowBuilder</span><span class="o">());</span>
+        <span class="c1">// . . .
+</span><span class="c1"></span>    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>天啊……这代码长的离谱。</p>
+<p>建造者模式的优点在于，客户端不需要知道产品内部的细节（这同工厂模式是一样的），产品本身同产品的构建分离（客户端不需要自己new和其他初始化操作）；每一个具体建造者是相对独立的，系统扩展方便，符合开闭原则；产品的创建过程能够分散在不同的方法中，从而更加清晰，易维护。</p>
+<p>缺点在于，其只能创建有较多共同点的产品（如人的外观，船舰等），如果差异性很大（比如人类和外星人的船舰，人和动物），很多部分都不相同（从而不能抽象出一般的创建过程），就无法使用建造者模式。</p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/2021-spring/02-16%E6%97%A5%E8%AF%AD%E4%B8%AD%E6%95%B0%E8%AF%8D%E5%92%8C%E9%87%8F%E8%AF%8D%E7%9A%84%E8%AF%BB%E6%B3%95/">
+            <span class="next-text nav-default">日语中数词和量词的读法</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2021-02-19 00:00:00 \u002b0000 UTC',
+        title: '原型模式和建造者模式',
+        clientID: 'a6d39dcb11d3911b23d9',
+        clientSecret: 'a1b3afce97c2b2c21ef8ad1f40b0fce20a334be0',
+        repo: 'comments',
+        owner: 'AOYMYKN',
+        admin: ['AOYMYKN'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:cs596065766@hotmail.com" class="iconfont icon-email" title="email"></a>
+  <a href="http://aoymykn.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>AOYMYKN</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
