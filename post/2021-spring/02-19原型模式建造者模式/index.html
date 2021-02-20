@@ -49,7 +49,7 @@
 <meta itemprop="description" content="頑張ります">
 <meta itemprop="datePublished" content="2021-02-19T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2021-02-19T00:00:00+00:00" />
-<meta itemprop="wordCount" content="3656">
+<meta itemprop="wordCount" content="3649">
 
 
 
@@ -130,7 +130,7 @@
         <div class="post-category">
             <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"> 设计模式 </a>
             </div>
-          <span class="more-meta"> 约 3656 字 </span>
+          <span class="more-meta"> 约 3649 字 </span>
           <span class="more-meta"> 预计阅读 8 分钟 </span>
         
       </div>
@@ -142,7 +142,7 @@
     <nav id="TableOfContents">
   <ul>
     <li><a href="#原型模式">原型模式</a></li>
-    <li><a href="#组装的艺术建造者模式">组装的艺术——建造者模式</a></li>
+    <li><a href="#建造者模式">建造者模式</a></li>
   </ul>
 </nav>
   </div>
@@ -190,7 +190,7 @@
 </div><p>还可使用所谓的原型管理器——其实质是一个&lt;String, Prototype&gt;的HashMap，其通过单例模式创建，维护着所需的原型对象，并应客户端的要求返回特定的对象。</p>
 <p>原型模式的优点在于能够节约初始化的成本（特别是需要调用硬盘甚至网络资源的时候），简化复杂实例的创建，且其扩展性高，可以针对抽象原型类进行编程，而<strong>具体原型类编写在配置文件中</strong>，增加，减少具体原型类都不需要修改源代码（甚至修改也可能可以不需要，不过可能会造成配置文件繁琐？）。</p>
 <p>缺点在于深拷贝时代码可能比较复杂，且克隆方法必须位于类的内部，修改时需要修改源代码，违反开闭原则。</p>
-<h1 id="组装的艺术建造者模式">组装的艺术——建造者模式</h1>
+<h1 id="建造者模式">建造者模式</h1>
 <p>建造者模式就像游戏中的捏人系统，人的外观分为几个特定的部分，如发型，脸型，五官，躯干……一次捏人的完成，是对各个部分都进行“建造”，最后将其组合出结果（当然，这里没有组合，或许也可以联想飞船的各模块的建造……就像Space Engineer里那样的？）。</p>
 <p>建造者模式的实质就是将<strong>复杂对象</strong>（具有多个实例域的对象）的构建和对象的表示（其属性）相分离，建造者<strong>将对象所属的类中各个共通的部分抽象成一个个模块</strong>，按模块地进行建设（比如划分为登陆模块，控制模块，推进模块，战斗模块……），最后将各个模块进行组合，得出最终的舰船。而非是直接上手创建这样一个复杂的对象——抽象啊抽象！这就和用汇编写http服务器一样离谱。</p>
 <p>建造者模式有如下角色：<strong>抽象建造者</strong>——提供各部分的构造方法的接口，以及返回最终对象的方法的接口。这里的抽象建造者可以是抽象类（它可以维护一个最终产品并直接实现返回最终对象的方法），也可以是接口；<strong>产品</strong>——建造的对象；<strong>建造者</strong>——对抽象建造者的实现；<strong>导演</strong>——指挥建造者进行建造并返回结果（也就是调用建造者提供的方法返回最终对象）（这个导演倒是可以直接设定成抽象建造者的一个方法…这便使用了类似模板方法的一种设计…这样简化了系统的结构，但可能会让抽象建造者类职责过重）；<strong>客户端</strong>——与导演交互，获取最终对象。</p>
@@ -696,7 +696,11 @@
 <footer class="post-footer">
       
       <nav class="post-nav">
-        
+        <a class="prev" href="/post/2021-spring/02-20%E5%AF%B9%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%80%BB%E7%BB%93/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">对创建型模式的总结</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
         <a class="next" href="/post/2021-spring/02-16%E6%97%A5%E8%AF%AD%E4%B8%AD%E6%95%B0%E8%AF%8D%E5%92%8C%E9%87%8F%E8%AF%8D%E7%9A%84%E8%AF%BB%E6%B3%95/">
             <span class="next-text nav-default">日语中数词和量词的读法</span>
             <span class="next-text nav-mobile">下一篇</span>

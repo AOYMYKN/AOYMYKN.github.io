@@ -49,7 +49,7 @@
 <meta itemprop="description" content="只拿了200分……说实话有点菜">
 <meta itemprop="datePublished" content="2020-12-13T22:33:00+08:00" />
 <meta itemprop="dateModified" content="2020-12-13T22:33:00+08:00" />
-<meta itemprop="wordCount" content="1717">
+<meta itemprop="wordCount" content="1713">
 
 
 
@@ -128,7 +128,7 @@
       <div class="post-meta">
         <span class="post-time"> 2020-12-13 </span>
         
-          <span class="more-meta"> 约 1717 字 </span>
+          <span class="more-meta"> 约 1713 字 </span>
           <span class="more-meta"> 预计阅读 4 分钟 </span>
         
       </div>
@@ -211,7 +211,7 @@
 <span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>以创建文件为例子，假设输入是<code>C /hello/happy/world/123 1234</code>，这代表创建文件并设置其大小为1234，首先把输入分隔成&quot;hello&quot;,&ldquo;happy&rdquo;,&ldquo;world&rdquo;,&ldquo;123&rdquo;。首先检查会不会操作失败，检查分为两步——先检查是否重复创建，且最后一个path是目录，再检查如果设置，其上级的各目录的配额能否满足。验证完了？找到需要创建文件/目录的地址，比如，假如已经存在/hello/happy/目录，就在happy文件夹递归创建其后的目录/文件（即world文件夹，123文件）。该创建的方法应当由数据结构抽象。如果匹配到了最后，则是更新操作，这里可以先remove，再重新插入，也可以递归更新其father……怎么舒服怎么来吧！记住，在编写代码的时候，不要直接想着优化，**提前优化是万恶之源！提前优化是万恶之源！提前优化是万恶之源！**等因为超时拿不到满分再去优化吧！</p>
+</div><p>以创建文件为例子，假设输入是<code>C /hello/happy/world/123 1234</code>，这代表创建文件并设置其大小为1234，首先把输入分隔成&quot;hello&quot;,&ldquo;happy&rdquo;,&ldquo;world&rdquo;,&ldquo;123&rdquo;。首先检查会不会操作失败，检查分为两步——先检查是否重复创建，且最后一个path是目录，再检查如果设置，其上级的各目录的配额能否满足。验证完了？找到需要创建文件/目录的地址，比如，假如已经存在/hello/happy/目录，就在happy文件夹递归创建其后的目录/文件（即world文件夹，123文件）。该创建的方法应当由数据结构抽象。如果匹配到了最后，则是更新操作，这里可以先remove，再重新插入，也可以递归更新其father……怎么舒服怎么来吧！记住，在编写代码的时候，不要直接想着优化，<strong>提前优化是万恶之源！提前优化是万恶之源！提前优化是万恶之源！</strong> 等因为超时拿不到满分再去优化吧！</p>
 <p>第五题应该是一道线段树题，题目很容易看懂，可惜这个数据结构我还没学……总之写了个爆破的解法，应该能拿20分，但是我在出分前就跑路了，不知道拿到没有。</p>
 <p>道路还长着呢，继续学习！不过这考试是不会再参加了，再您的见！</p>
 <p><img src="https://i.loli.net/2020/11/12/T7AykRZrEXo632l.png" alt="good"></p>
