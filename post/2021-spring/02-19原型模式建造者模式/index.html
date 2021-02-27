@@ -49,7 +49,7 @@
 <meta itemprop="description" content="頑張ります">
 <meta itemprop="datePublished" content="2021-02-19T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2021-02-19T00:00:00+00:00" />
-<meta itemprop="wordCount" content="3649">
+<meta itemprop="wordCount" content="4099">
 
 
 
@@ -130,8 +130,8 @@
         <div class="post-category">
             <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"> 设计模式 </a>
             </div>
-          <span class="more-meta"> 约 3649 字 </span>
-          <span class="more-meta"> 预计阅读 8 分钟 </span>
+          <span class="more-meta"> 约 4099 字 </span>
+          <span class="more-meta"> 预计阅读 9 分钟 </span>
         
       </div>
     </header>
@@ -142,7 +142,11 @@
     <nav id="TableOfContents">
   <ul>
     <li><a href="#原型模式">原型模式</a></li>
-    <li><a href="#建造者模式">建造者模式</a></li>
+    <li><a href="#建造者模式">建造者模式</a>
+      <ul>
+        <li><a href="#另一种实现">另一种实现</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
   </div>
@@ -689,7 +693,105 @@
 </div><p>天啊……这代码长的离谱。</p>
 <p>建造者模式的优点在于，客户端不需要知道产品内部的细节（这同工厂模式是一样的），产品本身同产品的构建分离（客户端不需要自己new和其他初始化操作）；每一个具体建造者是相对独立的，系统扩展方便，符合开闭原则；产品的创建过程能够分散在不同的方法中，从而更加清晰，易维护。</p>
 <p>缺点在于，其只能创建有较多共同点的产品（如人的外观，船舰等），如果差异性很大（比如人类和外星人的船舰，人和动物），很多部分都不相同（从而不能抽象出一般的创建过程），就无法使用建造者模式。</p>
+<h2 id="另一种实现">另一种实现</h2>
+<p>下面在公众号上看到的对建造者模式的另一种实现。客户端使用<code>new Ship.Builder(&quot;powerModule&quot;).setFireModule(&quot;fireModule&quot;).setTransportModule(&quot;transportModule&quot;).build();</code>这样的形式进行调用。这也可以通过另一个类（那么其实它才是真正的“建造者”）来实现。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Ship</span> <span class="o">{</span> 
+    <span class="c1">// 当然，这些模块不可能是字符串…火力模块也不可能单独来一个
+</span><span class="c1"></span>    <span class="kd">private</span> <span class="n">String</span> <span class="n">powerModule</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">fireModule</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">transportModule</span><span class="o">;</span> 
+    <span class="kd">private</span> <span class="nf">Ship</span><span class="o">(</span><span class="n">Builder</span> <span class="n">builder</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 包访问限定
+</span><span class="c1"></span>        <span class="k">this</span><span class="o">.</span><span class="na">powerModule</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">powerModule</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">fireModule</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">fireModule</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">transportModule</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">transportModule</span><span class="o">;</span>
+    <span class="o">}</span>  
+    
+    <span class="c1">// 这个建造者大可以放到外面
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Builder</span> <span class="o">{</span>
+        <span class="c1">// 每一个属性都要定义一个相同的……老实说有点蛋疼
+</span><span class="c1"></span>        <span class="kd">private</span> <span class="n">String</span> <span class="n">powerModule</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="n">String</span> <span class="n">fireModule</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="n">String</span> <span class="n">transportModule</span><span class="o">;</span> 
+        <span class="kd">public</span> <span class="nf">Builder</span><span class="o">(</span><span class="n">String</span> <span class="n">powerModule</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">powerModule</span> <span class="o">=</span> <span class="n">powerModule</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="n">Builder</span> <span class="nf">setFireModule</span><span class="o">(</span><span class="n">String</span> <span class="n">fireModule</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">fireModule</span> <span class="o">=</span> <span class="n">fireModule</span><span class="o">;</span>
+            <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="n">Builder</span> <span class="nf">setTransportModule</span><span class="o">(</span><span class="n">String</span> <span class="n">transportModule</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">transportModule</span> <span class="o">=</span> <span class="n">transportModule</span><span class="o">;</span>
+            <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="n">Ship</span> <span class="nf">build</span><span class="o">()</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="n">Ship</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
 
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 众所周知，客户端不应该自己new东西～
+</span><span class="c1"></span>        <span class="n">Ship</span> <span class="n">ship</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Ship</span><span class="o">.</span><span class="na">Builder</span><span class="o">(</span><span class="s">&#34;powerModule&#34;</span><span class="o">)</span>
+                            <span class="o">.</span><span class="na">setFireModule</span><span class="o">(</span><span class="s">&#34;fireModule&#34;</span><span class="o">)</span>
+                            <span class="o">.</span><span class="na">setTransportModule</span><span class="o">(</span><span class="s">&#34;transportModule&#34;</span><span class="o">)</span>
+                            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+        <span class="c1">// . . .
+</span><span class="c1"></span>    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div>
     </div>
 
     
