@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>开始学习设计模式——迭代器模式和适配器模式 - AOYMYKN的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="AOYMYKN" /><meta name="description" content="RT，学习设计模式对于我的发展和就业是很有帮助的。" /><meta name="keywords" content="Java, 后端, 计算机, 编程, 数据结构, 算法, CS, IT" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.80.0 with theme even" />
+
+
+<link rel="canonical" href="http://aoymykn.github.io/post/2021/01-01%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c9ac0cd19ce10a4f2eefd4195990291e493e392c8206d6b1583da261e491264a.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="开始学习设计模式——迭代器模式和适配器模式" />
+<meta property="og:description" content="RT，学习设计模式对于我的发展和就业是很有帮助的。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://aoymykn.github.io/post/2021/01-01%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" />
+<meta property="article:published_time" content="2021-01-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-01-01T00:00:00+00:00" />
+<meta itemprop="name" content="开始学习设计模式——迭代器模式和适配器模式">
+<meta itemprop="description" content="RT，学习设计模式对于我的发展和就业是很有帮助的。">
+<meta itemprop="datePublished" content="2021-01-01T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-01-01T00:00:00+00:00" />
+<meta itemprop="wordCount" content="5163">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="开始学习设计模式——迭代器模式和适配器模式"/>
+<meta name="twitter:description" content="RT，学习设计模式对于我的发展和就业是很有帮助的。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">AOYMYKN</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">AOYMYKN</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">开始学习设计模式——迭代器模式和适配器模式</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-01-01 </span>
+        <div class="post-category">
+            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"> 设计模式 </a>
+            </div>
+          <span class="more-meta"> 约 5163 字 </span>
+          <span class="more-meta"> 预计阅读 11 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#iterator模式迭代器">Iterator模式——迭代器</a></li>
+    <li><a href="#adapter模式适配器">Adapter模式——适配器</a>
+      <ul>
+        <li><a href="#类适配器实例">类适配器实例</a></li>
+        <li><a href="#对象适配器">对象适配器</a></li>
+        <li><a href="#习题">习题</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!--Hello, Happy World-->
+<p>发生了一些事情……我应当带着责任，全力专注就业和工作，不再关心其他事情。</p>
+<hr>
+<p>开始看结城浩的《图解设计模式》～（对日本人写的书总有种莫名其妙的亲近感，或许是因为他们的语言比较……轻松？）</p>
+<blockquote>
+<p>这个老师似乎也写过Java多线程相关的书籍，先观望一个。</p>
+</blockquote>
+<p>什么是设计模式（Design Pattern）？我认为，我们在不断地编写代码的过程中，在不断地debug，重构，思考中，经常会发现一些“套路”，发现这样那样编写能让代码容易维护，容易复用，写起来优雅etc&hellip;对这些“套路”进行系统的分析，归纳出来概念，形式，确定它的适用范围……这样所诞生的就是设计模式，它归根结底是从丰富的实践经验中抽象出来的，又反作用于我们的实践，帮助我们编写更加有可复用性，可维护性，高内聚低耦合的代码。<strong>就这方面</strong>（！类比只是类比，而不是论证，只负责提供一种感性经验罢了）来说，设计模式与具体的编程的关系，就如哲学同具体科学的关系一样。</p>
+<blockquote>
+<p>设计模式用来表现内部组件如何被<strong>组装</strong>在一起。一场话剧能由无数届演员来演，可是剧情（剧中人与人的<strong>关系</strong>）总是变动较少的。</p>
+</blockquote>
+<blockquote>
+<p>其实我觉得粗糙地说，<code>for (int i = 0; i &lt; arr.length; i++)</code>这样的也算是设计模式w</p>
+</blockquote>
+<blockquote>
+<p>面向对象是一种设计模式，面向过程也是一种设计模式，Lisp语言的宏编程也是一种设计模式，这是毫无疑问的。</p>
+</blockquote>
+<p>设计模式的目标有二——<strong>复用</strong>和易维护。应时时刻刻记住这两点。</p>
+<p>不过也正如学习哲学一样，如果没有积累丰富的感性经验（无论是对日常生活的，还是对科学的），上来就整抽象的东西容易钻到牛角尖里，无法联系实际看问题。希望这本书能够提供足够的实例让我积累感性经验。</p>
+<p>一个非常非常非常非常需要注意的地方是，此书基于Java 2，所以<strong>没有泛型</strong>（因为这点，或许书中很多代码需要重构），没有函数式特性，没有foreach的语法糖……随便翻了几页，还觉得它有时候讲的不全面……应当批判地学习，同时应当多联系Java的源码。</p>
+<p>先开个头，学一学它讲解的最早的两个设计模式——Iterator迭代器模式和Adapter适配器模式。</p>
+<h1 id="iterator模式迭代器">Iterator模式——迭代器</h1>
+<p>Iterator模式归根结底是为（以各种方式）遍历各种不同的数据结构提供一套相同的接口，它满足这样的形式——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Iterator</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">colle</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span> <span class="c1">// 这其实……也算是一个工厂模式？
+</span><span class="c1"></span><span class="k">while</span> <span class="o">(</span><span class="n">iter</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span> <span class="c1">// 当然我们也都知道，现在Java提供了一套foreach的语法糖来自动使用迭代器
+</span><span class="c1"></span>    <span class="n">Item</span> <span class="n">item</span> <span class="o">=</span> <span class="n">iter</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+    <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
+<span class="o">}</span>
+<span class="c1">// Java为实现了java.lang.iterable的实现提供了这样的语法糖……
+</span><span class="c1"></span><span class="k">for</span> <span class="o">(</span><span class="n">item</span> <span class="n">i</span> <span class="o">:</span> <span class="n">aggregate</span><span class="o">)</span> <span class="o">{</span>
+    <span class="o">.</span> <span class="o">.</span> <span class="o">.</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>迭代器的优点在于，它抽象了对对象的遍历操作，让对各种不同集合（容器）对象的遍历的操作都变得统一。如果没有这种设计模式的话，该怎么办呢？那对每种数据结构，都需要<strong>根据它的具体实现</strong>（！）来确定对它的遍历方式，比如对于数组，我们就用<code>for (int i = 0; i &lt; arr.length; i++)</code>，对于链表，我们就<code>for (Node i = head; i != null; i = i.next)</code>，那对于树，对于堆，对于图呢？对于哈希表的拉链实现和数组——红黑树实现呢？对这样的形式该如何实现？显然，必须要根据其内部数据结构（和需要迭代的方式）来决定实现。迭代器其实也可以说是对这里的循环变量i抽象化了。</p>
+<p>因此就可以使用迭代器模式。根据书中的一个例子来说——</p>
+<p><img src="https://i.loli.net/2020/12/29/xblpFUkzGRIE8Hn.png" alt=""></p>
+<p>在这里，Aggregate表示一种集合（容器）类型接口，它只提供iterator接口。Iterator接口就是迭代器接口，hasNext判断是否还能继续迭代，next方法则是获取一个元素，并让迭代器指针后移指向下一个元素。BookShelf是为了实验而创建的数据结构，它实现Aggregate接口，内部存储Book对象（以数组形式），last表示下一个要插入的元素的位置（同时也是已插入的元素的数量）。它的iterator方法返回一个对它自身的迭代器。需要注意的是，<strong>是迭代器包含类，而不是类包含迭代器</strong>，因为一个类可以同时存在多个迭代器进行迭代。</p>
+<p>上源码。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//Aggregate.java
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Aggregate</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">MyIterator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">iterator</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="c1">//MyIterator.java
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MyIterator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kt">boolean</span> <span class="nf">hasNext</span><span class="o">();</span>
+    <span class="n">T</span> <span class="nf">next</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="c1">//Book.java
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Book</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">Book</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">//BookShelf.java
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">BookShelf</span> <span class="kd">implements</span> <span class="n">Aggregate</span><span class="o">&lt;</span><span class="n">Book</span><span class="o">&gt;{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">last</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Book</span><span class="o">[]</span> <span class="n">books</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getLength</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">last</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">Book</span> <span class="nf">getBookAt</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">books</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">appendBook</span><span class="o">(</span><span class="n">Book</span> <span class="n">book</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">books</span><span class="o">[</span><span class="n">last</span><span class="o">++]</span> <span class="o">=</span> <span class="n">book</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="nf">BookShelf</span><span class="o">(</span><span class="kt">int</span> <span class="n">size</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">books</span>  <span class="o">=</span> <span class="k">new</span> <span class="n">Book</span><span class="o">[</span><span class="n">size</span><span class="o">];</span>
+    <span class="o">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">MyIterator</span><span class="o">&lt;</span><span class="n">Book</span><span class="o">&gt;</span> <span class="nf">iterator</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">BookIterator</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后是最重要的迭代器代码——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//BookIterator.java
+</span><span class="c1"></span><span class="kd">class</span> <span class="nc">BookIterator</span> <span class="kd">implements</span> <span class="n">MyIterator</span><span class="o">&lt;</span><span class="n">Book</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">index</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">BookShelf</span> <span class="n">bookshelf</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">BookIterator</span><span class="o">(</span><span class="n">BookShelf</span> <span class="n">obj</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">bookshelf</span> <span class="o">=</span> <span class="n">obj</span><span class="o">;</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">hasNext</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="n">bookshelf</span><span class="o">.</span><span class="na">getLength</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Book</span> <span class="nf">next</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">bookshelf</span><span class="o">.</span><span class="na">getBookAt</span><span class="o">(</span><span class="n">index</span><span class="o">++);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>它的使用如下——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">BookShelf</span> <span class="n">books</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BookShelf</span><span class="o">(</span><span class="n">10</span><span class="o">);</span>
+        <span class="n">books</span><span class="o">.</span><span class="na">appendBook</span><span class="o">(</span><span class="k">new</span> <span class="n">Book</span><span class="o">(</span><span class="s">&#34;双城记&#34;</span><span class="o">));</span>
+        <span class="n">books</span><span class="o">.</span><span class="na">appendBook</span><span class="o">(</span><span class="k">new</span> <span class="n">Book</span><span class="o">(</span><span class="s">&#34;毁灭&#34;</span><span class="o">));</span>
+        <span class="n">books</span><span class="o">.</span><span class="na">appendBook</span><span class="o">(</span><span class="k">new</span> <span class="n">Book</span><span class="o">(</span><span class="s">&#34;罗密欧与朱丽叶&#34;</span><span class="o">));</span>
+        <span class="n">MyIterator</span><span class="o">&lt;</span><span class="n">Book</span><span class="o">&gt;</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">books</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">iter</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">iter</span><span class="o">.</span><span class="na">next</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+        <span class="o">}</span>
+        <span class="c1">//也可以使用for循环来使用迭代器
+</span><span class="c1"></span>    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>一个原则是，对于声明类型，能用基类就用基类，能用接口就用接口。</p>
+</blockquote>
+<p>同时，迭代器也允许使用不同的迭代方式，只需要更改next和hasNext方法即可，比如跳跃着遍历，反向遍历……还能在迭代器内部暂存信息并不暴露给外界，比如遍历树的时候在迭代器里放个栈，队列之类的。这显然是符合抽象的。</p>
+<p>问题：Java中iterable是什么？它和迭代器有什么关系？</p>
+<h1 id="adapter模式适配器">Adapter模式——适配器</h1>
+<p>所谓适配器模式，就是将别人的不能直接复用的代码拿来进行一些包装，让它能够被复用。这里帮助别人的代码适配我们的需要的设计模式就叫适配器（Adapter），也叫包装器（Wrapper），因为它不直接使用别人的代码，而是进行一些包装后使用。就像笔记本的适配器把220伏的交流电转成12伏的直流电一样。Adapter的意思是“使……相互适合的东西”。</p>
+<p>适配器模式中需要四个角色——Client，Target，Adapter，Adaptee，它们的关系是——Client（笔记本电脑）使用Adapter（电源适配器），将Adaptee（220伏交流电）转换成它所需要的Target（12伏直流电）。其中Client是调用适配器的对象，Adapter是适配器，Adaptee是别人的需要进行包装的代码（因此不应直接修改），Target是Client所需的方法。</p>
+<p>适配器模式有两种实现——</p>
+<ul>
+<li>类适配器模式（使用<strong>继承</strong>的适配器）</li>
+<li>对象适配器模式（使用<strong>委托</strong>的适配器）</li>
+</ul>
+<blockquote>
+<p>此书给出的类适配器模式我觉得有一些漏洞，出现了抽象泄露的问题（虽然作者不可能没有意识到这个问题，因为习题1就涉及到了这个问题）。我认为，在设计自己的类库（就比如这里实现的适配器，对别人的类库进行包装，其实可以认为这里的Target，Adapter，Adaptee是自己设计出来的类库（其中Adaptee是“别人的代码”，在设计适配器的时候不应该对Adaptee进行任何改动），Client是使用该类库的客户端）的时候，应该认为用户是“愚蠢”的，否则面向对象的<strong>封装</strong>原则就被破坏了。</p>
+</blockquote>
+<p><img src="https://i.loli.net/2020/12/31/SWk6B9IcCF4qKmN.png" alt="image.png"></p>
+<p>这张图非常好地表现了适配器的功能和（对象适配器模式的）形式。</p>
+<h2 id="类适配器实例">类适配器实例</h2>
+<p>所谓类适配器模式，就是编写Adapter继承Adaptee，实现所需要的接口（Target）。</p>
+<p>本书提供了这样一个实例——</p>
+<p><img src="https://i.loli.net/2020/12/31/rMxnDy5g4PuCfYe.png" alt="image.png"></p>
+<p>首先有一个Banner类，这里假设是别人已经编写好的，要复用它。它提供了两个功能——将字符串用括号包围或用*包围，它的实现是非常简单的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// Banner.java
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Banner</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">str</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">Banner</span><span class="o">(</span><span class="n">String</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">str</span> <span class="o">=</span> <span class="n">str</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">showWithParen</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">&#34;(%s)&#34;</span><span class="o">,</span> <span class="n">str</span><span class="o">));</span>
+    <span class="o">}</span> 
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">showWithAster</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">&#34;*%s*&#34;</span><span class="o">,</span> <span class="n">str</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>我们的需求（也就是Target）是Print接口，Print接口假设有两个语法，使用成对括号包围字符串规定字符串变细，使用**包围则是规定字符串加粗。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//Print.java
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Print</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">printWeak</span><span class="o">();</span> <span class="c1">// abstract对于接口其实是无必要的，毕竟只有default方法能够添加实现
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">printStrong</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>PrintBanner担任Adapter的角色，它要提供Target（因此就要实现Print接口），同时继承Adaptee以复用其代码。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//PrintBanner.java
+</span><span class="c1"></span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PrintBanner</span> <span class="kd">extends</span> <span class="n">Banner</span> <span class="kd">implements</span> <span class="n">Print</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">PrintBanner</span><span class="o">(</span><span class="n">String</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">str</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">printWeak</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">showWithParen</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">printStrong</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">showWithAster</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后是Main，Main担任Client的角色，它使用Adapter提供的Print接口。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Print</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PrintBanner</span><span class="o">(</span><span class="s">&#34;hello, happy world&#34;</span><span class="o">);</span> <span class="c1">// 我觉得有点问题。
+</span><span class="c1"></span>        <span class="n">p</span><span class="o">.</span><span class="na">printStrong</span><span class="o">();</span>
+        <span class="n">p</span><span class="o">.</span><span class="na">printWeak</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可见，Adaptee的操作被包装（wrap）起来了，用户（Client）通过使用Adapter提供的接口（Target）来间接访问Adaptee。</p>
+<p>但我认为这里的抽象有一些问题——<strong>如何保证用户必然使用Print接口来作为声明类型</strong>？如果用户偏偏不按需求来，使用PrintBanner作为声明类型，进行这样的操作怎么办？</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">PrintBanner</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PrintBanner</span><span class="o">(</span><span class="s">&#34;hello,happy world&#34;</span><span class="o">);</span>
+<span class="n">p</span><span class="o">.</span><span class="na">showWithAster</span><span class="o">();</span> <span class="c1">// 合法！
+</span><span class="c1"></span><span class="n">p</span><span class="o">.</span><span class="na">showWithParen</span><span class="o">();</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这在语法上并无问题，但是这显然<strong>破坏了封装</strong>！用户不应该能通过任何途径来<strong>直接</strong>访问到Adaptee。在这个示例中不会出问题，但若是联想上面的笔记本电源适配器的例子，就相当与是说用户可以直接把220V的交流电连接在笔记本电脑（而不是转换成12V直流电之后）上了，这不就出了事？我想也没有语法能够屏蔽父类的方法，只能重写或将父类方法改成protected，但这也是不好的，我们很多时候不能更改别人的代码。</p>
+<p>因此我认为类适配器有这样的缺陷——类库设计者必须与使用者做<strong>约定</strong>，要求使用者必须使用Target作为声明类型，才能正常使用。而且如果想要复用的是final类，则是不能使用的。</p>
+<h2 id="对象适配器">对象适配器</h2>
+<p>对象适配器容易描述。它是指Adapter包含一个Adaptee实例，通过<strong>委托</strong>（也就是将方法的执行交给另一个类（实例）执行）的方式让Client访问Adaptee。</p>
+<p>该方法相对于类适配器只需要更改PrintBanner类。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//PrintBanner.java
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PrintBanner</span> <span class="kd">implements</span> <span class="n">Print</span><span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Banner</span> <span class="n">banner</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">PrintBanner</span><span class="o">(</span><span class="n">String</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">banner</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Banner</span><span class="o">(</span><span class="n">str</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">printWeak</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">banner</span><span class="o">.</span><span class="na">showWithParen</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">printStrong</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">banner</span><span class="o">.</span><span class="na">showWithAster</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这样的一个好处是，不再需要和Client做额外约定了，无论Client使用Print还是PrintBanner作为声明类型，都不会出问题。</p>
+<blockquote>
+<p>这一段是自己的想法，可能有错误。<br>
+我认为对象适配器模式中适配器的角色<strong>更加符合其概念</strong>。一般来说，<strong>Adapter提供的功能应当是Adaptee的子集</strong>，也就是说，Adapter能实现的方法，Adaptee应当能实现，Adapter不能实现的方法，Adaptee也可能可以实现。比如，有一个库，能够把各种图片格式相互转换，比如png, jpg, tiff, psd, pdf等，但这时我只需要将png转换成其它格式，我就据此编写一个适配器，使用Adaptee功能的子集。而且使用委托的对象适配器模式，其结构也更加符合之前对适配器的感性理解。<br>
+然后考虑类适配器，类适配器使用继承来复用代码。而继承，虽然就概念来说，子类是基类的属概念，但是就功能，具体程度来说，子类是比基类更加具体的，在基类的基础上<strong>提供更多功能</strong>。因此这就和上面我所认为的Adapter同Adaptee提供的功能的关系相悖了。就上面的电源适配器的例子来说，就像是给220V交流电的电源<strong>加了个组件</strong>，让它能够转换成12V直流电，<strong>这个电源原本输出220V交流电的能力是没有改变的</strong>。这时就必须和用户做约定（Target），要求用户使用该12V的直流电。但是用户也有权力不遵守约定……</p>
+</blockquote>
+<p>对象适配器的UML类图如图。</p>
+<p><img src="https://i.loli.net/2020/12/31/OdVDhZRkug7ybLr.png" alt="image.png"></p>
+<blockquote>
+<p>学会看UML图还是比较方便的。</p>
+</blockquote>
+<p>使用适配器模式的目的是对现有的类进行适配，让其可复用，在出现bug的时候，也能够容易确定bug的位置出于Adapter中（假如Adaptee经过充分测试的话）。如果要去修改已经充分测试的类，则必须重新进行测试。</p>
+<p>适配器模式也能够方便地让版本适配，从而让新旧版本兼容，让能够同时维护新版本和旧版本变得简单。</p>
+<p><img src="https://i.loli.net/2020/12/31/eulizV3af98Sr5T.png" alt="image.png"></p>
+<h2 id="习题">习题</h2>
+<p>java.util.Properties可以像这样管理键值对——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">year=2021
+month=4
+day=2
+</code></pre></td></tr></table>
+</div>
+</div><p>它提供了两个方法，帮助从<strong>流</strong>（<strong>这个需要去学习！</strong>）中取出属性（property）或将属性写入流中。要求使用Adapter适配器模式，编写一个将属性保存在文件中的FileProperties类。</p>
+<p>扮演Target角色的FileIO接口如下——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//FileIO.java
+</span><span class="c1"></span><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">FileIO</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">readFromFIle</span><span class="o">(</span><span class="n">String</span> <span class="n">filename</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">writeToFile</span><span class="o">(</span><span class="n">String</span> <span class="n">filename</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setValue</span><span class="o">(</span><span class="n">String</span> <span class="n">key</span><span class="o">,</span> <span class="n">String</span> <span class="n">value</span><span class="o">);</span> <span class="c1">// 设置键值对
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getValue</span><span class="o">(</span><span class="n">String</span> <span class="n">key</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>扮演Adapter角色的FileProperties类如下——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//FileProperties.java
+</span><span class="c1"></span><span class="kn">import</span> <span class="nn">java.io.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Properties</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FileProperties</span> <span class="kd">implements</span> <span class="n">FileIO</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Properties</span> <span class="n">p</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">FileProperties</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Properties</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">readFromFIle</span><span class="o">(</span><span class="n">String</span> <span class="n">filename</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">(</span><span class="n">FileInputStream</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">filename</span><span class="o">)))</span> <span class="o">{</span>
+            <span class="n">p</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="n">file</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span> 
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">writeToFile</span><span class="o">(</span><span class="n">String</span> <span class="n">filename</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">(</span><span class="n">FileOutputStream</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">filename</span><span class="o">)))</span> <span class="o">{</span>
+            <span class="n">p</span><span class="o">.</span><span class="na">store</span><span class="o">(</span><span class="n">file</span><span class="o">,</span><span class="s">&#34;&#34;</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setValue</span><span class="o">(</span><span class="n">String</span> <span class="n">key</span><span class="o">,</span> <span class="n">String</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">p</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getValue</span><span class="o">(</span><span class="n">String</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">p</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Client角色如下——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">FileIO</span> <span class="n">f</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileProperties</span><span class="o">();</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">f</span><span class="o">.</span><span class="na">readFromFIle</span><span class="o">(</span><span class="s">&#34;file.txt&#34;</span><span class="o">);</span>
+            <span class="n">f</span><span class="o">.</span><span class="na">setValue</span><span class="o">(</span><span class="s">&#34;year&#34;</span><span class="o">,</span> <span class="s">&#34;21435&#34;</span><span class="o">);</span>
+            <span class="n">f</span><span class="o">.</span><span class="na">setValue</span><span class="o">(</span><span class="s">&#34;month&#34;</span><span class="o">,</span> <span class="s">&#34;4&#34;</span><span class="o">);</span>
+            <span class="n">f</span><span class="o">.</span><span class="na">setValue</span><span class="o">(</span><span class="s">&#34;day&#34;</span><span class="o">,</span> <span class="s">&#34;2222&#34;</span><span class="o">);</span>
+            <span class="n">f</span><span class="o">.</span><span class="na">writeToFile</span><span class="o">(</span><span class="s">&#34;newFile.txt&#34;</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这本书将设计模式中各个组成部分称为“角色”相当精妙，而且有趣。感觉遇到了一个好的开始。</p>
+<p>等回家后第一时间去学Spring……其它的都缓缓。</p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/2021/01-06%E7%BA%B5%E8%A7%88archlinux%E7%9A%84%E5%AE%89%E8%A3%85/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">ArchLinux及图形界面的安装</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/2020/12-26%E5%85%B3%E4%BA%8Ethread%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B/">
+            <span class="next-text nav-default">关于Thread的一些代码</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2021-01-01 00:00:00 \u002b0000 UTC',
+        title: '开始学习设计模式——迭代器模式和适配器模式',
+        clientID: 'a6d39dcb11d3911b23d9',
+        clientSecret: 'a1b3afce97c2b2c21ef8ad1f40b0fce20a334be0',
+        repo: 'comments',
+        owner: 'AOYMYKN',
+        admin: ['AOYMYKN'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:cs596065766@hotmail.com" class="iconfont icon-email" title="email"></a>
+  <a href="http://aoymykn.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>AOYMYKN</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

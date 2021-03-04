@@ -9,55 +9,55 @@
     <lastBuildDate>Sat, 20 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="http://aoymykn.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>对创建型模式的总结</title>
-      <link>http://aoymykn.github.io/post/2021-spring/02-20%E5%AF%B9%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%80%BB%E7%BB%93/</link>
+      <link>http://aoymykn.github.io/post/2021/02-20%E5%AF%B9%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%80%BB%E7%BB%93/</link>
       <pubDate>Sat, 20 Feb 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://aoymykn.github.io/post/2021-spring/02-20%E5%AF%B9%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%80%BB%E7%BB%93/</guid>
+      <guid>http://aoymykn.github.io/post/2021/02-20%E5%AF%B9%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%80%BB%E7%BB%93/</guid>
       <description>特殊-&amp;gt;一般-&amp;gt;特殊，这是认识的一般规律（这话好像说过一遍了）</description>
     </item>
     
     <item>
       <title>原型模式和建造者模式</title>
-      <link>http://aoymykn.github.io/post/2021-spring/02-19%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/</link>
+      <link>http://aoymykn.github.io/post/2021/02-19%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/</link>
       <pubDate>Fri, 19 Feb 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://aoymykn.github.io/post/2021-spring/02-19%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/</guid>
+      <guid>http://aoymykn.github.io/post/2021/02-19%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/</guid>
       <description>頑張ります</description>
     </item>
     
     <item>
       <title>工厂方法模式和抽象工厂模式</title>
-      <link>http://aoymykn.github.io/post/2021-spring/02-12%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E5%92%8C%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</link>
+      <link>http://aoymykn.github.io/post/2021/02-12%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E5%92%8C%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</link>
       <pubDate>Fri, 12 Feb 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://aoymykn.github.io/post/2021-spring/02-12%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E5%92%8C%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</guid>
+      <guid>http://aoymykn.github.io/post/2021/02-12%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E5%92%8C%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</guid>
       <description>没有骚话可说……</description>
     </item>
     
     <item>
       <title>面向对象七原则，单例模式，简单工厂模式</title>
-      <link>http://aoymykn.github.io/post/2021-spring/02-03%E4%B8%83%E5%8E%9F%E5%88%99%E5%8D%95%E4%BE%8B%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82/</link>
+      <link>http://aoymykn.github.io/post/2021/02-03%E4%B8%83%E5%8E%9F%E5%88%99%E5%8D%95%E4%BE%8B%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82/</link>
       <pubDate>Mon, 01 Feb 2021 18:01:07 +0800</pubDate>
       
-      <guid>http://aoymykn.github.io/post/2021-spring/02-03%E4%B8%83%E5%8E%9F%E5%88%99%E5%8D%95%E4%BE%8B%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82/</guid>
+      <guid>http://aoymykn.github.io/post/2021/02-03%E4%B8%83%E5%8E%9F%E5%88%99%E5%8D%95%E4%BE%8B%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82/</guid>
       <description>再 放 送</description>
     </item>
     
     <item>
       <title>模板方法</title>
-      <link>http://aoymykn.github.io/post/2021-spring/01-27%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/</link>
+      <link>http://aoymykn.github.io/post/2021/01-27%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/</link>
       <pubDate>Wed, 27 Jan 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://aoymykn.github.io/post/2021-spring/01-27%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/</guid>
+      <guid>http://aoymykn.github.io/post/2021/01-27%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/</guid>
       <description>模板方法（Template Method）和工厂方法（Factory Method）是两个和继承相关的设计模式。</description>
     </item>
     
     <item>
       <title>开始学习设计模式——迭代器模式和适配器模式</title>
-      <link>http://aoymykn.github.io/post/2021-spring/01-01%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+      <link>http://aoymykn.github.io/post/2021/01-01%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
       <pubDate>Fri, 01 Jan 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://aoymykn.github.io/post/2021-spring/01-01%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
+      <guid>http://aoymykn.github.io/post/2021/01-01%E5%BC%80%E5%A7%8B%E5%AD%A6%E4%B9%A0%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
       <description>RT，学习设计模式对于我的发展和就业是很有帮助的。</description>
     </item>
     

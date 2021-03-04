@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>对创建型模式的总结 - AOYMYKN的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="AOYMYKN" /><meta name="description" content="特殊-&amp;gt;一般-&amp;gt;特殊，这是认识的一般规律（这话好像说过一遍了）" /><meta name="keywords" content="Java, 后端, 计算机, 编程, 数据结构, 算法, CS, IT" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.80.0 with theme even" />
+
+
+<link rel="canonical" href="http://aoymykn.github.io/post/2021/02-20%E5%AF%B9%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%80%BB%E7%BB%93/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c9ac0cd19ce10a4f2eefd4195990291e493e392c8206d6b1583da261e491264a.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="对创建型模式的总结" />
+<meta property="og:description" content="特殊-&gt;一般-&gt;特殊，这是认识的一般规律（这话好像说过一遍了）" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://aoymykn.github.io/post/2021/02-20%E5%AF%B9%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%80%BB%E7%BB%93/" />
+<meta property="article:published_time" content="2021-02-20T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-02-20T00:00:00+00:00" />
+<meta itemprop="name" content="对创建型模式的总结">
+<meta itemprop="description" content="特殊-&gt;一般-&gt;特殊，这是认识的一般规律（这话好像说过一遍了）">
+<meta itemprop="datePublished" content="2021-02-20T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-02-20T00:00:00+00:00" />
+<meta itemprop="wordCount" content="2532">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="对创建型模式的总结"/>
+<meta name="twitter:description" content="特殊-&gt;一般-&gt;特殊，这是认识的一般规律（这话好像说过一遍了）"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">AOYMYKN</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">AOYMYKN</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">对创建型模式的总结</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-02-20 </span>
+        <div class="post-category">
+            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"> 设计模式 </a>
+            </div>
+          <span class="more-meta"> 约 2532 字 </span>
+          <span class="more-meta"> 预计阅读 6 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#单例模式">单例模式</a></li>
+    <li><a href="#简单工厂模式">简单工厂模式</a></li>
+    <li><a href="#工厂方法模式">工厂方法模式</a></li>
+    <li><a href="#抽象工厂模式">抽象工厂模式</a></li>
+    <li><a href="#单例模式-1">单例模式</a></li>
+    <li><a href="#建造者模式">建造者模式</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!--Hello, Happy World-->
+<p>创建型模式关注类的创建过程。它专注分离对象的创建和使用（非常粗略地来说，就是不使用new来创建对象w），在使用对象时无需在乎其创建过程，创建对象时无需在乎其使用，从而降低系统耦合性，使其更容易扩展。创建型模式中有如下模式——单例模式，2（+1）个工厂模式，原型模式，建造者模式，现在挨个过堂。</p>
+<h1 id="单例模式">单例模式</h1>
+<p>单例模式是名副其实的——确保类只能生成单个实例。它的适用范围也是和其性质直接对应的——只需要一个实例的场合。单例模式有三种实现——饿汉式（EagleSingleton）：类加载时即生成所需单例，请求时直接返回该单例；懒汉式（LazySingleton）：每次请求时都检查是否已经初始化，从而在第一次请求的时候进行创建，之后则直接返回；IoDH：利用Java的类加载机制，用一个静态内部类（称为持有类）持有所需对象，使其在第一次请求时加载该持有类。</p>
+<p>三种实现各有优劣——饿汉式可能造成资源的浪费，因为其可能在未被使用时就初始化了；懒汉式是线程不安全的，需要所谓的“双重检查锁定”来保证线程安全，使代码比较复杂，性能也会有损失；IoDH让JVM来保证线程安全性（这一点是很好的，额外的细节什么的，交给编程语言去处理便好，程序员应该专注更加抽象，更加偏向业务的层面），但是它是局限于编程语言的。</p>
+<h1 id="简单工厂模式">简单工厂模式</h1>
+<p>简单工厂模式的实质是使用一个所谓的<strong>工厂类</strong>来接管一类对象的创建。其一般形式是——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Factory</span> <span class="o">{</span>
+    <span class="c1">// 注意，Product是一个抽象基类或接口
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Product</span> <span class="nf">getProduct</span><span class="o">(</span><span class="n">String</span> <span class="n">type</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Product</span> <span class="n">res</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">type</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="s">&#34;ProductA&#34;</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ProductA</span><span class="o">();</span>
+            <span class="c1">// 各种其他处理……
+</span><span class="c1"></span>            <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">type</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="s">&#34;ProductB&#34;</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ProductB</span><span class="o">();</span>
+            <span class="c1">// 各种其他处理……
+</span><span class="c1"></span>            <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">type</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="s">&#34;ProductC&#34;</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ProductC</span><span class="o">();</span>
+            <span class="c1">// 各种其他处理……
+</span><span class="c1"></span>            <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="c1">// ...
+</span><span class="c1"></span>        <span class="k">return</span> <span class="n">res</span><span class="o">;</span> <span class="c1">// 或者抛个异常之类的
+</span><span class="c1"></span>    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>它的目的是将创建所需对象（也就是产品）的职责从客户端转交给工厂类，从而将类的创建和使用的职责相分离。客户端将不再自己手动new产品，而是使用<code>Product product = Factory.getProduct(&quot;ProductA&quot;);</code>这样的形式。参数字符串还可写入配置文件中，从而使其更加灵活，更改产品也不需要重新编译。</p>
+<p>简单工厂模式的缺点在于，其中有大量if-else逻辑，导致可能的性能问题；且<strong>增加，修改和删除产品都需要修改工厂类</strong>，违反开闭原则。</p>
+<h1 id="工厂方法模式">工厂方法模式</h1>
+<p>工厂方法模式为简单工厂模式增加了一个抽象层并解决了简单工厂模式的问题。对于工厂方法模式，每一个工厂都为一个所谓的抽象工厂的子类（或实现，取决于这个抽象工厂是抽象类还是接口），这个抽象工厂中将定义生成抽象产品的方法的接口。每一个具体工厂只负责生产一种具体产品。</p>
+<p><img src="https://i.loli.net/2021/02/08/zBmUGiTKaI3gJ2O.png" alt="未命名绘图.png"></p>
+<p>其一般形式如下——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 抽象层
+</span><span class="c1"></span><span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Factory</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">Product</span> <span class="nf">getProduct</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Factory</span> <span class="nf">getFactory</span><span class="o">(</span><span class="n">String</span> <span class="n">type</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 通过反射等手段获取一个具体工厂
+</span><span class="c1"></span>    <span class="o">}</span> 
+<span class="o">}</span> 
+<span class="c1">// 一个具体工厂
+</span><span class="c1"></span><span class="kd">class</span> <span class="nc">ConcreteFactory1</span> <span class="kd">extends</span> <span class="n">Factory</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">Product</span> <span class="nf">getProduct</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">Product</span> <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Product1</span><span class="o">();</span>
+        <span class="c1">// . . .
+</span><span class="c1"></span>        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="c1">// . . .
+</span><span class="c1">// 客户端
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// いつもどおり，这里获取具体工厂的参数也是能够写在配置文件里的
+</span><span class="c1"></span>        <span class="c1">// 其实也可以直接在抽象工厂中定义一个取得具体产品的static方法以隐藏具体工厂，降低系统的复杂性
+</span><span class="c1"></span>        <span class="n">Product</span> <span class="n">res</span> <span class="o">=</span> <span class="n">Factory</span><span class="o">.</span><span class="na">getFactory</span><span class="o">(</span><span class="s">&#34;Product1&#34;</span><span class="o">).</span><span class="na">getProduct</span><span class="o">();</span> 
+        <span class="c1">// . . .
+</span><span class="c1"></span>    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>为什么简单工厂模式里不使用反射生成产品，而工厂方法模式里使用反射生成具体工厂？因为具体工厂的初始化过程是极易抽象出来的——new就完事了（或者使用单例模式之类的？），而具体产品的初始化并不能这么简单地抽象。</p>
+</blockquote>
+<blockquote>
+<p>一个有趣的事实是，在简单工厂模式中，参数用于生成特定产品；在工厂方法模式和抽象工厂模式中，参数用于生成特定的工厂。</p>
+</blockquote>
+<p>工厂方法模式相较于简单工厂模式的优点在于，它去掉了繁复的if-else循环，每个具体产品的初始化过程交由各个具体工厂来执行，保证了单一职责原则；添加新的具体产品的时候，只需要添加成对工厂及其产品即可，不需要修改源代码，保证了开闭原则。缺点是类的数量会成对增加，且使用了反射等技术，使系统复杂性更高，更难以理解。</p>
+<h1 id="抽象工厂模式">抽象工厂模式</h1>
+<p>抽象工厂模式相较于工厂方法模式的区别在于，工厂方法模式中的一系列工厂负责一个<strong>产品等级结构</strong>（也就是一个继承结构，如按钮，白色按钮，蓝色按钮等这样的一个继承体系）的生产，而抽象工厂模式负责一个<strong>产品族</strong>的生产。也可以说，<strong>在工厂方法模式中，一个具体工厂对应一个具体产品；在抽象工厂模式中，一个具体工厂对应一族产品</strong>。所谓产品族，就是一系列本质不同但具有相近性质，且应当一起生产的产品，比如win系统的各种UI组件，Android系统中各种UI组件，就各是一个产品族。</p>
+<p><img src="https://i.loli.net/2021/02/11/icOJlbfS5TkphdG.png" alt="image.png"></p>
+<p>其一般形式是——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Factory</span> <span class="o">{</span>
+    <span class="c1">// 当然，这里的ProductABC全是抽象的
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">ProductA</span> <span class="nf">getProductA</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">ProductB</span> <span class="nf">getProductB</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">ProductC</span> <span class="nf">getProductC</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Factory</span> <span class="nf">getFactory</span><span class="o">(</span><span class="n">String</span> <span class="n">type</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 通过反射等手段获取一个具体工厂
+</span><span class="c1"></span>    <span class="o">}</span> 
+<span class="o">}</span>
+<span class="c1">// 一个具体工厂
+</span><span class="c1"></span><span class="kd">class</span> <span class="nc">ConcreteFactory1</span> <span class="kd">extends</span> <span class="n">Factory</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">ProductA</span> <span class="nf">getProductA</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">ProductA</span> <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConcreteProductA1</span><span class="o">();</span> 
+        <span class="c1">// . . .
+</span><span class="c1"></span>        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="c1">// . . .
+</span><span class="c1"></span><span class="o">}</span>
+<span class="c1">// 客户端
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 同上，也可以使用配置文件
+</span><span class="c1"></span>        <span class="n">ProductA</span> <span class="n">productA</span> <span class="o">=</span> <span class="n">Factory</span><span class="o">.</span><span class="na">getFactory</span><span class="o">(</span><span class="s">&#34;Product1&#34;</span><span class="o">).</span><span class="na">getProductA</span><span class="o">();</span> 
+        <span class="n">ProductB</span> <span class="n">productB</span> <span class="o">=</span> <span class="n">Factory</span><span class="o">.</span><span class="na">getFactory</span><span class="o">(</span><span class="s">&#34;Product1&#34;</span><span class="o">).</span><span class="na">getProductB</span><span class="o">();</span> 
+        <span class="c1">// . . .
+</span><span class="c1"></span>    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>当用户需求一族产品时，使用抽象工厂方法模式是比较适合的，比如一个游戏的各个不同平台上的UI。这时候如果使用工厂方法模式会导致类的数量很多，且需要配置好每个工厂的生产，配置文件也会变得复杂且容易出错。需要增加新的产品族（比如这游戏又移植到新的平台上去了）时，需要添加许多具体工厂和产品，比较麻烦。</p>
+<p>抽象工厂方法的问题在于，当需要在产品族中增加新的产品时，需要大刀阔斧地改抽象工厂类和所有具体工厂类的源代码，而增加新的产品族则是保持开闭原则的，这里就提到了“<strong>开闭原则的倾斜性</strong>”。且一个工厂要负责许多不同产品的构建，虽然这些构建分散到不同方法中，但归根结底还是比较麻烦，职责过重的。</p>
+<h1 id="单例模式-1">单例模式</h1>
+<p>单例模式没啥好说的……我觉得我现在的认识或许也不太充分。</p>
+<h1 id="建造者模式">建造者模式</h1>
+<p>建造者模式就是一步一步构建复杂对象的一种设计模式。其要点在于将复杂对象切分成一个个部分（比如游戏的捏人系统之类的），逐个击破。同时使用诸如钩子函数等手段更精确地控制对象的构建。</p>
+<blockquote>
+<p>也没啥好说的……没看到它的特别之处（悲</p>
+</blockquote>
+<p>无论如何，创建型模式已经告一段落，等将来实践或复习的时候再来讨教吧。现在开始下一部分：结构型模式——它关注将现有的类或对象<strong>组织在一起</strong>以形成更加……符合要求的结构。也就是关注类之间的<strong>组合</strong>。</p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/2021/02-26%E5%85%B3%E4%BA%8E%E6%9C%80%E5%90%8E%E4%B8%80%E5%AD%A6%E6%9C%9F%E7%9A%84%E8%AE%A1%E5%88%92/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">关于最后一学期的计划</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/2021/02-19%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/">
+            <span class="next-text nav-default">原型模式和建造者模式</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2021-02-20 00:00:00 \u002b0000 UTC',
+        title: '对创建型模式的总结',
+        clientID: 'a6d39dcb11d3911b23d9',
+        clientSecret: 'a1b3afce97c2b2c21ef8ad1f40b0fce20a334be0',
+        repo: 'comments',
+        owner: 'AOYMYKN',
+        admin: ['AOYMYKN'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:cs596065766@hotmail.com" class="iconfont icon-email" title="email"></a>
+  <a href="http://aoymykn.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>AOYMYKN</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
