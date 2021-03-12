@@ -6,7 +6,7 @@
     <description>Recent content on AOYMYKN的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 08 Mar 2021 22:30:11 +0800</lastBuildDate><atom:link href="http://aoymykn.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 12 Mar 2021 23:36:25 +0800</lastBuildDate><atom:link href="http://aoymykn.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
       <link>http://aoymykn.github.io/about/</link>
@@ -14,6 +14,15 @@
       
       <guid>http://aoymykn.github.io/about/</guid>
       <description>你好，我是友纪。 这个页面已经来访了—— 关于学习 我很有自知之明——菜的一笔。所以必须时刻保持学习才行。无论是专业还是其他方面…… 书单 一些将来（</description>
+    </item>
+    
+    <item>
+      <title>学习scribble</title>
+      <link>http://aoymykn.github.io/post/2021/%E5%85%B3%E4%BA%8Escribble/</link>
+      <pubDate>Fri, 12 Mar 2021 23:36:25 +0800</pubDate>
+      
+      <guid>http://aoymykn.github.io/post/2021/%E5%85%B3%E4%BA%8Escribble/</guid>
+      <description>scribble是racket提供的文档语言，非常有趣，去了解一下。</description>
     </item>
     
     <item>
