@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>vue.js&#43;Typescript学习环境搭建 - AOYMYKN的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="AOYMYKN" /><meta name="description" content="なせば大抵なんとかなる" /><meta name="keywords" content="Java, 后端, 计算机, 编程, 数据结构, 算法, CS, IT" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.81.0 with theme even" />
+
+
+<link rel="canonical" href="http://aoymykn.github.io/post/2021/04-04vue.js&#43;typescript%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.8bb66a6c962ec1755867d3d5ce8e5267f80d5dc80d7d74f19be0b9686de4c75f.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="vue.js&#43;Typescript学习环境搭建" />
+<meta property="og:description" content="なせば大抵なんとかなる" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://aoymykn.github.io/post/2021/04-04vue.js&#43;typescript%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-04-04T00:51:00&#43;08:00" />
+<meta property="article:modified_time" content="2021-04-04T00:51:00&#43;08:00" />
+
+<meta itemprop="name" content="vue.js&#43;Typescript学习环境搭建">
+<meta itemprop="description" content="なせば大抵なんとかなる"><meta itemprop="datePublished" content="2021-04-04T00:51:00&#43;08:00" />
+<meta itemprop="dateModified" content="2021-04-04T00:51:00&#43;08:00" />
+<meta itemprop="wordCount" content="1785">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="vue.js&#43;Typescript学习环境搭建"/>
+<meta name="twitter:description" content="なせば大抵なんとかなる"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">AOYMYKN</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">AOYMYKN</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">vue.js&#43;Typescript学习环境搭建</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-04-04 </span>
+        <div class="post-category">
+            <a href="/categories/%E5%89%8D%E7%AB%AF/"> 前端 </a>
+            </div>
+          <span class="more-meta"> 约 1785 字 </span>
+          <span class="more-meta"> 预计阅读 4 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#初始化webpack项目">初始化webpack项目</a></li>
+    <li><a href="#编辑配置文件">编辑配置文件</a>
+      <ul>
+        <li><a href="#编辑packagejson">编辑package.json</a></li>
+        <li><a href="#编辑webpackconfigjs">编辑webpack.config.js</a></li>
+        <li><a href="#测试是否搭建成功">测试是否搭建成功</a></li>
+      </ul>
+    </li>
+    <li><a href="#引入vuejs">引入vue.js</a>
+      <ul>
+        <li><a href="#编辑tsconfigjson">编辑tsconfig.json</a></li>
+        <li><a href="#测试vue是否成功引入">测试vue是否成功引入</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!--Hello, Happy World-->
+<p>毕设的前端项目打算使用vue.js+typescript+vue-baidu-map+layUI（或许不用）搭建。不过现在面临的一个主要问题是我对vue完全不懂，而它又是我的项目不可或缺的……vue那超级强大的数据绑定功能对这个项目实在太重要了，可以说离开vue我根本找不到切入点，所以必须硬着头皮上。</p>
+<p>现阶段我并不打算直接开始做前端项目，而是先写一些小项目练习typescript和vue.js。而这篇文章的目的则是搭建一个适合学习的环境。我当前所阅读的书籍是《Vue.js项目实战》，它完全没有使用vue-cli，全是在浏览器中进行的，因此我也选择不使用vue-cli（但是毕设我肯定是要用vue-cli来生成项目的），不使用webpack中除ts-loader以外的其他loader。具体说来有这样的目标——</p>
+<ul>
+<li>以<code>./src/index.js</code>为entry，生成<code>./dist/index.js</code>（这里限定文件名为index.js，是因为默认的名称main.js在我的电脑上总会有一些奇怪的bug）</li>
+<li>只使用ts-loader，也就是说不能在ts文件里import除js/ts以外的其他文件</li>
+<li>html硬编码手动引入js以及其他资源（如css），不使用webpack所提供的插件</li>
+<li>使用http-server作为服务器，使用<code>webpack --watch</code>命令来自动编译</li>
+<li>不使用vue-cli</li>
+<li>正确引入vue</li>
+</ul>
+<p>那么，开始吧。</p>
+<h1 id="初始化webpack项目">初始化webpack项目</h1>
+<p>总之首先创建一个空目录，cd进去，输入命令<code>webpack init</code>（当然，在此之前需要安装webpack）——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ webpack init
+# 下面是对各种选项的选择
+? Will your application have multiple bundles? No
+? Which will be your application entry point? src/index
+? In which folder do you want to store your generated bundles? dist
+? Will you use one of the below JS solutions? Typescript
+? Will you use one of the below CSS solutions? No
+? Do you want to use webpack-dev-server? No
+? Do you want to simplify the creation of HTML files for your bundle? No
+? Do you want to add PWA support? No
+</code></pre></td></tr></table>
+</div>
+</div><p>这已经初始化完成项目了，先运行一次<code>npm run build</code>进行一次编译以创建dist文件夹（或者手动创建，没什么区别），并将项目根目录下index.html文件移入dist文件夹中并编辑，在body尾部引入index.js。</p>
+<h1 id="编辑配置文件">编辑配置文件</h1>
+<p>接下来需要编辑webpack.config.js，和package.json。</p>
+<h2 id="编辑packagejson">编辑package.json</h2>
+<p>对package.json的编辑实际上只需要在scripts中插入一个命令——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">...
+&#34;scripts&#34;: {
+    &#34;build&#34;: &#34;webpack&#34;,
+    &#34;watch&#34;: &#34;webpack --watch &amp; http-server -p 8080 -s ./dist/ &amp; &#34;
+  },
+...
+</code></pre></td></tr></table>
+</div>
+</div><p>这样，只需输入<code>npm run watch</code>便可启动一个服务器并自动进行编译了。这里的http-server加入-s命令以不进行输出（它的输出信息一般来说没啥意义）。</p>
+<p>这种方式好像关闭比较麻烦……得手动kill才行，我对bash理解不多，不知道如何解决。</p>
+<h2 id="编辑webpackconfigjs">编辑webpack.config.js</h2>
+<p>对webpack.config.js文件的编辑也只需要更改一处地方——给entry定义名称为index以正确生成文件./dist/index.js，否则默认的名称是main.js。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">...
+entry: {index : &#39;./src/index.ts&#39;},
+...
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="测试是否搭建成功">测试是否搭建成功</h2>
+<p>在src文件夹中中创建（编辑）两个文件——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="c1">// util.ts
+</span><span class="c1"></span><span class="kd">function</span> <span class="nx">hello() {</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;hello, happy world!&#34;</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kr">export</span> <span class="p">{</span>
+    <span class="nx">hello</span>
+<span class="p">}</span>
+
+<span class="c1">// index.ts，入口文件
+</span><span class="c1"></span><span class="kr">import</span> <span class="o">*</span> <span class="kr">as</span> <span class="nx">util</span> <span class="kr">from</span> <span class="s2">&#34;./util&#34;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Hello World from your main file!&#39;</span><span class="p">);</span>
+<span class="nx">util</span><span class="p">.</span><span class="nx">hello</span><span class="p">();</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>输入<code>npm run watch</code>并进入localhost:8080，检查console是否有正确输出。</p>
+<h1 id="引入vuejs">引入vue.js</h1>
+<p>输入<code>npm i vue</code>安装vue模块，然后编辑./node_module/vue/package.json，删除main项和module项的值中的runtime——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">...
+&#34;main&#34;: &#34;dist/vue.common.js&#34;,
+&#34;module&#34;: &#34;dist/vue.esm.js&#34;,
+...
+</code></pre></td></tr></table>
+</div>
+</div><p>这一步（似乎）是因为这个模块默认导入的是运行时的模块，模板功能无法使用。网络上建议通过编辑vue.config.js来调整，但这里的项目并非使用vue-cli搭建，即使配置也无效果，所以就先暂且这样。</p>
+<h2 id="编辑tsconfigjson">编辑tsconfig.json</h2>
+<p>在compilerOptions中插入一行——</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&#34;moduleResolution&#34;:&#34;Node&#34;,
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="测试vue是否成功引入">测试vue是否成功引入</h2>
+<p>编辑index.html，在body中插入一个div作为Vue的el。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;root&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>{{message}}<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">v-model</span><span class="o">=</span><span class="s">&#34;message&#34;</span><span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>编辑index.ts文件，初始化Vue对象。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="kr">import</span> <span class="nx">Vue</span> <span class="kr">from</span> <span class="s2">&#34;vue&#34;</span><span class="p">;</span>
+<span class="kr">type</span> <span class="nx">Data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">message</span>: <span class="kt">string</span>
+<span class="p">}</span>
+<span class="kd">let</span> <span class="nx">vue</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+    <span class="nx">el</span><span class="o">:</span> <span class="s2">&#34;#root&#34;</span><span class="p">,</span>
+    <span class="nx">data</span>: <span class="kt">function</span> <span class="p">()</span> <span class="o">:</span> <span class="nx">Data</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="nx">message</span><span class="o">:</span> <span class="s2">&#34;hello, happy world!&#34;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>输入<code>npm run watch</code>，进入localhost:8080，随意向文本框中输入内容，观察p标签中内容是否改变。</p>
+<p>over~</p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/2021/03-25%E4%BB%8D%E6%97%A7%E6%98%AF%E5%85%B3%E4%BA%8E%E6%AF%95%E8%AE%BE/">
+            <span class="next-text nav-default">仍旧是关于毕设</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2021-04-04 00:51:00 \u002b0800 CST',
+        title: 'vue.js\u002bTypescript学习环境搭建',
+        clientID: 'a6d39dcb11d3911b23d9',
+        clientSecret: 'a1b3afce97c2b2c21ef8ad1f40b0fce20a334be0',
+        repo: 'comments',
+        owner: 'AOYMYKN',
+        admin: ['AOYMYKN'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:cs596065766@hotmail.com" class="iconfont icon-email" title="email"></a>
+  <a href="http://aoymykn.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>AOYMYKN</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
