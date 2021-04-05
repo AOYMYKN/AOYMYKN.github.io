@@ -49,7 +49,7 @@
 <meta itemprop="name" content="About">
 <meta itemprop="description" content="你好，我是友纪（ユキ）。我的人生准则是—— 好好说话，不要骂人 吃好，睡好，坚持运动！ 勤俭节约，能自己DIY就不买！ 尽量不要放弃！！ 只要去做，大"><meta itemprop="datePublished" content="2020-08-20T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2021-03-27T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="939">
+<meta itemprop="wordCount" content="952">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="About"/>
 <meta name="twitter:description" content="你好，我是友纪（ユキ）。我的人生准则是—— 好好说话，不要骂人 吃好，睡好，坚持运动！ 勤俭节约，能自己DIY就不买！ 尽量不要放弃！！ 只要去做，大"/>
@@ -130,6 +130,18 @@
 <li>永远不要放弃希望！！！</li>
 </ol>
 <div class='align-center'>
+<p>Am i happy?<br/>
+<span id="answer">thinking......</span>
+</p>
+<script>
+
+window.onload = function() {
+    $.get("https://yesno.wtf/api", res=>{
+        $("#answer").text(res.answer);  
+    })
+}
+
+</script>
 <p><strong>这个页面已经来访了——</strong></p>
 <p><img src="https://count.getloli.com/get/@:helloHappyWorld" alt="helloHappyWorld"></p>
 </div>
