@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>一些haskell的列表操作的实现 - AOYMYKN的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="AOYMYKN" /><meta name="description" content="水一篇文章……太久没动过了" /><meta name="keywords" content="Java, 后端, 计算机, 编程, 数据结构, 算法, CS, IT" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.81.0 with theme even" />
+
+
+<link rel="canonical" href="http://aoymykn.github.io/post/2021/05-27%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%BA%9Bhaskell%E7%9A%84%E5%88%97%E8%A1%A8%E6%93%8D%E4%BD%9C/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.8bb66a6c962ec1755867d3d5ce8e5267f80d5dc80d7d74f19be0b9686de4c75f.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="一些haskell的列表操作的实现" />
+<meta property="og:description" content="水一篇文章……太久没动过了" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://aoymykn.github.io/post/2021/05-27%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%BA%9Bhaskell%E7%9A%84%E5%88%97%E8%A1%A8%E6%93%8D%E4%BD%9C/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-05-27T02:58:25&#43;08:00" />
+<meta property="article:modified_time" content="2021-05-27T02:58:25&#43;08:00" />
+
+<meta itemprop="name" content="一些haskell的列表操作的实现">
+<meta itemprop="description" content="水一篇文章……太久没动过了"><meta itemprop="datePublished" content="2021-05-27T02:58:25&#43;08:00" />
+<meta itemprop="dateModified" content="2021-05-27T02:58:25&#43;08:00" />
+<meta itemprop="wordCount" content="1320">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="一些haskell的列表操作的实现"/>
+<meta name="twitter:description" content="水一篇文章……太久没动过了"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">AOYMYKN</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">AOYMYKN</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">一些haskell的列表操作的实现</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-05-27 </span>
+        <div class="post-category">
+            <a href="/categories/%E3%81%84%E3%82%8D%E3%81%84%E3%82%8D/"> いろいろ </a>
+            </div>
+          <span class="more-meta"> 约 1320 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#replicate-repeat">replicate, repeat</a></li>
+    <li><a href="#take-reverse-elem">take, reverse, elem</a></li>
+    <li><a href="#zip-zipwith">zip, zipWith</a></li>
+    <li><a href="#fold-map-filter">fold, map, filter</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>最近专注毕设，太久没写新东西了，该整点活了。</p>
+<p>最近又开始去了解haskell，之前学这语言觉得语法和之前学的差距太大因此弃坑（也或许是看得太快了），现在回过头来才发现，还挺有趣的。haskell很有魔力，和之前学的语言又有很大差别，感觉又太过学术性……学起来确实是挺难的。</p>
+<p>还是根据之前看的《Haskell趣学指南》来学。这篇文章实现一下haskell的几个已有的函数。</p>
+<h1 id="replicate-repeat">replicate, repeat</h1>
+<p>replicate接受一个整数n和一个元素，返回包含n个该元素的列表。</p>
+<p>显然当n为0的时候返回空列表，这里约定n小于0的时候也返回空列表，明显地，这里已经获得递归的基线条件了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-haskell" data-lang="haskell"><span class="nf">replicate&#39;</span> <span class="ow">::</span> <span class="p">(</span><span class="kt">Ord</span> <span class="n">t</span><span class="p">,</span> <span class="kt">Num</span> <span class="n">t</span><span class="p">)</span> <span class="ow">=&gt;</span> <span class="n">t</span> <span class="ow">-&gt;</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+<span class="nf">replicate&#39;</span> <span class="n">n</span> <span class="n">elem</span>
+    <span class="o">|</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">=</span> <span class="kt">[]</span>
+    <span class="o">|</span> <span class="n">otherwise</span> <span class="ow">=</span> <span class="n">elem</span> <span class="kt">:</span> <span class="n">replicate&#39;</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="n">elem</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>repeat生成某元素的无限列表（牛逼啊……），实现非常容易。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-haskell" data-lang="haskell"><span class="nf">repeat&#39;</span> <span class="ow">::</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+<span class="nf">repeat&#39;</span> <span class="n">elem</span> <span class="ow">=</span> <span class="n">elem</span><span class="kt">:</span><span class="n">repeat&#39;</span> <span class="n">elem</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="take-reverse-elem">take, reverse, elem</h1>
+<p>take函数从列表中取出前n个元素。约定n小于等于0时取得空列表，列表为空的时候取得空列表。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-haskell" data-lang="haskell"><span class="nf">take&#39;</span> <span class="ow">::</span> <span class="p">(</span><span class="kt">Ord</span> <span class="n">t</span><span class="p">,</span> <span class="kt">Num</span> <span class="n">t</span><span class="p">)</span> <span class="ow">=&gt;</span> <span class="n">t</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+<span class="nf">take&#39;</span> <span class="n">n</span> <span class="kr">_</span> 
+    <span class="o">|</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">=</span> <span class="kt">[]</span>
+<span class="nf">take&#39;</span> <span class="kr">_</span> <span class="kt">[]</span> <span class="ow">=</span> <span class="kt">[]</span>
+<span class="nf">take&#39;</span> <span class="n">n</span> <span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">xs</span><span class="p">)</span> <span class="ow">=</span> <span class="n">x</span> <span class="kt">:</span> <span class="n">take&#39;</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="n">xs</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>一个非常鬼畜的地方是，像<code>take 3 []</code>这样的函数调用时会报错的，haskell抱怨到，它不知道这个列表里的元素究竟是什么类型（即使这是一个空列表！）。同理，<code>[]</code>在任何地方直接使用（不使用++和:，否则haskell能推断出类型，也不指定类型，如<code>[] :: [Integer]</code>，这是不会报错的）都会报这个错误，而且那错误提示还挺晦涩，挺迷惑人的。</p>
+<p>elem检测元素是否在列表中。遍历一遍，每次查头部即可，和lisp版的一样。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-haskell" data-lang="haskell"><span class="nf">elem&#39;</span> <span class="ow">::</span> <span class="kt">Eq</span> <span class="n">t</span> <span class="ow">=&gt;</span> <span class="n">t</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="kt">Bool</span>
+<span class="nf">elem&#39;</span> <span class="n">a</span> <span class="kt">[]</span> <span class="ow">=</span> <span class="kt">False</span>
+<span class="nf">elem&#39;</span> <span class="n">a</span> <span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">xs</span><span class="p">)</span> <span class="ow">=</span> <span class="n">a</span> <span class="o">==</span> <span class="n">x</span> <span class="o">||</span> <span class="n">elem&#39;</span> <span class="n">a</span> <span class="n">xs</span>
+
+<span class="c1">-- 简化版</span>
+<span class="nf">elem&#39;</span> <span class="ow">::</span> <span class="kt">Eq</span> <span class="n">t</span> <span class="ow">=&gt;</span> <span class="n">t</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="kt">Bool</span>
+<span class="nf">elem&#39;</span> <span class="n">a</span> <span class="ow">=</span> <span class="n">foldr</span> <span class="p">(</span><span class="nf">\</span> <span class="n">x</span> <span class="ow">-&gt;</span> <span class="p">(</span><span class="o">||</span><span class="p">)</span> <span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">x</span><span class="p">))</span> <span class="kt">False</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>reverse的实现就不用多说了8。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-haskell" data-lang="haskell"><span class="nf">reverse&#39;</span> <span class="ow">::</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+<span class="nf">reverse&#39;</span> <span class="kt">[]</span> <span class="ow">=</span> <span class="kt">[]</span>
+<span class="nf">reverse&#39;</span> <span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">xs</span><span class="p">)</span> <span class="ow">=</span> <span class="n">reverse&#39;</span> <span class="n">xs</span> <span class="o">++</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+
+
+<span class="c1">-- 使用折叠和flip的更加酷炫的实现</span>
+<span class="nf">reverse&#39;</span> <span class="ow">::</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+<span class="nf">reverse&#39;</span> <span class="kt">[]</span> <span class="ow">=</span> <span class="kt">[]</span>
+<span class="nf">reverse&#39;</span> <span class="n">xs</span> <span class="ow">=</span> 
+    <span class="n">foldl</span> <span class="p">(</span><span class="n">flip</span> <span class="p">(</span><span class="kt">:</span><span class="p">))</span> <span class="kt">[]</span> <span class="n">xs</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="zip-zipwith">zip, zipWith</h1>
+<p>zip将两列表中对应位置元素一一组成元组列表，其长度为两列表中较小的一个。zipWith方法接受一个函数和两个列表，将两列表中对应元素一一应用到函数并返回结果的列表。写起来其实和zip一样。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-haskell" data-lang="haskell"><span class="nf">zip&#39;</span> <span class="ow">::</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">b</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)]</span>
+<span class="nf">zip&#39;</span> <span class="kt">[]</span> <span class="kr">_</span> <span class="ow">=</span> <span class="kt">[]</span>
+<span class="nf">zip&#39;</span> <span class="kr">_</span> <span class="kt">[]</span> <span class="ow">=</span> <span class="kt">[]</span>
+<span class="nf">zip&#39;</span> <span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">xs</span><span class="p">)</span> <span class="p">(</span><span class="n">y</span><span class="kt">:</span><span class="n">ys</span><span class="p">)</span> <span class="ow">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span><span class="kt">:</span><span class="n">zip&#39;</span> <span class="n">xs</span> <span class="n">ys</span>
+
+<span class="nf">zipWith&#39;</span> <span class="ow">::</span> <span class="p">(</span><span class="n">t1</span> <span class="ow">-&gt;</span> <span class="n">t2</span> <span class="ow">-&gt;</span> <span class="n">a</span><span class="p">)</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">t1</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">t2</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+<span class="nf">zipWith&#39;</span> <span class="kr">_</span> <span class="kt">[]</span> <span class="kr">_</span> <span class="ow">=</span> <span class="kt">[]</span>
+<span class="nf">zipWith&#39;</span> <span class="kr">_</span> <span class="kr">_</span> <span class="kt">[]</span> <span class="ow">=</span> <span class="kt">[]</span>
+<span class="nf">zipWith&#39;</span> <span class="n">f</span> <span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">xs</span><span class="p">)</span> <span class="p">(</span><span class="n">y</span><span class="kt">:</span><span class="n">ys</span><span class="p">)</span> <span class="ow">=</span> <span class="n">f</span> <span class="n">x</span> <span class="n">y</span><span class="kt">:</span><span class="n">zipWith&#39;</span> <span class="n">f</span> <span class="n">xs</span> <span class="n">ys</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>感叹，haskell写起这个来比其他语言优雅多了。</p>
+<h1 id="fold-map-filter">fold, map, filter</h1>
+<p>折叠操作：一个列表生成一个值。</p>
+<p>折叠操作能用来编写map和filter，毕竟列表也是值嘛。就这方面来说，可以认为折叠操作是对列表的最广泛的操作：以源列表为输入，输出一个值。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-haskell" data-lang="haskell"><span class="nf">foldl&#39;</span> <span class="ow">::</span> <span class="p">(</span><span class="n">t1</span> <span class="ow">-&gt;</span> <span class="n">t2</span> <span class="ow">-&gt;</span> <span class="n">t1</span><span class="p">)</span> <span class="ow">-&gt;</span> <span class="n">t1</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">t2</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="n">t1</span>
+<span class="nf">foldl&#39;</span> <span class="kr">_</span> <span class="n">a</span> <span class="kt">[]</span> <span class="ow">=</span> <span class="n">a</span>
+<span class="nf">foldl&#39;</span> <span class="n">f</span> <span class="n">a</span> <span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">xs</span><span class="p">)</span> <span class="ow">=</span> <span class="n">foldl&#39;</span> <span class="n">f</span> <span class="p">(</span><span class="n">f</span> <span class="n">a</span> <span class="n">x</span><span class="p">)</span> <span class="n">xs</span>
+
+<span class="nf">foldl1&#39;</span> <span class="ow">::</span> <span class="p">(</span><span class="n">p</span> <span class="ow">-&gt;</span> <span class="n">p</span> <span class="ow">-&gt;</span> <span class="n">p</span><span class="p">)</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="n">p</span>
+<span class="nf">foldl1&#39;</span> <span class="kr">_</span> <span class="kt">[]</span> <span class="ow">=</span> <span class="ne">error</span> <span class="s">&#34;empty list&#34;</span>
+<span class="nf">foldl1&#39;</span> <span class="n">f</span> <span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">xs</span><span class="p">)</span> <span class="ow">=</span> <span class="n">foldl&#39;</span> <span class="n">f</span> <span class="n">x</span> <span class="n">xs</span>
+
+<span class="nf">map&#39;</span> <span class="ow">::</span> <span class="p">(</span><span class="n">t</span> <span class="ow">-&gt;</span> <span class="n">a</span><span class="p">)</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+<span class="nf">map&#39;</span> <span class="kr">_</span> <span class="kt">[]</span> <span class="ow">=</span> <span class="kt">[]</span>
+<span class="nf">map&#39;</span> <span class="n">f</span> <span class="n">xs</span> <span class="ow">=</span>
+    <span class="n">foldl&#39;</span> <span class="p">(</span><span class="nf">\</span> <span class="n">x</span> <span class="n">y</span> <span class="ow">-&gt;</span> <span class="n">x</span> <span class="o">++</span> <span class="p">[</span><span class="n">f</span> <span class="n">y</span><span class="p">])</span> <span class="kt">[]</span> <span class="n">xs</span>
+
+<span class="nf">filter&#39;</span> <span class="ow">::</span> <span class="p">(</span><span class="n">a</span> <span class="ow">-&gt;</span> <span class="kt">Bool</span><span class="p">)</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+<span class="nf">filter&#39;</span> <span class="kr">_</span> <span class="kt">[]</span> <span class="ow">=</span> <span class="kt">[]</span>
+<span class="nf">filter&#39;</span> <span class="n">f</span> <span class="n">xs</span> <span class="ow">=</span>
+    <span class="n">foldl&#39;</span> <span class="p">(</span><span class="nf">\</span> <span class="n">x</span> <span class="n">y</span> <span class="ow">-&gt;</span> <span class="n">x</span> <span class="o">++</span> <span class="p">[</span><span class="n">y</span> <span class="o">|</span> <span class="n">f</span> <span class="n">y</span><span class="p">])</span> <span class="kt">[]</span> <span class="n">xs</span>
+
+<span class="c1">-- 不利用各种语法糖的写法</span>
+<span class="nf">filter&#39;</span> <span class="ow">::</span> <span class="p">(</span><span class="n">a</span> <span class="ow">-&gt;</span> <span class="kt">Bool</span><span class="p">)</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+<span class="nf">filter&#39;</span> <span class="kr">_</span> <span class="kt">[]</span> <span class="ow">=</span> <span class="kt">[]</span>
+<span class="nf">filter&#39;</span> <span class="n">fn</span> <span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">xs</span><span class="p">)</span> <span class="ow">=</span> 
+    <span class="kr">if</span> <span class="n">fn</span> <span class="n">x</span> <span class="kr">then</span> <span class="n">x</span> <span class="kt">:</span> <span class="n">last</span> <span class="kr">else</span> <span class="n">last</span>
+    <span class="kr">where</span> <span class="n">last</span> <span class="ow">=</span> <span class="n">filter&#39;</span> <span class="n">fn</span> <span class="n">xs</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>就写这些。haskell虽然漂亮且优雅（以后要写伪代码的时候干脆就写haskell吧！），但是着实有点得劲。我还是先去学学scala吧……</p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/2021/04-04vue.js&#43;typescript%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+            <span class="next-text nav-default">vue.js&#43;Typescript学习环境搭建</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2021-05-27 02:58:25 \u002b0800 CST',
+        title: '一些haskell的列表操作的实现',
+        clientID: 'a6d39dcb11d3911b23d9',
+        clientSecret: 'a1b3afce97c2b2c21ef8ad1f40b0fce20a334be0',
+        repo: 'comments',
+        owner: 'AOYMYKN',
+        admin: ['AOYMYKN'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:cs596065766@hotmail.com" class="iconfont icon-email" title="email"></a>
+  <a href="http://aoymykn.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>AOYMYKN</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

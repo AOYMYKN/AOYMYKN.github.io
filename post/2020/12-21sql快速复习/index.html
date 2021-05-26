@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>SQL语句快速复习 - AOYMYKN的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="AOYMYKN" /><meta name="description" content="之前上过数据库课程后已经太长时间没有再使用过SQL了……现在复习一波。" /><meta name="keywords" content="Java, 后端, 计算机, 编程, 数据结构, 算法, CS, IT" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.81.0 with theme even" />
+
+
+<link rel="canonical" href="http://aoymykn.github.io/post/2020/12-21sql%E5%BF%AB%E9%80%9F%E5%A4%8D%E4%B9%A0/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.8bb66a6c962ec1755867d3d5ce8e5267f80d5dc80d7d74f19be0b9686de4c75f.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="SQL语句快速复习" />
+<meta property="og:description" content="之前上过数据库课程后已经太长时间没有再使用过SQL了……现在复习一波。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://aoymykn.github.io/post/2020/12-21sql%E5%BF%AB%E9%80%9F%E5%A4%8D%E4%B9%A0/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2020-12-21T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2021-05-04T00:00:00&#43;00:00" />
+
+<meta itemprop="name" content="SQL语句快速复习">
+<meta itemprop="description" content="之前上过数据库课程后已经太长时间没有再使用过SQL了……现在复习一波。"><meta itemprop="datePublished" content="2020-12-21T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2021-05-04T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="3033">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="SQL语句快速复习"/>
+<meta name="twitter:description" content="之前上过数据库课程后已经太长时间没有再使用过SQL了……现在复习一波。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">AOYMYKN</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">AOYMYKN</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">SQL语句快速复习</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-12-21 </span>
+        <div class="post-category">
+            <a href="/categories/sql/"> SQL </a>
+            </div>
+          <span class="more-meta"> 约 3033 字 </span>
+          <span class="more-meta"> 预计阅读 7 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#基本概念">基本概念</a></li>
+    <li><a href="#select检索数据">SELECT——检索数据</a>
+      <ul>
+        <li><a href="#distinct保证检索值唯一">DISTINCT——保证检索值唯一</a></li>
+        <li><a href="#limit限制结果数量">LIMIT——限制结果数量</a></li>
+        <li><a href="#order-by排序结果">ORDER BY——排序结果</a></li>
+      </ul>
+    </li>
+    <li><a href="#where过滤数据">WHERE——过滤数据</a>
+      <ul>
+        <li><a href="#and--or">AND &amp; OR</a></li>
+        <li><a href="#in在之中">IN——在..之中</a></li>
+        <li><a href="#not">NOT</a></li>
+      </ul>
+    </li>
+    <li><a href="#通配符">通配符</a>
+      <ul>
+        <li><a href="#like操作符">LIKE操作符</a>
+          <ul>
+            <li><a href="#通配符-1">%通配符</a></li>
+            <li><a href="#_通配符">_通配符</a></li>
+            <li><a href="#通配符-2">[]通配符</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#计算字段">计算字段</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!--Hello, Happy World-->
+<p>出于面试的需要，快速复习（虽然这么说，但我现在只会增删改查而已，复杂的查询早忘了，毕竟学过以后好久没再使用过）一下SQL的<strong>语法和</strong>。这里仅仅关注语法——数据库设计，调优等不是我现阶段（可能也包括将来）追求的目标，</p>
+<p>这里使用mariaDB进行学习，使用vscode和SQLTools插件。很据《SQL必知必会》第四版学习，表和数据使用作者在其网站中提供的<a href="https://forta.com/wp-content/uploads/books/0672336073/TeachYourselfSQL_MySQL.zip">文件</a>。</p>
+<h1 id="基本概念">基本概念</h1>
+<p>数据库(database)使用表(table)来存储数据。<strong>模式</strong>(schema)可以描述表的信息。表可以通过模式来create，也可以直接给定各列来create，这里可以联想类，对象和匿名实现类的关系。</p>
+<p>表通过行列来存储数据。表由列(column)组成，每一列都代表部分信息。每一列都有自己的数据类型。数据是按行存储的。每个记录(record)为一行(row)。</p>
+<blockquote>
+<p>列也叫字段(field)。</p>
+</blockquote>
+<p>每一行都有一列（或多列）来唯一地标识自己。比如学生的学号，记录用户操作的用户名，时间戳（只有用户名，只有时间戳都不能唯一地确定一个操作，因为同一时间戳可以有多个用户操作，同一个用户可以有多个时间戳的操作，而同一个用户在同一个时间戳内只能执行一个操作）。这个（几）列称为主键(primary key)。主键并非是强制要求的，但是其应当有。</p>
+<p>主键满足以下要求——</p>
+<ul>
+<li>任何两个记录的主键不能重复。</li>
+<li>主键中每一列都不能为NULL</li>
+<li>下面两个要求我测试了一下，可以啊……怪</li>
+<li>主键列的值不允许被更新</li>
+<li>主键值不能重用（被删除后，该主键无法赋给新行）</li>
+</ul>
+<p>SQL是Structured Query Language（结构化查询语言）的缩写。它负责与数据库（或许更准确的来说，是DBMS，Database Management System数据库管理系统）沟通。</p>
+<blockquote>
+<p>结构化的语言可以认为是用呈一定结构的自然语言来进行编程的语言，如C#的LINQ，Common Lisp的Loop宏，其也都是一种结构化语言。</p>
+</blockquote>
+<h1 id="select检索数据">SELECT——检索数据</h1>
+<blockquote>
+<p>SQL使用&ndash;进行单行注释，使用C风格的/**/进行多行注释。</p>
+</blockquote>
+<p><code>SELECT</code>语句从一个或多个表中检索信息。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- 检索一列
+</span><span class="c1"></span><span class="k">SELECT</span> <span class="n">prod_name</span> <span class="k">FROM</span> <span class="n">Products</span><span class="p">;</span> <span class="c1">-- 这将返回所有行的prod_name。
+</span><span class="c1"></span>
+<span class="c1">-- 检索多列
+</span><span class="c1"></span><span class="k">SELECT</span> <span class="n">prod_id</span><span class="p">,</span> <span class="n">prod_name</span><span class="p">,</span> <span class="n">prod_price</span> 
+<span class="k">FROM</span> <span class="n">Products</span><span class="p">;</span>
+<span class="c1">-- 检索所有 （实际上查询了整个表）
+</span><span class="c1"></span><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">Products</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="distinct保证检索值唯一">DISTINCT——保证检索值唯一</h2>
+<p><code>SELECT</code>可以使用<code>DISTINCT</code><strong>子句</strong>来约束，保证每一行都是唯一的（也就是说过滤掉完全重复的行）。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="n">vend_id</span> <span class="k">FROM</span> <span class="n">Products</span><span class="p">;</span>
+<span class="cm">/*
+</span><span class="cm">BRS01	
+</span><span class="cm">BRS01	
+</span><span class="cm">BRS01	
+</span><span class="cm">DLL01	
+</span><span class="cm">DLL01	
+</span><span class="cm">DLL01	
+</span><span class="cm">DLL01	
+</span><span class="cm">FNG01	
+</span><span class="cm">FNG01
+</span><span class="cm">*/</span>
+<span class="k">SELECT</span> <span class="k">DISTINCT</span> <span class="n">vend_id</span> 
+<span class="k">FROM</span> <span class="n">Products</span><span class="p">;</span>
+<span class="cm">/*
+</span><span class="cm">BRS01	
+</span><span class="cm">DLL01	
+</span><span class="cm">FNG01
+</span><span class="cm">*/</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="limit限制结果数量">LIMIT——限制结果数量</h2>
+<p><code>SELECT</code>语句返回匹配的行——可能是所有，也可能是前1000行或其他数字。使用<code>LIMIT</code>子句可以限制最多返回多少行。<code>LIMIT</code>可以和<code>OFFSET</code>搭配使用，表示从某一行开始返回。<code>OFFSET</code>是<strong>零索引</strong>的。所以<code>LIMIT i</code>和<code>LIMIT i OFFSET 0</code>同义。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="n">prod_name</span>
+<span class="k">FROM</span> <span class="n">Products</span>
+<span class="k">LIMIT</span> <span class="mi">5</span><span class="p">;</span> <span class="c1">-- 这是MySQL和MariaDB的语法，其它SQL语法不一样。
+</span><span class="c1"></span>
+<span class="k">SELECT</span> <span class="k">DISTINCT</span> <span class="n">prod_name</span> <span class="c1">-- 关键字可以联合使用
+</span><span class="c1"></span><span class="k">FROM</span> <span class="n">Products</span>
+<span class="k">LIMIT</span> <span class="mi">5</span> <span class="k">OFFSET</span> <span class="mi">5</span><span class="p">;</span>  <span class="c1">-- 从第5行开始检索。
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="order-by排序结果">ORDER BY——排序结果</h2>
+<p>应该假定，<strong>如果不明确进行排序，则检索到的数据的顺序是无意义的</strong>。</p>
+<p><code>ORDER BY</code>子句让各记录根据其一个列或多个列的值来排序。使用<code>ASC</code>（升序排序，它是默认的）和<code>DESC</code>（降序）关键字来规定升序还是降序排序。要降序排序的每一列都需要明确给定<code>DESC</code>。</p>
+<p>需要注意的是，<code>ASC</code>/<code>DESC</code>需要给在列名后面…就像副词的用法。</p>
+<blockquote>
+<p>DESC是DESCENDING的缩写，ASC是ASCENDING的缩写。</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="n">prod_name</span>
+<span class="k">FROM</span> <span class="n">Products</span> 
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">prod_name</span><span class="p">;</span> <span class="c1">-- 根据名字排序
+</span><span class="c1"></span>
+<span class="k">SELECT</span> <span class="n">prod_id</span><span class="p">,</span> <span class="n">prod_price</span><span class="p">,</span> <span class="n">prod_name</span>
+<span class="k">FROM</span> <span class="n">Products</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">prod_price</span><span class="p">,</span> <span class="n">prod_name</span><span class="p">;</span><span class="c1">-- 先按price排序，如果price相等，按name排序。
+</span><span class="c1"></span>
+<span class="k">SELECT</span> <span class="n">prod_id</span><span class="p">,</span> <span class="n">prod_price</span><span class="p">,</span> <span class="n">prod_name</span>
+<span class="k">FROM</span> <span class="n">Products</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">;</span> <span class="c1">-- 也可以根据列位置来排序，比如这里的2代表price，3代表name。这样的缺点是如果列位置改变，数字也需要改变，而且如果排序的根据不在结果列里（比如我想根据desc进行排序，虽然我不要这个数据），则无法这样使用。
+</span><span class="c1"></span>
+<span class="k">SELECT</span> <span class="k">DISTINCT</span> <span class="n">prod_id</span><span class="p">,</span> <span class="n">prod_price</span><span class="p">,</span> <span class="n">prod_name</span>
+<span class="k">FROM</span> <span class="n">Products</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">prod_price</span> <span class="k">DESC</span><span class="p">,</span> <span class="n">prod_name</span><span class="p">,</span> <span class="n">prod_desc</span> <span class="k">DESC</span><span class="p">;</span> <span class="c1">-- 先根据price降序排列，如果price相等，再根据name升序排列，如果name相等，则根据desc降序排列。
+</span></code></pre></td></tr></table>
+</div>
+</div><h1 id="where过滤数据">WHERE——过滤数据</h1>
+<p><code>WHERE</code>子句如此重要,以至于要给它一个h1标题XD。</p>
+<p>检索所有行的情况是很少的,通常需要依据一定的需要提取表数据的一个子集.</p>
+<p>只检索所需数据，需要指定<strong>搜索条件</strong>(search criteria),其也称为<strong>过滤条件</strong>(filter condition).<code>WHERE</code>就是提供这样功能的子句。</p>
+<p><code>WHERE</code>提供很多操作符,如<code>=</code>, <code>&lt;&gt;</code>(<code>!=</code>), <code>&lt;</code> ,<code>&lt;=</code> ,<code>&gt;</code>,<code> &gt;=</code>, <code>!&lt;</code>（不小于）, <code>!&gt;</code>（不大于）, <code>BETWEEN</code> (它接受<code>a AND b</code>这样的形式的第二个参数), <code>IS NULL</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="n">prod_name</span><span class="p">,</span> <span class="n">prod_price</span>
+<span class="k">FROM</span> <span class="n">Products</span>
+<span class="k">WHERE</span> <span class="n">prod_price</span> <span class="o">=</span> <span class="mi">3</span><span class="p">.</span><span class="mi">49</span> 
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">prod_name</span> <span class="k">DESC</span><span class="p">;</span>
+
+<span class="k">SELECT</span> <span class="n">prod_name</span><span class="p">,</span> <span class="n">prod_price</span>
+<span class="k">FROM</span> <span class="n">Products</span>
+<span class="k">WHERE</span> <span class="n">prod_price</span> <span class="k">BETWEEN</span> <span class="mi">3</span> <span class="k">AND</span> <span class="mi">5</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">prod_name</span> <span class="k">DESC</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>同时使用<code>ORDER BY</code>和<code>WHERE</code>时,<code>ORDER BY</code>应当放到<code>WHERE</code>后。</p>
+</blockquote>
+<h2 id="and--or">AND &amp; OR</h2>
+<p>其还可用<code>OR</code>和<code>AND</code>来连接多个条件。<code>AND</code>子句优先级更高。可以使用括号来决定运算顺序。（事实上，除了加减乘除，其他任何包括不同优先级运算符的表达式都应该强制使用括号来规定运算顺序。）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="n">prod_name</span><span class="p">,</span> <span class="n">prod_price</span>
+<span class="k">FROM</span> <span class="n">Products</span>
+<span class="k">WHERE</span> <span class="n">prod_price</span> <span class="o">=</span> <span class="mi">3</span><span class="p">.</span><span class="mi">49</span> 
+  <span class="k">AND</span> <span class="n">prod_name</span> <span class="o">!=</span> <span class="s2">&#34;ignored&#34;</span>
+  <span class="k">OR</span> <span class="n">prod_desc</span> <span class="k">IS</span> <span class="k">NULL</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">prod_name</span> <span class="k">DESC</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="in在之中">IN——在..之中</h2>
+<p><code>IN</code>子句用途是枚举条件的可选范围。它接受一对原括号扩起来的，用逗号分割的一组合法值。它<strong>也可以包含其他SELECT语句</strong>，但是该select要求返回只有一列的表，比如<code>SELECT id from user;</code>。</p>
+<blockquote>
+<p>顺带一提，一行一列的表同字面量（如字符串，数字之类的东西）是一样的效果。比如这样一个没有实际意义且性能低下但可供演示的例子——<code>SELECT * FROM place WHERE place_name = (SELECT place_name FROM place WHERE place_name=&quot;北京&quot; LIMIT 1)</code>。</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span>  <span class="n">prod_name</span><span class="p">,</span> <span class="n">prod_price</span>
+<span class="k">FROM</span> <span class="n">Products</span>
+<span class="k">WHERE</span> <span class="n">vend_id</span> <span class="k">IN</span> <span class="p">(</span><span class="s2">&#34;DLL01&#34;</span><span class="p">,</span> <span class="s2">&#34;BRS01&#34;</span><span class="p">)</span> <span class="c1">-- 等同于 vend_id = &#34;DLL01&#34; OR vend_id = &#34;BRS01&#34;
+</span><span class="c1"></span><span class="k">ORDER</span> <span class="k">BY</span> <span class="n">prod_name</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="not">NOT</h2>
+<p><code>NOT</code>顾名思义，对结果取非。注意其位置，它放在每一个条件前。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span>  <span class="n">prod_name</span><span class="p">,</span> <span class="n">prod_price</span>
+<span class="k">FROM</span> <span class="n">Products</span>
+<span class="k">WHERE</span> <span class="k">NOT</span> <span class="n">vend_id</span> <span class="k">IN</span> <span class="p">(</span><span class="s2">&#34;DLL01&#34;</span><span class="p">,</span> <span class="s2">&#34;BRS01&#34;</span><span class="p">)</span>  <span class="c1">-- 有趣的是，这里的NOT也可以放到IN的前面
+</span><span class="c1"></span><span class="k">AND</span> <span class="k">NOT</span> <span class="n">prod_name</span> <span class="o">=</span> <span class="s2">&#34;King doll&#34;</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">prod_name</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="通配符">通配符</h1>
+<p>所谓通配符，就是根据值的一部分来进行匹配的特殊字符。通配符和字面值组合成为的搜索条件称为<strong>搜索模式</strong>（search pattern）。显然，通配符只能用来匹配字符串。</p>
+<h2 id="like操作符">LIKE操作符</h2>
+<p>此书说技术上来说LIKE不是操作符……先放着。</p>
+<p><code>LIKE</code>是一个谓词（predicate……不得不联想到Lisp里的谓词）用来判断字符串<strong>是否匹配该搜索条件</strong>。一般说“用<code>LIKE</code>进行通配搜索”。</p>
+<h3 id="通配符-1">%通配符</h3>
+<p><code>%</code>通配符用来匹配任何字符出现任意次数（就如同regex的.*吗？）。</p>
+<p>比如下面的搜索模式检查name是否以Fish开头。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="n">prod_name</span> <span class="k">FROM</span> <span class="n">Products</span>
+<span class="k">WHERE</span> <span class="n">prod_name</span> <span class="k">LIKE</span> <span class="s2">&#34;Fish%&#34;</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>%可以匹配0个或任意多个字符，但是NULL不行，LIKE &ldquo;%&ldquo;不能匹配NULL。</p>
+</blockquote>
+<blockquote>
+<p>一个需要注意的地方是，许多DBMS会用空格来填充未使用的地方，比如假设某列有50个字符，只用了10个字符，其后40个字符会被填充为空格，这有时候会对通配搜索产生影响。</p>
+</blockquote>
+<h3 id="_通配符">_通配符</h3>
+<p><code>_</code>通配符匹配且只匹配一个字符，Over。</p>
+<h3 id="通配符-2">[]通配符</h3>
+<p><code>[]</code>通配符用法就如regex中的<code>[]</code>。mariaDB不支持集合通配符，所以pass。</p>
+<hr>
+<blockquote>
+<p>时代变啦，本来是为找工作学习SQL，现在已经找到了。但是还是得继续学习。争取将来忘记了啥语法之类的时候只看这篇文章就够了。 顺便，现在改用Mysql……毕竟这玩意是最常用的（而且懒得装新的数据库了）</p>
+</blockquote>
+<h1 id="计算字段">计算字段</h1>
+<p>&hellip;</p>
+<blockquote>
+<p>最近专注毕设，毕业之前估计是不会再去主动学了。等工作时接触再继续吧。——2021.05.04</p>
+</blockquote>
+
+    </div>
+
+    
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/2020/12-22%E5%88%9D%E6%B6%89%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B2%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E6%80%A7/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">初涉并发编程2——线程安全性</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/2020/12-20%E5%88%9D%E6%B6%89%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B1%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/">
+            <span class="next-text nav-default">初涉并发编程1——基本概念</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2020-12-21 00:00:00 \u002b0000 UTC',
+        title: 'SQL语句快速复习',
+        clientID: 'a6d39dcb11d3911b23d9',
+        clientSecret: 'a1b3afce97c2b2c21ef8ad1f40b0fce20a334be0',
+        repo: 'comments',
+        owner: 'AOYMYKN',
+        admin: ['AOYMYKN'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:cs596065766@hotmail.com" class="iconfont icon-email" title="email"></a>
+  <a href="http://aoymykn.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>AOYMYKN</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

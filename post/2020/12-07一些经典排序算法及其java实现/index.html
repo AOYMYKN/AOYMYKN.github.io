@@ -49,7 +49,7 @@
 <meta itemprop="name" content="一些经典排序算法及其Java实现">
 <meta itemprop="description" content="排序之于算法，就如小星星之于音乐"><meta itemprop="datePublished" content="2020-12-07T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2020-12-07T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="4384">
+<meta itemprop="wordCount" content="4468">
 <meta itemprop="keywords" content="排序," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="一些经典排序算法及其Java实现"/>
 <meta name="twitter:description" content="排序之于算法，就如小星星之于音乐"/>
@@ -126,7 +126,7 @@
         <div class="post-category">
             <a href="/categories/%E7%AE%97%E6%B3%95/"> 算法 </a>
             </div>
-          <span class="more-meta"> 约 4384 字 </span>
+          <span class="more-meta"> 约 4468 字 </span>
           <span class="more-meta"> 预计阅读 9 分钟 </span>
         
       </div>
@@ -286,7 +286,30 @@
 </div>
 </div><h2 id="快速排序">快速排序</h2>
 <p>快速排序可以这样描述——每次找到一个元素作为切分，将其置于正确的位置，并让其左边的元素都小于等于它，让其右边的元素都大于等于它，其后对其左右数组再次进行同样操作，直到数组长度为1或0时结束。</p>
-<p>“让其左边的元素都小于等于它，让其右边的元素都大于等于它”这个操作需要使用两个指针，每次找到的元素将其交换，当两个指针交错或相同则跳出，将切分元素与后一个指针交换，就能达到置于正确位置的目的，然后对左右数组进行递归操作。快速排序的时间复杂度为O(nlogn)，空间复杂度为O(1)，为原地(in-place)排序。</p>
+<p>快排用Haskell代码能够非常优雅地描述。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-haskell" data-lang="haskell"><span class="nf">sort</span> <span class="ow">::</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">(</span><span class="n">a</span> <span class="ow">-&gt;</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="kt">Bool</span><span class="p">)</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+<span class="nf">sort</span> <span class="kt">[]</span>  <span class="n">fn</span><span class="ow">=</span> <span class="kt">[]</span>
+<span class="nf">sort</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>  <span class="n">fn</span><span class="ow">=</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+<span class="nf">sort</span> <span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">xs</span><span class="p">)</span> <span class="n">fn</span> <span class="ow">=</span> 
+    <span class="n">lesser</span> <span class="o">++</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">++</span> <span class="n">larger</span>
+    <span class="kr">where</span> 
+        <span class="n">lesser</span> <span class="ow">=</span> <span class="n">sort</span> <span class="p">[</span><span class="n">i</span> <span class="o">|</span> <span class="n">i</span> <span class="ow">&lt;-</span> <span class="n">xs</span><span class="p">,</span> <span class="n">fn</span> <span class="n">i</span> <span class="n">x</span><span class="p">]</span> <span class="n">fn</span>
+        <span class="n">larger</span> <span class="ow">=</span> <span class="n">sort</span> <span class="p">[</span><span class="n">i</span> <span class="o">|</span> <span class="n">i</span> <span class="ow">&lt;-</span> <span class="n">xs</span><span class="p">,</span> <span class="n">not</span> <span class="o">$</span> <span class="n">fn</span> <span class="n">i</span> <span class="n">x</span><span class="p">]</span> <span class="n">fn</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>“让其左边的元素都小于等于它，让其右边的元素都大于等于它”这个操作需要使用两个指针，每次找到的元素将其交换，当两个指针交错或相同则跳出，将切分元素与后一个指针交换，就能达到置于正确位置的目的，然后对左右数组进行递归操作。快速排序的时间复杂度为O(nlogn)，空间复杂度为O(1)，为原地(in-place)排序。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -340,7 +363,6 @@
 </span><span class="lnt">12
 </span><span class="lnt">13
 </span><span class="lnt">14
-</span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">static</span> <span class="kt">void</span> <span class="nf">sort</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">,</span> <span class="kt">int</span> <span class="n">start</span><span class="o">,</span> <span class="kt">int</span> <span class="n">end</span><span class="o">)</span> <span class="o">{</span>
@@ -354,7 +376,6 @@
 </span><span class="c1"></span>            <span class="n">i</span><span class="o">++;</span>
             <span class="n">exch</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span><span class="n">i</span><span class="o">,</span><span class="n">j</span><span class="o">);</span>
         <span class="o">}</span>
-    
     <span class="n">sort</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">start</span><span class="o">,</span> <span class="n">i</span><span class="o">);</span>
     <span class="n">sort</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">i</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">end</span><span class="o">);</span>
 <span class="o">}</span>

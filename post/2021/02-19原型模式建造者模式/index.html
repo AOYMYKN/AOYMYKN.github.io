@@ -49,7 +49,7 @@
 <meta itemprop="name" content="原型模式和建造者模式">
 <meta itemprop="description" content="頑張ります"><meta itemprop="datePublished" content="2021-02-19T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2021-02-19T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="4099">
+<meta itemprop="wordCount" content="4080">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="原型模式和建造者模式"/>
 <meta name="twitter:description" content="頑張ります"/>
@@ -126,7 +126,7 @@
         <div class="post-category">
             <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"> 设计模式 </a>
             </div>
-          <span class="more-meta"> 约 4099 字 </span>
+          <span class="more-meta"> 约 4080 字 </span>
           <span class="more-meta"> 预计阅读 9 分钟 </span>
         
       </div>
@@ -334,7 +334,7 @@
 </div>
 </div><p>可见还是简化后的形式更加舒服。</p>
 <p>关于建造过程，其实能够给其添加更多程序结构来更加精细地控制建造过程。比如添加所谓的钩子方法（Hook Method），它控制是否需要调用某个buildPartX()方法。</p>
-<p>钩子方法的形式是置于抽象建造者类中的一个返回布尔值的方法（我更喜欢叫它谓词predicate），来决定某个部分的是否构建。比如对于一个建造船舰的抽象建造者类ShipBuilder，给定一个名为isArmed的方法，对于运输船，它不需要火力模块，因此对于这个方法它就返回false。导演类就可以这样construct——</p>
+<p>钩子方法的形式是置于抽象建造者类中的一个返回布尔值的方法，来决定某个部分的是否构建。比如对于一个建造船舰的抽象建造者类ShipBuilder，给定一个名为isArmed的方法，对于运输船，它不需要火力模块，因此对于这个方法它就返回false。导演类就可以这样construct——</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
