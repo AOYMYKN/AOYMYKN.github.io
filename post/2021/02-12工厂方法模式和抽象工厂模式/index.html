@@ -49,7 +49,7 @@
 <meta itemprop="name" content="工厂方法模式和抽象工厂模式">
 <meta itemprop="description" content="没有骚话可说……"><meta itemprop="datePublished" content="2021-02-12T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2021-02-12T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="5347">
+<meta itemprop="wordCount" content="5351">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="工厂方法模式和抽象工厂模式"/>
 <meta name="twitter:description" content="没有骚话可说……"/>
@@ -126,7 +126,7 @@
         <div class="post-category">
             <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"> 设计模式 </a>
             </div>
-          <span class="more-meta"> 约 5347 字 </span>
+          <span class="more-meta"> 约 5351 字 </span>
           <span class="more-meta"> 预计阅读 11 分钟 </span>
         
       </div>
@@ -263,15 +263,15 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">LoggerFactory</span> <span class="n">loggerFactory</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getFactory</span><span class="o">(</span><span class="s">&#34;Logger&#34;</span><span class="o">);</span> <span class="c1">// 可以写在配置文件里
+    <span class="n">LoggerFactory</span> <span class="n">loggerFactory</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getFactory</span><span class="o">(</span><span class="s">&#34;Logger&#34;</span><span class="o">);</span> <span class="c1">// 也可以写在配置文件里
 </span><span class="c1"></span>    <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">loggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">();</span>
     <span class="n">logger</span><span class="o">.</span><span class="na">writeLog</span><span class="o">();</span>
 <span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>这里的getFactory是个static方法，它应当根据字符串返回对应的工厂。书中的示例将这相关的代码放到外面，而我觉得这个方法其实很适合作为抽象工厂的一个静态方法。这里也可以将要生成的工厂写在配置文件里以保证开闭原则。</p>
-<p>这个方法中可以仍旧使用if-else来返回工厂（这陷入了一个循环吗？并非如此，因为工厂的初始化是不需要抽象工厂关心的，它只需返回一个new的对象即可。但是这仍旧违反了开闭原则——添加新工厂还是要修改抽象工厂的源代码），也可以使用反射机制。</p>
-<p>简单工厂模式可以使用反射来去掉if-else循环吗？不可以！每个具体产品的初始化过程是不同的，因此不同产品的初始化代码不能被抽象到一致。而工厂方法模式将产品的初始化下放到具体工厂中，其<strong>只负责具体工厂的初始化</strong>——只需要调用其构造函数即可嘛。</p>
+<p>这个方法中可以仍旧使用if-else来返回工厂（这陷入了一个循环吗？并非如此，因为工厂的初始化是简单的，不需要抽象工厂关心的，它只需返回一个new的对象即可。但是这仍旧违反了开闭原则——添加新工厂还是要修改抽象工厂的源代码），也可以使用反射机制。</p>
+<p>简单工厂模式可以使用反射来去掉if-else循环吗？不可以！每个具体产品的初始化过程是不同的，因此不同产品的初始化代码不能被抽象到一致。而工厂方法模式将产品的初始化下放到具体工厂中，其<strong>只负责具体工厂的初始化</strong>——只需要调用其构造函数即可。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1

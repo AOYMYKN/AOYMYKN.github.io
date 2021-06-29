@@ -49,7 +49,7 @@
 <meta itemprop="name" content="vue.js&#43;Typescript学习环境搭建">
 <meta itemprop="description" content="なせば大抵なんとかなる"><meta itemprop="datePublished" content="2021-04-04T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2021-04-04T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="1859">
+<meta itemprop="wordCount" content="1861">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="vue.js&#43;Typescript学习环境搭建"/>
 <meta name="twitter:description" content="なせば大抵なんとかなる"/>
@@ -126,7 +126,7 @@
         <div class="post-category">
             <a href="/categories/%E5%89%8D%E7%AB%AF/"> 前端 </a>
             </div>
-          <span class="more-meta"> 约 1859 字 </span>
+          <span class="more-meta"> 约 1861 字 </span>
           <span class="more-meta"> 预计阅读 4 分钟 </span>
         
       </div>
@@ -332,9 +332,12 @@ entry: {index : &#39;./src/index.ts&#39;},
 </span><span class="lnt">10
 </span><span class="lnt">11
 </span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="kr">import</span> <span class="nx">Vue</span> <span class="kr">from</span> <span class="s2">&#34;vue&#34;</span><span class="p">;</span>
+<pre class="chroma"><code class="language-typescript" data-lang="typescript">
+<span class="kr">import</span> <span class="nx">Vue</span> <span class="kr">from</span> <span class="s2">&#34;vue&#34;</span><span class="p">;</span>
 <span class="kr">type</span> <span class="nx">Data</span> <span class="o">=</span> <span class="p">{</span>
     <span class="nx">message</span>: <span class="kt">string</span>
 <span class="p">}</span>
@@ -345,7 +348,8 @@ entry: {index : &#39;./src/index.ts&#39;},
             <span class="nx">message</span><span class="o">:</span> <span class="s2">&#34;hello, happy world!&#34;</span>
         <span class="p">}</span>
     <span class="p">}</span>
-<span class="p">})</span>
+<span class="p">});</span>
+
 </code></pre></td></tr></table>
 </div>
 </div><p>输入<code>npm run watch</code>，进入localhost:8080，随意向文本框中输入内容，观察p标签中内容是否改变。</p>

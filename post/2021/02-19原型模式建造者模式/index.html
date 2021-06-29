@@ -49,7 +49,7 @@
 <meta itemprop="name" content="原型模式和建造者模式">
 <meta itemprop="description" content="頑張ります"><meta itemprop="datePublished" content="2021-02-19T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2021-02-19T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="4080">
+<meta itemprop="wordCount" content="4119">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="原型模式和建造者模式"/>
 <meta name="twitter:description" content="頑張ります"/>
@@ -126,7 +126,7 @@
         <div class="post-category">
             <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"> 设计模式 </a>
             </div>
-          <span class="more-meta"> 约 4080 字 </span>
+          <span class="more-meta"> 约 4119 字 </span>
           <span class="more-meta"> 预计阅读 9 分钟 </span>
         
       </div>
@@ -150,7 +150,7 @@
     <div class="post-content">
       <!--Hello, Happy World-->
 <h1 id="原型模式">原型模式</h1>
-<p>原型模式就是<strong>从一个原型克隆出多个一模一样的对象</strong>的模式。原型模式对于这样的情形适用——需要一个和已有的对象大体相同的对象，但无法接受从零开始创建该对象。比如当编写PPT时，当上一页和当前页面元素基本一致的时候，就将上一页复制，进行一些编辑即可，从而免去再次的排版等工序。</p>
+<p>原型模式就是<strong>从一个原型克隆出多个一模一样的对象</strong>的模式。原型模式对于这样的情形适用——需要一个和已有的对象大体相同的对象，但无法接受从零开始创建该对象。举例来说，当编写PPT时，当上一页和当前页面元素基本一致的时候，就将上一页复制，进行一些编辑即可，从而免去再次的排版等工序。</p>
 <p>原型模式的角色有抽象原型，具体原型和客户端。其中抽象原型类是一个提供clone方法的接口（Java本身有一个这样作用的接口Cloneable，但它仅仅起标记作用）。具体原型类是实现了该接口的类。客户端使用时调用原型类的clone方法。</p>
 <p>对于Java，clone方法的实现，应当通过构造函数定义一个Object对象（在这里，Object负责抽象原型类的角色，它就是Prototype），其值为super.clone()，并设定其各个域成员与被克隆的对象一致（需注意浅拷贝和深拷贝，深拷贝可以简单使用序列化接口来实现），最后强制类型转换并返回该对象。其代码形式如下——</p>
 <div class="highlight"><div class="chroma">
@@ -190,6 +190,7 @@
 </div><p>还可使用所谓的原型管理器——其实质是一个&lt;String, Prototype&gt;的HashMap，其通过单例模式创建，维护着所需的原型对象，并应客户端的要求返回特定的对象。</p>
 <p>原型模式的优点在于能够节约初始化的成本（特别是需要调用硬盘甚至网络资源的时候），简化复杂实例的创建，且其扩展性高，可以针对抽象原型类进行编程，而<strong>具体原型类编写在配置文件中</strong>，增加，减少具体原型类都不需要修改源代码（甚至修改也可能可以不需要，不过可能会造成配置文件繁琐？）。</p>
 <p>缺点在于深拷贝时代码可能比较复杂，且克隆方法必须位于类的内部，修改时需要修改源代码，违反开闭原则。</p>
+<p>Spring的IoC容器对Bean的创建可以选择使用单例模式或原型模式。</p>
 <h1 id="建造者模式">建造者模式</h1>
 <p>建造者模式就像游戏中的捏人系统，人的外观分为几个特定的部分，如发型，脸型，五官，躯干……一次捏人的完成，是对各个部分都进行“建造”，最后将其组合出结果（当然，这里没有组合，或许也可以联想飞船的各模块的建造……就像Space Engineer里那样的？）。</p>
 <p>建造者模式的实质就是将<strong>复杂对象</strong>（具有多个实例域的对象）的构建和对象的表示（其属性）相分离，建造者<strong>将对象所属的类中各个共通的部分抽象成一个个模块</strong>，按模块地进行建设（比如划分为登陆模块，控制模块，推进模块，战斗模块……），最后将各个模块进行组合，得出最终的舰船。而非是直接上手创建这样一个复杂的对象——抽象啊抽象！这就和用汇编写http服务器一样离谱。</p>

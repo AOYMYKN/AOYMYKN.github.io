@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>学习乐理笔记——音程，转位，调式，和弦 - AOYMYKN的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="AOYMYKN" /><meta name="description" content="学点乐理" /><meta name="keywords" content="Java, 后端, 计算机, 编程, 数据结构, 算法, CS, IT" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.81.0 with theme even" />
+
+
+<link rel="canonical" href="http://aoymykn.github.io/post/2021/06-05%E5%AD%A6%E4%B9%A0%E4%B9%90%E7%90%86%E9%9F%B3%E7%A8%8B%E8%BD%AC%E4%BD%8D%E8%B0%83%E5%BC%8F%E5%92%8C%E5%BC%A6/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.8bb66a6c962ec1755867d3d5ce8e5267f80d5dc80d7d74f19be0b9686de4c75f.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="学习乐理笔记——音程，转位，调式，和弦" />
+<meta property="og:description" content="学点乐理" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://aoymykn.github.io/post/2021/06-05%E5%AD%A6%E4%B9%A0%E4%B9%90%E7%90%86%E9%9F%B3%E7%A8%8B%E8%BD%AC%E4%BD%8D%E8%B0%83%E5%BC%8F%E5%92%8C%E5%BC%A6/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-06-05T22:59:43&#43;08:00" />
+<meta property="article:modified_time" content="2021-06-05T22:59:43&#43;08:00" />
+
+<meta itemprop="name" content="学习乐理笔记——音程，转位，调式，和弦">
+<meta itemprop="description" content="学点乐理"><meta itemprop="datePublished" content="2021-06-05T22:59:43&#43;08:00" />
+<meta itemprop="dateModified" content="2021-06-05T22:59:43&#43;08:00" />
+<meta itemprop="wordCount" content="1825">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="学习乐理笔记——音程，转位，调式，和弦"/>
+<meta name="twitter:description" content="学点乐理"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">AOYMYKN</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">AOYMYKN</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">学习乐理笔记——音程，转位，调式，和弦</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-06-05 </span>
+        
+          <span class="more-meta"> 约 1825 字 </span>
+          <span class="more-meta"> 预计阅读 4 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#音程">音程</a></li>
+    <li><a href="#转位">转位</a></li>
+    <li><a href="#调式">调式</a></li>
+    <li><a href="#和弦">和弦</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!--Hello, Happy World-->
+<h1 id="音程">音程</h1>
+<p>音程为两个音之间的“距离”，以半音数为单位。一个八度中，音程可以为：纯一度，小二度，大二度，小三度，大三度，纯四度，增四度，减五度，纯五度，小六度，大六度，小七度，大七度，纯八度。其和半音数的对应关系如表。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">纯一度</th>
+<th style="text-align:center">小二度</th>
+<th style="text-align:center">大二度</th>
+<th style="text-align:center">小三度</th>
+<th style="text-align:center">大三度</th>
+<th style="text-align:center">纯四度</th>
+<th style="text-align:center">增四度</th>
+<th style="text-align:center">减五度</th>
+<th style="text-align:center">纯五度</th>
+<th style="text-align:center">小六度</th>
+<th style="text-align:center">大六度</th>
+<th style="text-align:center">小七度</th>
+<th style="text-align:center">大七度</th>
+<th style="text-align:center">纯八度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">7</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">9</td>
+<td style="text-align:center">10</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">12</td>
+</tr>
+</tbody>
+</table>
+<p>纯一度即为自身与自身，间隔0个半音，比如C-C，D-D。</p>
+<p>小二度为间隔1个半音，C大调上有B-C，E-F。</p>
+<p>大二度为间隔2个半音，C大调上有C-D，D-E，F-G，G-A，A-B。</p>
+<p>小三度为间隔3个半音，C大调上有D-F，E-G，A-C。</p>
+<p>大三度为间隔4个半音，C大调上有C-E,F-A，G-B。</p>
+<p>增四度、减五度间隔6个半音，为F-B，B-F（下一个八度的F）。</p>
+<p>纯四度间隔5个半音，为除F-B之外的所有四度。</p>
+<p>纯五度间隔7个半音，为除B-F之外的所有五度。</p>
+<p>小六度间隔8个半音，C大调上有E-C，A-F，B-G。</p>
+<p>……</p>
+<h1 id="转位">转位</h1>
+<p>根据上面的音程，可以发现各音程间存在一定的规律——将半音数为n的音程反转即可得到半音数为12-n的音程，比如C-E为大三度，E-C就为小六度（这里的C为下一个八度里的C）。F-B为增四度，B-F为减五度。这称为音程的转位。</p>
+<p>总结来说互为转位的音程有如下规律：</p>
+<ul>
+<li>相加为九度。
+比如大三度转位得到小六度，纯四度转位得到纯五度，相加为九度。</li>
+<li>大小互换，增减互换，纯则不变。
+例子同上。</li>
+</ul>
+<p>根据这个规律，实际上只需要记忆从纯一度到增四度/减五度的音程即可，其后的通过转位进行计算。</p>
+<h1 id="调式">调式</h1>
+<p>可以认为调式是一组音阶，其中各个音之间的音程是确定的。调式和主音确定所谓的<strong>调性</strong>。</p>
+<p>现在主要学习了大调和自然小调，大调为分别相隔全全半全全全半（全指一个全音即两个半音，半指一个半音）组成的音阶，小调则相隔全半全全半全全，可以发现大调和小调有“全全半全全”这公共的部分，也就是说将大调最后的“全半”移到前面就能够变成小调，小调最前的全半移到后面就能变成大调。这里就能够获得所谓的关系调（也叫平行调）和同主调的计算方法。</p>
+<p>所谓关系调就是组成的音完全相同的大小调，如C大调和a小调，同主调就是主音相同的大小调，如C大调和c小调。</p>
+<p>获取一个大调的关系小调，只需对该大调向左循环移位，直到六级音（下属音）到达第一位为止，比如C大调为CDEFGAB，其六级音为A，得出的关系小调为ABCDEFG，为a小调（其实实质就是获取主音向下小三度的音——大调的六级音和主音音程一定是大六度，转位后为小三度）。获取小调的关系大调，也只需向左循环移位，直到三级音（属音）到达第一位（主音向上小三度）。</p>
+<p>获取一个大调的同主小调，只需将3，6，7级音下降半音即可。可以这样理解：</p>
+<p>大调：n +2 +2 +1 +2 +2 +2 +1
+小调：n +2 +1 +2 +2 +1 +2 +2</p>
+<p>假设主音是n，大调的一级音就为n+2，二级音为n+2+2……以此类推，最后一个音一定是n+12（下一个八度的n）。将大调转成小调，就得调整各级音相对于前一个音的升高（即这里的+i）和小调的一致。</p>
+<p>对第二级音，大小调是一致的，不需要修改。</p>
+<p>对第三级音，大调比小调高1，因此<strong>减去1</strong>，把这个1当做类似加法的进位看待。</p>
+<p>对第四级音，大调的+1进1得到+2，和小调一致，不变。第五级音也不变。</p>
+<p>对第六级音，大调比小调高1，<strong>减去1</strong>作进位。</p>
+<p>对第七级音，大调加上进位得到+3，<strong>减去1</strong>作进位。</p>
+<p>对第八级音，大调比小调高1，进1得到+2，和小调一致。</p>
+<p>总之，为了让大调的音阶能够变化成小调的音阶，需要对3，6，7级音降一个半音，并填补在后面的音上。</p>
+<p>小调转大调则正相反，将3，6，7级音加上1即可。</p>
+<h1 id="和弦">和弦</h1>
+<p>和弦即同时奏响多个音，按音的数量有三和弦，七和弦等，按音程的组合有大/小和弦，增/减和弦等。</p>
+<p>所谓三和弦，就是由三个音组成的和弦，第二个音和第三个音和第一个音分别是三度，五度，因此分别称为三度音，五度音，第一个音称为根音。三和弦中由大三度，小三度组成的和弦称为大三和弦，如C-E-G，写作C，由小三度，大三度组成的和弦称为小三和弦，如D-F-A，写作Dm，由小三度和小三度组成的和弦称为减三和弦，如B-D-F，写作Bdim。</p>
+<p>按照某个调的音阶排列的和弦称为顺阶和弦或调内和弦，其性质是所有组成和弦的音都在调内。如C大调的顺阶和弦为C，Dm，Em，F，G，Am，Bdim。</p>
+<p>七和弦为四个音组成的和弦，因根音和第四个音（七度音）相差七度得名。</p>
+<p>continued&hellip;.这玩意不是一蹴而就的东西，要多次反哺才行。</p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/2021/06-27%E5%85%B3%E4%BA%8E%E6%AF%95%E8%AE%BE%E7%9A%84%E6%80%BB%E7%BB%93/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">关于毕设的总结</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/2021/05-27%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%BA%9Bhaskell%E7%9A%84%E5%88%97%E8%A1%A8%E6%93%8D%E4%BD%9C/">
+            <span class="next-text nav-default">一些haskell的列表操作的实现</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2021-06-05 22:59:43 \u002b0800 CST',
+        title: '学习乐理笔记——音程，转位，调式，和弦',
+        clientID: 'a6d39dcb11d3911b23d9',
+        clientSecret: 'a1b3afce97c2b2c21ef8ad1f40b0fce20a334be0',
+        repo: 'comments',
+        owner: 'AOYMYKN',
+        admin: ['AOYMYKN'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:cs596065766@hotmail.com" class="iconfont icon-email" title="email"></a>
+  <a href="http://aoymykn.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>AOYMYKN</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
