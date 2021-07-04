@@ -49,7 +49,7 @@
 <meta itemprop="name" content="一些经典排序算法及其Java实现">
 <meta itemprop="description" content="排序之于算法，就如小星星之于音乐"><meta itemprop="datePublished" content="2020-12-07T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2020-12-07T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="4468">
+<meta itemprop="wordCount" content="4628">
 <meta itemprop="keywords" content="排序," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="一些经典排序算法及其Java实现"/>
 <meta name="twitter:description" content="排序之于算法，就如小星星之于音乐"/>
@@ -126,8 +126,8 @@
         <div class="post-category">
             <a href="/categories/%E7%AE%97%E6%B3%95/"> 算法 </a>
             </div>
-          <span class="more-meta"> 约 4468 字 </span>
-          <span class="more-meta"> 预计阅读 9 分钟 </span>
+          <span class="more-meta"> 约 4628 字 </span>
+          <span class="more-meta"> 预计阅读 10 分钟 </span>
         
       </div>
     </header>
@@ -227,23 +227,25 @@
 <pre class="chroma"><code class="language-fallback" data-lang="fallback">{ 1, 4, 2, 6, 4, 6, 8, 1, 0, 3, 5, 9, 3, 2 }
 </code></pre></td></tr></table>
 </div>
-</div><p>n为14，则14/3 == 4， 选择4为h，则分割出来的子数组为</p>
+</div><p>n为14，则14/3 == 4， 选择4为h，则分割出来的子数组为——</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
+</span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">1 4 0 3
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">// 横着看
+1 4 0 3
 4 6 3 2
 2 8 5
 6 1 9
 </code></pre></td></tr></table>
 </div>
 </div><p>上代码！</p>
-<p>这里对每一次的h有序数组中的各子数组是在同一个for循环里（for (int i = h; i &lt; len; i++)）进行的，它对任一个下标为i的元素都插入到它所属的子数组中（下标为i-h,i-2h,i-3h&hellip;)。当然也可以每次直接排完一个子数组，但那样写起来更加复杂。</p>
+<p>这里对每一次的h有序数组中的各子数组是在同一个for循环里（for (int i = h; i &lt; len; i++)）进行的，它对任一个下标为i的元素都插入到它所属的子数组中（下标为i-h,i-2h,i-3h&hellip;）。当然也可以每次直接排完一个子数组，但那样写起来更加复杂。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -270,7 +272,7 @@
     <span class="kt">int</span> <span class="n">h</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="c1">//间隔
 </span><span class="c1"></span>    <span class="k">while</span> <span class="o">(</span><span class="n">h</span> <span class="o">&lt;</span> <span class="n">len</span> <span class="o">/</span> <span class="n">3</span><span class="o">)</span> <span class="n">h</span> <span class="o">=</span> <span class="n">h</span> <span class="o">*</span> <span class="n">3</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span> <span class="c1">//等比数列的性质……总之这里得到大于等于len/3的数列中的第一个元素
 </span><span class="c1"></span>    
-    <span class="k">while</span> <span class="o">(</span><span class="n">h</span> <span class="o">&gt;=</span> <span class="n">1</span><span class="o">)</span> <span class="o">{</span> <span class="c1">//h==1的时候执行最后一次，此时是对整个数组进行插入排序
+    <span class="k">while</span> <span class="o">(</span><span class="n">h</span> <span class="o">&gt;=</span> <span class="n">1</span><span class="o">)</span> <span class="o">{</span> <span class="c1">//h==1的时候执行最后一次，此时是整个数组基本有序，对整个数组进行插入排序
 </span><span class="c1"></span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">h</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span><span class="c1">//每一个子数组的插入排序都在这里完成，可别把i++写成i+=h了，这样就只排了其中一个子数组！
 </span><span class="c1"></span>        	<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="n">h</span><span class="o">;</span> <span class="n">j</span><span class="o">-=</span><span class="n">h</span><span class="o">)</span> <span class="o">{</span><span class="c1">//将arr[j]插入到arr[j-h],arr[j-2*h],arr[j-3*h]...中
 </span><span class="c1"></span>                <span class="k">if</span> <span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">[</span><span class="n">j</span> <span class="o">-</span> <span class="n">h</span><span class="o">])</span>
@@ -299,7 +301,7 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-haskell" data-lang="haskell"><span class="nf">sort</span> <span class="ow">::</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">(</span><span class="n">a</span> <span class="ow">-&gt;</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="kt">Bool</span><span class="p">)</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+<pre class="chroma"><code class="language-haskell" data-lang="haskell"><span class="nf">sort</span> <span class="ow">::</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">(</span><span class="n">a</span> <span class="ow">-&gt;</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="kt">Bool</span><span class="p">)</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="c1">-- fn为比较函数 </span>
 <span class="nf">sort</span> <span class="kt">[]</span>  <span class="n">fn</span><span class="ow">=</span> <span class="kt">[]</span>
 <span class="nf">sort</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>  <span class="n">fn</span><span class="ow">=</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
 <span class="nf">sort</span> <span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">xs</span><span class="p">)</span> <span class="n">fn</span> <span class="ow">=</span> 
@@ -363,25 +365,32 @@
 </span><span class="lnt">12
 </span><span class="lnt">13
 </span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">static</span> <span class="kt">void</span> <span class="nf">sort</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">,</span> <span class="kt">int</span> <span class="n">start</span><span class="o">,</span> <span class="kt">int</span> <span class="n">end</span><span class="o">)</span> <span class="o">{</span>
-    <span class="c1">//这个快排真他妈酷炫，虽然有一些不必要的交换，但是胜在写起来简单
-</span><span class="c1"></span>    <span class="k">if</span> <span class="o">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span> <span class="o">&lt;=</span> <span class="n">1</span><span class="o">)</span> <span class="k">return</span><span class="o">;</span>
-        
-    <span class="kt">int</span> <span class="n">pivotID</span> <span class="o">=</span> <span class="n">end</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span> <span class="c1">//以最后一位作为哨兵
-</span><span class="c1"></span>    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">start</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
-    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">start</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">end</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> 
-        <span class="k">if</span> <span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">&lt;=</span> <span class="n">arr</span><span class="o">[</span><span class="n">pivotID</span><span class="o">])</span> <span class="o">{</span> <span class="c1">//可以认为这里的i是用来统计小于等于切分的元素的数量的（并且将这样的元素都往前移）
-</span><span class="c1"></span>            <span class="n">i</span><span class="o">++;</span>
-            <span class="n">exch</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span><span class="n">i</span><span class="o">,</span><span class="n">j</span><span class="o">);</span>
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 区间前闭后闭
+</span><span class="c1"></span><span class="kd">static</span> <span class="kt">void</span> <span class="nf">sort</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">,</span> <span class="kt">int</span> <span class="n">startIndex</span><span class="o">,</span> <span class="kt">int</span> <span class="n">lastIndex</span><span class="o">)</span> <span class="o">{</span>
+     <span class="c1">// 基线条件
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">lastIndex</span> <span class="o">-</span> <span class="n">startIndex</span> <span class="o">&lt;=</span> <span class="n">1</span><span class="o">)</span> <span class="o">{</span><span class="k">return</span><span class="o">;}</span>
+        <span class="c1">// 以尾部为pivot
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">pivot</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">lastIndex</span><span class="o">];</span>
+        <span class="kt">int</span> <span class="n">leftPointer</span> <span class="o">=</span> <span class="n">startIndex</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+        <span class="c1">// 最后一次遍历时将会对pivot进行移动
+</span><span class="c1"></span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">startIndex</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">lastIndex</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&lt;=</span> <span class="n">pivot</span><span class="o">)</span> <span class="o">{</span> <span class="c1">//可以认为这里的i是用来统计小于等于pivot的元素的数量的（并且将这样的元素都往前移）
+</span><span class="c1"></span>                <span class="n">leftPointer</span><span class="o">++;</span>
+                <span class="n">exch</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">i</span><span class="o">,</span> <span class="n">leftPointer</span><span class="o">);</span>
+            <span class="o">}</span>
         <span class="o">}</span>
-    <span class="n">sort</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">start</span><span class="o">,</span> <span class="n">i</span><span class="o">);</span>
-    <span class="n">sort</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">i</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">end</span><span class="o">);</span>
+        <span class="n">sort</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">startIndex</span><span class="o">,</span> <span class="n">leftPointer</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
+        <span class="n">sort</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">leftPointer</span><span class="o">,</span> <span class="n">lastIndex</span><span class="o">);</span>
 <span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="归并排序">归并排序</h2>
+</div><p>这种实现实际上就是在遍历中维护数组和一个指针，并保证这样的状态——这个指针及其左边的所有元素始终小于等于pivot。每次遇到小于等于pivot的元素，指针和数组将进行变动以维护该状态。最后一次遍历时，参与比较的是标兵本身，最终指针的位置就是标兵应当处在的位置。</p>
+<h2 id="归并排序">归并排序</h2>
 <p>归并排序是典型的分治算法。在每次排序中，它将数组分成两份，对两份进行排序，然后将其归并(merge)到一起。这里的归并使用辅助空间则容易编写。</p>
 <p>归并排序的递归（<strong>自顶向下</strong>）方法很容易编写——</p>
 <div class="highlight"><div class="chroma">

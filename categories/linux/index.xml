@@ -25,14 +25,5 @@
       <description>想去了解一下ssh，于是就去了解一下。</description>
     </item>
     
-    <item>
-      <title>迁移到linux</title>
-      <link>http://aoymykn.github.io/post/2020/12-18%E8%BF%81%E7%A7%BB%E5%88%B0linux/</link>
-      <pubDate>Fri, 18 Dec 2020 00:00:00 +0000</pubDate>
-      
-      <guid>http://aoymykn.github.io/post/2020/12-18%E8%BF%81%E7%A7%BB%E5%88%B0linux/</guid>
-      <description>受不了windows了，转战linux</description>
-    </item>
-    
   </channel>
 </rss>

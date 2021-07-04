@@ -49,7 +49,7 @@
 <meta itemprop="name" content="自动机——我的atoi函数">
 <meta itemprop="description" content="使用NFA实现atoi函数"><meta itemprop="datePublished" content="2020-11-11T21:36:38&#43;08:00" />
 <meta itemprop="dateModified" content="2020-11-11T21:36:38&#43;08:00" />
-<meta itemprop="wordCount" content="3425">
+<meta itemprop="wordCount" content="3423">
 <meta itemprop="keywords" content="算法,NFA," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="自动机——我的atoi函数"/>
 <meta name="twitter:description" content="使用NFA实现atoi函数"/>
@@ -126,7 +126,7 @@
         <div class="post-category">
             <a href="/categories/%E7%AE%97%E6%B3%95/"> 算法 </a>
             </div>
-          <span class="more-meta"> 约 3425 字 </span>
+          <span class="more-meta"> 约 3423 字 </span>
           <span class="more-meta"> 预计阅读 7 分钟 </span>
         
       </div>
@@ -284,7 +284,7 @@
 <span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>可以看到，这个实现是非常……臃肿的，代码并不好修改（也不好看），if和return到处都是。虽然我no bug AC了，但是这绝对是机缘巧合。我码力不足以一次性搞定这样多分支的玩意。</p>
+</div><p>可以看到，这个实现是非常……臃肿的，代码并不好修改（也不好看），if和return到处都是。虽然我no bug AC了，但是这绝对是机缘巧合。这样多分支的玩意出现bug轻而易举。</p>
 <p>于是去翻了下题解，卧槽？DFA？还有这种操作？原来这种流程复杂的玩意可以用自动机优雅地解决……我是没想到编译原理里的东西可以用到这里……这必须得学习一波了。</p>
 <h1 id="dfa的实现">DFA的实现</h1>
 <p>状态转移图如下，start为初始，signed为判断正负，in_number则是正在处理有效数字，end为转换失败或转换完成</p>

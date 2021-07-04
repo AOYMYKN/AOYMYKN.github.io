@@ -324,7 +324,7 @@
 
 </code></pre></td></tr></table>
 </div>
-</div><p>要添加新的实例？没问题，创建两个新文件，比如ImageLogger.java和ImageLoggerFactory.java，其中ImageLogger要继承Logger类，ImageLoggerFactory要继承LoggerFactory类，然后在配置文件里修改要生成的工厂即可。这里完全不需要更改任何源文件，只需要增加文件即可！这保证了开闭原则——对扩展开放，对修改封闭。</p>
+</div><p>要添加新的实例？没问题，创建两个新文件，比如ImageLogger.java和ImageLoggerFactory.java，其中ImageLogger要继承Logger类，ImageLoggerFactory要继承LoggerFactory类，然后在配置文件里修改要生成的工厂即可。这里完全不需要更改任何源代码，只需要增加文件即可！这保证了开闭原则——对扩展开放，对修改封闭。</p>
 <p>这里也可以进行一些优化，比如重载createLogger方法以适应更多情况，比如可以直接在抽象工厂中定义writeLog方法，使客户端可以使用抽象工厂直接进行操作（这里使用了模板方法）——</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">

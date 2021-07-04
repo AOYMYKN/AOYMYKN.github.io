@@ -49,7 +49,7 @@
 <meta itemprop="name" content="关于Java的泛型">
 <meta itemprop="description" content="稍微了解一波"><meta itemprop="datePublished" content="2020-12-12T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2020-12-25T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="1695">
+<meta itemprop="wordCount" content="1696">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="关于Java的泛型"/>
 <meta name="twitter:description" content="稍微了解一波"/>
@@ -126,7 +126,7 @@
         <div class="post-category">
             <a href="/categories/java/"> Java </a>
             </div>
-          <span class="more-meta"> 约 1695 字 </span>
+          <span class="more-meta"> 约 1696 字 </span>
           <span class="more-meta"> 预计阅读 4 分钟 </span>
         
       </div>
@@ -228,7 +228,7 @@
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="n">T</span> <span class="kd">extends</span> <span class="n">Comparable</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span> <span class="kt">void</span> <span class="nf">sort</span><span class="o">(</span><span class="n">T</span><span class="o">[]</span> <span class="n">arr</span><span class="o">)</span> <span class="c1">//...
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="n">T</span> <span class="kd">extends</span> <span class="n">Comparable</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span> <span class="kt">void</span> <span class="nf">sort</span><span class="o">(</span><span class="n">T</span><span class="o">[]</span> <span class="n">arr</span><span class="o">)</span> <span class="o">{</span> <span class="c1">//...
 </span></code></pre></td></tr></table>
 </div>
 </div><p>好家伙，这样不是看起来更舒服一些？而且能让编译器替我们做检查，妙哇！</p>
@@ -300,7 +300,7 @@
     <span class="o">}</span>
 <span class="o">}</span>
 
-<span class="n">Pair</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span><span class="n">String</span><span class="o">&gt;[]</span> <span class="n">arr</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Pair</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span><span class="n">String</span><span class="o">&gt;[</span><span class="n">10</span><span class="o">];</span> <span class="c1">//这里只能用raw type才能过编译
+<span class="n">Pair</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span><span class="n">String</span><span class="o">&gt;[]</span> <span class="n">arr</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Pair</span><span class="o">&lt;&gt;[</span><span class="n">10</span><span class="o">];</span> <span class="c1">//这里只能用raw type才能过编译
 </span><span class="c1"></span><span class="n">arr</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Pair</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span><span class="n">String</span><span class="o">&gt;(</span><span class="n">123</span><span class="o">,</span><span class="s">&#34;456&#34;</span><span class="o">);</span> <span class="c1">// 正常操作
 </span><span class="c1"></span><span class="n">arr</span><span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Pair</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span><span class="n">Double</span><span class="o">&gt;(</span><span class="s">&#34;www&#34;</span><span class="o">,</span><span class="n">1</span><span class="o">.</span><span class="na">0</span><span class="o">);</span> <span class="c1">// 过不了
 </span><span class="c1"></span><span class="n">Object</span><span class="o">[]</span> <span class="n">objArr</span> <span class="o">=</span> <span class="o">(</span><span class="n">Object</span><span class="o">[])</span> <span class="n">arr</span><span class="o">;</span>
