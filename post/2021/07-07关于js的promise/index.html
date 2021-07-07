@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>关于js的promise - AOYMYKN的博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="AOYMYKN" /><meta name="description" content="异步编程是很重要的内容，现在对其的经典实现——promise进行一个学习。" /><meta name="keywords" content="Java, 后端, 计算机, 编程, 数据结构, 算法, CS, IT" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.81.0 with theme even" />
+
+
+<link rel="canonical" href="http://aoymykn.github.io/post/2021/07-07%E5%85%B3%E4%BA%8Ejs%E7%9A%84promise/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.8bb66a6c962ec1755867d3d5ce8e5267f80d5dc80d7d74f19be0b9686de4c75f.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="关于js的promise" />
+<meta property="og:description" content="异步编程是很重要的内容，现在对其的经典实现——promise进行一个学习。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://aoymykn.github.io/post/2021/07-07%E5%85%B3%E4%BA%8Ejs%E7%9A%84promise/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-07-07T19:25:04&#43;08:00" />
+<meta property="article:modified_time" content="2021-07-07T19:25:04&#43;08:00" />
+
+<meta itemprop="name" content="关于js的promise">
+<meta itemprop="description" content="异步编程是很重要的内容，现在对其的经典实现——promise进行一个学习。"><meta itemprop="datePublished" content="2021-07-07T19:25:04&#43;08:00" />
+<meta itemprop="dateModified" content="2021-07-07T19:25:04&#43;08:00" />
+<meta itemprop="wordCount" content="3576">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="关于js的promise"/>
+<meta name="twitter:description" content="异步编程是很重要的内容，现在对其的经典实现——promise进行一个学习。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">AOYMYKN</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">AOYMYKN</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">关于js的promise</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-07-07 </span>
+        <div class="post-category">
+            <a href="/categories/%E5%89%8D%E7%AB%AF/"> 前端 </a>
+            </div>
+          <span class="more-meta"> 约 3576 字 </span>
+          <span class="more-meta"> 预计阅读 8 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#什么是promise">什么是promise</a></li>
+    <li><a href="#promise构造器和thencatch">Promise构造器和then，catch</a>
+      <ul>
+        <li><a href="#then">then</a></li>
+        <li><a href="#catch和异常穿透">catch和异常穿透</a></li>
+        <li><a href="#一个简单的实现">一个简单的实现</a></li>
+      </ul>
+    </li>
+    <li><a href="#allrace">#all，#race</a></li>
+    <li><a href="#asyncawait">async，await</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <!--Hello, Happy World-->
+<p>promise是ES6为解决异步编程过于复杂的问题所提出的一种技术/异步模式。对其的学习是必要的。</p>
+<h1 id="什么是promise">什么是promise</h1>
+<p>promise，意为“承诺”，它归根结底是一个类，其将异步操作（或同步操作）封装在自己的构造器中并获取结果或错误。其后其允许使用异步方法取出结果。</p>
+<p>promise的优点在于其能避免回调地狱——多层的嵌套，将嵌套调用变成链式调用，且其保存的结果将被缓存以备无数次的监听。其也提供了合适的方式以方便错误和异常的处理。promise当然也有缺点——不然也不会有像RxJS这样其它的异步解决方案了，但是这是我当前感觉不到的。</p>
+<h1 id="promise构造器和thencatch">Promise构造器和then，catch</h1>
+<p>使用Promise的一个比较典型的方式是使用其构造函数，其构造函数接受一个参数——它称为执行器，executor，该执行器有两个参数——resolve和reject，其都是函数，在该处作用为收集结果或错误，用户将异步操作置于其函数体中，并通过resolve收集结果，或通过reject收集错误，如果遇到异常，则效果同reject方法相同。整个函数体将会<strong>同步执行</strong>。</p>
+<p>Promise对象维护两个属性——其一是其状态（state），状态分为三种——pending，resolve（fulfilled），reject。pending是默认状态，标识还未获得结果。在调用resolve或reject时，状态将发生转移——从pending到resolve，从pending到reject，这种状态转移只会执行一次，也就是说它只会收集第一次调用resolve或reject的结果，其后的调用将被忽视（但是函数的执行不会被中断）；另一个属性则是结果。</p>
+<h2 id="then">then</h2>
+<p>用户可以使用then方法，通过其回调接受promise的结果，then方法是可以无数次执行的，其回调是异步的。下面是一个示例。then也可以接受第二个函数参数——代表reject时的回调。可以认为then是在这里注册了一个临时的监听器，在状态为fulfilled时执行函数体，因此它是异步的，即使状态早在then方法执行前改变也是如此。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript">
+<span class="c1">// ts能够通过泛型指定resolve函数接受的类型
+</span><span class="c1"></span><span class="kr">const</span> <span class="nx">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Promise</span><span class="p">&lt;</span><span class="nt">string</span><span class="p">&gt;((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="c1">// 同步
+</span><span class="c1"></span>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;进入执行器函数体了&#34;</span><span class="p">)</span>
+    <span class="nx">setTimeout</span><span class="p">(()</span><span class="o">=&gt;</span><span class="p">{</span>
+        <span class="nx">resolve</span><span class="p">(</span><span class="s2">&#34;hello, happy world!&#34;</span><span class="p">)</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;resolve了&#34;</span><span class="p">)</span>
+    <span class="p">},</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="p">})</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;退出执行器函数体了&#34;</span><span class="p">)</span>
+<span class="nx">p</span><span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">v</span><span class="p">)</span><span class="o">=&gt;</span><span class="p">{</span> <span class="c1">// 异步
+</span><span class="c1"></span>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;获取到了&#34;</span><span class="p">)</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span>
+<span class="p">})</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;then方法之后&#34;</span><span class="p">)</span>
+
+<span class="nx">setTimeout</span><span class="p">(()</span><span class="o">=&gt;</span><span class="p">{</span>
+    <span class="nx">p</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">v</span><span class="o">=&gt;</span><span class="p">{</span> <span class="c1">// 多次接受
+</span><span class="c1"></span>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;能够多次获取，结束后能继续获取&#34;</span><span class="p">)</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span>
+    <span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">)</span> <span class="c1">// 通过链式调用catch方法能够获取执行过程中抛出的异常
+</span><span class="c1"></span>    
+<span class="p">},</span> <span class="mi">2000</span><span class="p">)</span>
+
+<span class="cm">/* 
+</span><span class="cm">输出结果：
+</span><span class="cm">
+</span><span class="cm">进入执行器函数体了
+</span><span class="cm">退出执行器函数体了
+</span><span class="cm">then方法之后
+</span><span class="cm">resolve了
+</span><span class="cm">获取到了
+</span><span class="cm">hello, happy world!
+</span><span class="cm">能够多次获取，结束后能继续获取
+</span><span class="cm">hello, happy world!
+</span><span class="cm">*/</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>then方法的返回值也是promise对象</strong>（这或许是promise相比与原先的以回调为基础的异步编程的最大的差别吧？通过这种性质，then方法能够对多个同步/异步任务进行串联，链式调用），其结果取决于then方法中函数的返回值（如果成功，调用onfulfilled，如果失败，调用onrejected）。函数正常返回时，返回一个结果为返回值的resolved的promise对象；函数抛出异常时，返回一个结果为异常的rejected的promise对象；函数返回新的promise，则返回值就为该promise。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// 测试then方法的返回值
+</span><span class="c1"></span><span class="kr">const</span> <span class="nx">p</span> <span class="o">=</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="kd">let</span> <span class="nx">res</span> <span class="o">=</span> <span class="nx">p</span><span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">v</span><span class="p">)=&gt;{</span>
+    <span class="k">return</span> <span class="mi">1000</span><span class="p">;</span>
+<span class="p">})</span>
+<span class="nx">setTimeout</span><span class="p">(()=&gt;{</span>  
+    <span class="c1">// Promise { 1000 }
+</span><span class="c1"></span>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="c1">// 必须使用setTimeout或者res.then，否则状态一定是pending，这是因为其是异步的
+</span><span class="c1"></span><span class="p">},</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>利用then的这种特性，可以进行链式调用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">()</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(()=&gt;{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(()=&gt;{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(()=&gt;{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+    <span class="p">})</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以通过返回一个永远在pending状态的promise来中断调用链，这是中断的唯一办法（异常不能算中断，它进入了错误处理逻辑中）。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">()</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(()=&gt;{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(()=&gt;{})</span> <span class="c1">// 不会再执行下去了，实践上来说这个应该放在条件语句中
+</span><span class="c1"></span>    <span class="p">})</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(()=&gt;{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(()=&gt;{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="cm">/*
+</span><span class="cm">输出：
+</span><span class="cm">
+</span><span class="cm">1
+</span><span class="cm">*/</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>进行链式调用时，必须要遵循这样的规范——同步调用直接写在方法的参数的函数体中，异步调用写在新的promise对象的执行器中。</p>
+<h2 id="catch和异常穿透">catch和异常穿透</h2>
+<p>catch方法接受这样一个函数参数——它在reject时执行。乍得一看catch好似是then的子集，没有意义，但是catch有这样一个特性——<strong>异常穿透</strong>，当进行then的链式调用时，链条上抛出的异常/错误会直接到达catch，并且错误提示中能够指出错误发生的具体位置！</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">()</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(()=&gt;{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(()=&gt;{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&#34;err!&#34;</span><span class="p">)</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(()=&gt;{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">err</span><span class="p">=&gt;{</span><span class="nx">console</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="nx">err</span><span class="p">)})</span>
+<span class="cm">/*
+</span><span class="cm">输出结果：
+</span><span class="cm">1
+</span><span class="cm">Error: err!
+</span><span class="cm">    at path/to/the/file.ts:19:15   居然能够给定发生异常的位置！nba
+</span><span class="cm">*/</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="一个简单的实现">一个简单的实现</h2>
+<p>下面展示了对Promise的一个简单的实现。其中then的实现是比较重要的——它将返回一个新的Promise，在执行器中，它将等待直到当前Promise实例的状态不为pending，然后修改自身的状态。这里可以有其它的实现方法——比如在Promise中维护一个保存then中回调的数组作为属性，调用then方法时，如果Promise仍旧是pending状态，则将这时的上下文添加到数组中，在状态改变时，即调用resolved，reject方法时，对数组进行遍历执行。如果不是pending，则直接执行（但应当通过setTimeout将其变为异步）。同时关于result是promise时进行处理的逻辑也转移到then方法中执行。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="c1">// 不会用ts的泛型，随便写写
+</span><span class="c1"></span><span class="kr">enum</span> <span class="nx">PromiseState</span> <span class="p">{</span>
+    <span class="nx">PENDING</span><span class="p">,</span> <span class="nx">FULFILLED</span><span class="p">,</span> <span class="nx">REJECTED</span>
+<span class="p">}</span>
+
+<span class="c1">// 工具函数，在signal函数返回真时执行回调，否则持续执行
+</span><span class="c1"></span><span class="kd">function</span> <span class="nx">waitUntil</span><span class="p">(</span><span class="nx">doSomething</span><span class="o">:</span><span class="p">()</span><span class="o">=&gt;</span><span class="k">void</span><span class="p">,</span><span class="nx">signal</span><span class="o">:</span><span class="p">()</span><span class="o">=&gt;</span><span class="kr">boolean</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">interval</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(()</span><span class="o">=&gt;</span><span class="p">{</span>  <span class="c1">// setInterval的性能可能是不好的
+</span><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="nx">signal</span><span class="p">())</span> <span class="p">{</span>
+            <span class="nx">doSomething</span><span class="p">();</span>
+            <span class="nx">clearInterval</span><span class="p">(</span><span class="nx">interval</span><span class="p">)</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">})</span>
+<span class="p">}</span>
+<span class="kr">class</span> <span class="nx">MyPromise</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span> <span class="p">{</span>
+    <span class="c1">// 状态
+</span><span class="c1"></span>    <span class="kr">private</span> <span class="nx">state</span> : <span class="kt">PromiseState</span> <span class="o">=</span> <span class="nx">PromiseState</span><span class="p">.</span><span class="nx">PENDING</span>
+    <span class="c1">// 值
+</span><span class="c1"></span>    <span class="kr">private</span> <span class="nx">value</span> : <span class="kt">any</span> <span class="o">=</span> <span class="kc">null</span>
+
+    <span class="kr">private</span> <span class="nx">setToPromise</span><span class="p">(</span><span class="nx">anotherMyPromise</span> : <span class="kt">MyPromise</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;)</span> <span class="p">{</span>
+        <span class="nx">waitUntil</span><span class="p">(()</span><span class="o">=&gt;</span><span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">anotherMyPromise</span><span class="p">.</span><span class="nx">value</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="nx">anotherMyPromise</span><span class="p">.</span><span class="nx">state</span>
+        <span class="p">},</span> <span class="p">()</span><span class="o">=&gt;</span><span class="p">{</span>
+            <span class="k">return</span> <span class="nx">anotherMyPromise</span><span class="p">.</span><span class="nx">state</span> <span class="o">!==</span> <span class="nx">PromiseState</span><span class="p">.</span><span class="nx">PENDING</span><span class="p">;</span>
+        <span class="p">})</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="kr">constructor</span><span class="p">(</span><span class="nx">executor</span> <span class="o">:</span> <span class="p">(</span><span class="nx">resolve</span> <span class="o">:</span> <span class="p">(</span><span class="nx">arg0</span>: <span class="kt">T</span><span class="p">)</span><span class="o">=&gt;</span><span class="k">void</span><span class="p">,</span> <span class="nx">reject</span> <span class="o">:</span> <span class="p">(</span><span class="nx">arg0</span>: <span class="kt">any</span><span class="p">)</span><span class="o">=&gt;</span><span class="k">void</span><span class="p">)</span><span class="o">=&gt;</span><span class="k">void</span><span class="p">){</span>
+        <span class="kr">const</span> <span class="nx">resolve</span> <span class="o">=</span> <span class="p">(</span><span class="nx">arg</span> : <span class="kt">T</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">!==</span> <span class="nx">PromiseState</span><span class="p">.</span><span class="nx">PENDING</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span> <span class="c1">// 状态只改变一次
+</span><span class="c1"></span>                <span class="k">if</span> <span class="p">(</span><span class="nx">arg</span> <span class="k">instanceof</span> <span class="nx">MyPromise</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// 如果参数就是Promise
+</span><span class="c1"></span>                    <span class="k">this</span><span class="p">.</span><span class="nx">setToPromise</span><span class="p">(</span><span class="nx">arg</span><span class="p">)</span>
+                <span class="p">}</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">arg</span><span class="p">;</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="nx">PromiseState</span><span class="p">.</span><span class="nx">FULFILLED</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="kr">const</span> <span class="nx">reject</span> <span class="o">=</span> <span class="p">(</span><span class="nx">arg</span> : <span class="kt">unknown</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">!==</span> <span class="nx">PromiseState</span><span class="p">.</span><span class="nx">PENDING</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span> 
+                <span class="k">if</span> <span class="p">(</span><span class="nx">arg</span> <span class="k">instanceof</span> <span class="nx">MyPromise</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// 如果参数就是Promise
+</span><span class="c1"></span>                    <span class="k">this</span><span class="p">.</span><span class="nx">setToPromise</span><span class="p">(</span><span class="nx">arg</span><span class="p">)</span>
+                <span class="p">}</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">arg</span><span class="p">;</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="nx">PromiseState</span><span class="p">.</span><span class="nx">REJECTED</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">try</span> <span class="p">{</span>
+            <span class="nx">executor</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="k">catch</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">reject</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kr">public</span> <span class="nx">then</span><span class="p">&lt;</span><span class="nt">V</span><span class="p">&gt;(</span><span class="nx">onfulfilled</span> <span class="o">:</span> <span class="p">(</span><span class="nx">v</span> : <span class="kt">T</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">V</span><span class="p">,</span> <span class="nx">onrejected</span><span class="o">?</span> <span class="o">:</span> <span class="p">(</span><span class="nx">v</span> : <span class="kt">unknown</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="kt">unknown</span><span class="p">)</span> <span class="o">:</span> <span class="nx">MyPromise</span><span class="p">&lt;</span><span class="nt">unknown</span><span class="p">&gt;</span> <span class="p">{</span>
+        <span class="c1">// 调用then时，相当于设置了一个临时的监听器。
+</span><span class="c1"></span>        <span class="k">return</span> <span class="k">new</span> <span class="nx">MyPromise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="nx">waitUntil</span><span class="p">(()</span><span class="o">=&gt;</span><span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">===</span> <span class="nx">PromiseState</span><span class="p">.</span><span class="nx">REJECTED</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">onrejected</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="nx">reject</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span>
+                        <span class="k">return</span>
+                    <span class="p">}</span>
+                    <span class="nx">reject</span><span class="p">(</span><span class="nx">onrejected</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">value</span><span class="p">))</span>
+                <span class="p">}</span>
+                <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">===</span> <span class="nx">PromiseState</span><span class="p">.</span><span class="nx">FULFILLED</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">try</span> <span class="p">{</span>
+                        <span class="kr">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="nx">onfulfilled</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span>
+                        <span class="nx">resolve</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span>
+                    <span class="p">}</span>
+                    <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// 调用onfulfiled时发生异常
+</span><span class="c1"></span>                        <span class="nx">reject</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">},</span> <span class="p">()</span><span class="o">=&gt;</span><span class="p">{</span>
+                <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">!==</span> <span class="nx">PromiseState</span><span class="p">.</span><span class="nx">PENDING</span>
+            <span class="p">})</span>
+        <span class="p">})</span>
+    <span class="p">}</span>
+    <span class="kr">public</span> <span class="k">catch</span><span class="p">(</span><span class="nx">onrejected</span> <span class="o">:</span> <span class="p">(</span><span class="nx">v</span> : <span class="kt">unknown</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="kt">unknown</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nx">MyPromise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="nx">waitUntil</span><span class="p">(()</span><span class="o">=&gt;</span><span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">===</span> <span class="nx">PromiseState</span><span class="p">.</span><span class="nx">REJECTED</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">onrejected</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="nx">reject</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span>
+                        <span class="k">return</span>
+                    <span class="p">}</span>
+                    <span class="nx">reject</span><span class="p">(</span><span class="nx">onrejected</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">value</span><span class="p">))</span>
+                <span class="p">}</span>
+            <span class="p">},</span> <span class="p">()</span><span class="o">=&gt;</span><span class="p">{</span>
+                <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">!==</span> <span class="nx">PromiseState</span><span class="p">.</span><span class="nx">PENDING</span>
+            <span class="p">})</span>
+        <span class="p">})</span>
+    <span class="p">}</span>
+
+    <span class="kr">public</span> <span class="kr">static</span> <span class="nx">resolve</span><span class="p">&lt;</span><span class="nt">V</span><span class="p">&gt;(</span><span class="nx">arg</span> : <span class="kt">V</span><span class="p">)</span> <span class="o">:</span> <span class="nx">MyPromise</span><span class="p">&lt;</span><span class="nt">V</span><span class="p">&gt;</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">arg</span> <span class="k">instanceof</span> <span class="nx">MyPromise</span><span class="p">)</span> <span class="k">return</span> <span class="nx">arg</span><span class="p">;</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nx">MyPromise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">arg</span><span class="p">)})</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="allrace">#all，#race</h1>
+<p>all和race是Promise提供的两个比较重要的静态方法。前者接受一个promise的数组并返回一个promise对象，其将等待所有promise都执行完毕且全为resolved时收集所有结果。race方法也接受一个promise数组并返回一个promise对象，其将等待某promise最先执行完成并收集其结果，无论是resolved还是reject。</p>
+<h1 id="asyncawait">async，await</h1>
+<p>async和await是两个非常方便的操作符。async将函数转换成返回promise的<strong>异步函数</strong>，结果的类型取决于return的结果，如果return一个非promise的值，其将被包装，如果return一个promise，那就是return该promise。抛出异常则返回一个rejected的promise。</p>
+<p>await对promise进行操作，其将等待直到promise返回结果。await的返回值为promise的结果。<strong>await必须在async函数内部使用</strong>。通过async和await，可以轻易将异步操作转换成同步操作流，对编写非常方便。</p>
+<p>await所接受的promise如果失败，则这个表达式将抛出异常——值为失败的结果，需要在外层进行捕获。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// 其实就这里来说，这里的async是无关紧要的，可以去掉
+</span><span class="c1"></span><span class="kr">const</span> <span class="nx">fn1</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;异步过程1&#34;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)=&gt;{</span>
+        <span class="nx">setTimeout</span><span class="p">(()=&gt;{</span>
+            <span class="nx">resolve</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+        <span class="p">},</span> <span class="mi">2000</span><span class="p">)</span>
+    <span class="p">})</span>
+<span class="p">}</span>
+
+<span class="kr">const</span> <span class="nx">fn2</span> <span class="o">=</span>  <span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;异步过程2&#34;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">number</span><span class="o">&gt;</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)=&gt;{</span>
+        <span class="nx">setTimeout</span><span class="p">(()=&gt;{</span>
+            <span class="nx">resolve</span><span class="p">(</span><span class="mi">456</span><span class="p">)</span>
+            <span class="nx">reject</span><span class="p">(</span><span class="s2">&#34;dsdsdssd&#34;</span><span class="p">)</span>
+        <span class="p">},</span> <span class="mi">1000</span><span class="p">)</span>
+    <span class="p">})</span>
+<span class="p">}</span>
+<span class="kr">const</span> <span class="nx">mainFn</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">res1</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">fn1</span><span class="p">();</span>
+    <span class="kr">const</span> <span class="nx">res2</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">fn2</span><span class="p">();</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res1</span><span class="p">,</span> <span class="nx">res2</span><span class="p">,</span> <span class="s2">&#34;wow&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="nx">mainFn</span><span class="p">().</span><span class="nx">then</span><span class="p">()</span> <span class="c1">// 经过设置可以在顶层使用await
+</span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/2021/07-04%E5%86%8D%E7%9C%8B%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%85%AD%E5%8E%9F%E5%88%99/">
+            <span class="next-text nav-default">再看面向对象的六原则</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2021-07-07 19:25:04 \u002b0800 CST',
+        title: '关于js的promise',
+        clientID: 'a6d39dcb11d3911b23d9',
+        clientSecret: 'a1b3afce97c2b2c21ef8ad1f40b0fce20a334be0',
+        repo: 'comments',
+        owner: 'AOYMYKN',
+        admin: ['AOYMYKN'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:cs596065766@hotmail.com" class="iconfont icon-email" title="email"></a>
+  <a href="http://aoymykn.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>AOYMYKN</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

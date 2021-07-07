@@ -6,7 +6,16 @@
     <description>Recent content in 前端 on AOYMYKN的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 04 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="http://aoymykn.github.io/categories/%E5%89%8D%E7%AB%AF/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 07 Jul 2021 19:25:04 +0800</lastBuildDate><atom:link href="http://aoymykn.github.io/categories/%E5%89%8D%E7%AB%AF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>关于js的promise</title>
+      <link>http://aoymykn.github.io/post/2021/07-07%E5%85%B3%E4%BA%8Ejs%E7%9A%84promise/</link>
+      <pubDate>Wed, 07 Jul 2021 19:25:04 +0800</pubDate>
+      
+      <guid>http://aoymykn.github.io/post/2021/07-07%E5%85%B3%E4%BA%8Ejs%E7%9A%84promise/</guid>
+      <description>异步编程是很重要的内容，现在对其的经典实现——promise进行一个学习。</description>
+    </item>
+    
     <item>
       <title>vue.js&#43;Typescript学习环境搭建</title>
       <link>http://aoymykn.github.io/post/2021/04-04vue.js&#43;typescript%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
