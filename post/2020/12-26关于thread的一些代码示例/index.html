@@ -49,7 +49,7 @@
 <meta itemprop="name" content="关于Thread的一些代码">
 <meta itemprop="description" content="就感觉自己进入了某种循环，不知道究竟该如何入并发的门。"><meta itemprop="datePublished" content="2020-12-26T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2020-12-26T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="4985">
+<meta itemprop="wordCount" content="4991">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="关于Thread的一些代码"/>
 <meta name="twitter:description" content="就感觉自己进入了某种循环，不知道究竟该如何入并发的门。"/>
@@ -126,7 +126,7 @@
         <div class="post-category">
             <a href="/categories/%E5%B9%B6%E5%8F%91/"> 并发 </a>
             </div>
-          <span class="more-meta"> 约 4985 字 </span>
+          <span class="more-meta"> 约 4991 字 </span>
           <span class="more-meta"> 预计阅读 10 分钟 </span>
         
       </div>
@@ -149,7 +149,10 @@
   </div>
 </div>
     <div class="post-content">
-      <!--Hello, Happy World-->
+      <blockquote>
+<p>并发先搁置。</p>
+</blockquote>
+<!--Hello, Happy World-->
 <p>这一篇文章参考《Java并发编程之美》的第一章，实现一下里面的一些示例。</p>
 <h1 id="线程的创建方式">线程的创建方式</h1>
 <p>让一个类可以作为线程运行有三种方式——继承<code>Thread</code>类并重写<code>run</code>方法，实现<code>Runnable</code>接口并实现<code>run</code>方法，使用<code>FutureTask</code>方式。其中第二个方式需要通过<code>Thread</code>类的接受<code>Runnable</code>对象的构造器进行，它也可以使用lambda表达式或匿名实现类来进行，因为<code>Runnable</code>是一个函数式接口。</p>
